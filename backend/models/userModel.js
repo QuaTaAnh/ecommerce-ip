@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
         type: String, 
         require: true,
     }, 
+    avatar: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Media",
+    }, 
     address: {
         type: {}, 
         require: true,

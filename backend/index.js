@@ -15,7 +15,7 @@ const app = express()
 app.use(express.json())
 app.use(morgan('dev'))
 
-app.use('/api/v1/auth', authRoutes)
+app.use('/api/auth', authRoutes)
 
 //rest api
 app.get('/', (req, res) =>{
