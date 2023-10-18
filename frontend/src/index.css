@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: ProText;
+    overflow-y: overlay;
+}
+
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(22, 24, 35, 0.06);
+}
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+@font-face {
+    font-family: ProText;
+    src: url('/src/assets/fonts/sf-pro-text_light.woff2');
+    font-weight: 400;
+}
+@font-face {
+    font-family: ProText;
+    src: url('/src/assets/fonts/sf-pro-text_regular.woff2');
+    font-weight: 600;
+}
+@font-face {
+    font-family: ProText;
+    src: url('/src/assets/fonts/sf-pro-text_semibold.woff2');
+    font-weight: 700;
+}
