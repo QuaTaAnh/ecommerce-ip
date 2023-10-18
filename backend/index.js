@@ -1,9 +1,21 @@
 import express from "express"
 import dotenv from "dotenv"
+import morgan from "morgan"
+import connect from "./config/db.js"
+import authRoutes from './routes/authRoute.js'
 
 dotenv.config()
 
+//dataconfig
+connect()
+
 const app = express()
+
+//middlewares
+app.use(express.json())
+app.use(morgan('dev'))
+
+app.use('/api/v1/auth', authRoutes)
 
 //rest api
 app.get('/', (req, res) =>{
