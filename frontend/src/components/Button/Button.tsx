@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let Component: any = "Button";
   if (props.href) {
     Component = Link;

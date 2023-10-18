@@ -12,7 +12,7 @@ import { MdOutlineLightMode, MdOutlineDarkMode } from "react-icons/md";
 
 const Header: React.FC = () => {
   const [isDarkMode, toggleDarkMode] = useDark();
-  const user = true;
+  const user = !true;
 
   return (
     <header className="fixed h-defaultHeader w-screen px-7 bg-primary flex justify-between items-center dark:bg-bgDark shadow-light dark:shadow-dark">
@@ -51,17 +51,17 @@ const Header: React.FC = () => {
           </div>
           {!user ? (
             <Button
-              className="text-sm hover:font-semibold"
+              className="text-sm text-white bg-bgDark py-2 px-5 rounded-3xl hover:opacity-80 dark:bg-primary dark:text-black"
               // onClick={() => signIn("google")}
             >
-              Đăng nhập bằng Google
+              Đăng nhập
             </Button>
           ) : (
             <div className="relative group">
               <div className="flex justify-center items-center cursor-pointer py-1">
                 <div className="w-8 h-8 rounded-full mr-2">
                   <img
-                    src={user?.image ?? NoImage}
+                    src={user ?? NoImage}
                     alt="Image"
                     className="w-full h-full rounded-full"
                   />
