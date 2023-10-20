@@ -24,7 +24,7 @@ export const registerController = async (req, res) =>{
 
         if(exisitingUser){
             return res.status(200).send({
-                success: true, 
+                success: false, 
                 message: 'Đã đăng kí, vui lòng đăng nhập'
             })
         }

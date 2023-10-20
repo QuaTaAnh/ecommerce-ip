@@ -11,6 +11,7 @@ export default {
         defaultHeader: "44px",
       },
       colors: {
+        bgInput: '#f9fafb',
         primary: "#f2f2f2",
         textHover: "#0ea5e9",
         bgDark: "#0f172a",

@@ -11,6 +11,7 @@ import Button from "../../../components/Button/Button";
 import { AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
 import { MdOutlineLightMode, MdOutlineDarkMode } from "react-icons/md";
 import Login from "../../../components/Login/Login";
+import Search from "../../../components/Search/Search";
 
 const Header: React.FC = () => {
   const [isDarkMode, toggleDarkMode] = useDark();
@@ -38,17 +39,7 @@ const Header: React.FC = () => {
           </div>
         </Link>
         <div className="flex">
-          <nav>
-            {MENU.map((item: MenuProp) => {
-              return (
-                <Menu
-                  to={item.to}
-                  title={item.title}
-                  className="text-sm font-medium px-2 py-3.5"
-                />
-              );
-            })}
-          </nav>
+          <Search />
         </div>
         <div>
           <div className="flex items-center">

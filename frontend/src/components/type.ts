@@ -17,3 +17,16 @@ export interface ModalProps {
   onClose: () => void;
   children: React.ReactNode;
 }
+
+export interface LoginDataProp {
+  email: string;
+  password: string;
+}
+
+export interface RegisterDataProp {
+  name: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
+  address: string;
+}

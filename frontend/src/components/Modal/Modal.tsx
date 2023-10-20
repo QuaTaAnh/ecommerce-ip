@@ -13,14 +13,14 @@ const Modal: React.FC<ModalProps> = ({
           className="modal-overlay absolute w-full h-full bg-gray-700 opacity-50 dark:bg-bgModalDark"
           onClick={onClose}
         />
-        <div className="modal-container bg-white dark:bg-bgDark w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+        <div className="relative modal-container bg-white dark:bg-bgDark w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
           <button
-            className="float-right p-3 bg-primary rounded-full mt-2 mr-3 cursor-pointer text-black"
+            className="absolute right-3 top-3 p-3 bg-primary rounded-full cursor-pointer text-black"
             onClick={onClose}
           >
             <AiOutlineClose />
           </button>
-          <div className="modal-content py-6 px-8 mt-6">{children}</div>
+          <div className="modal-content py-4 px-6 my-6">{children}</div>
         </div>
       </div>
     )
