@@ -6,7 +6,7 @@ import { Fragment } from "react";
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <div className="dark:bg-bgDark dark:text-white text-black h-full transition duration-300 ease-in-out">
+      <div className="dark:bg-bgDark dark:text-white text-black h-screen transition duration-300 ease-in-out">
         <Routes>
           {publicRoutes.map((route, index) => {
             let Layout = MainLayout;

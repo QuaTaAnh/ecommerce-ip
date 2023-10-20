@@ -15,6 +15,7 @@ export default {
         textHover: "#0ea5e9",
         bgDark: "#0f172a",
         bgModalDark: "#1e293b",
+        colorBorder: "#dce0e3"
       },
       boxShadow: {
         light: "0 2px 4px rgba(0, 0, 0, 0.1)",

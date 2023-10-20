@@ -4,9 +4,9 @@ import { LayoutProp } from "../type";
 
 const MainLayout: React.FC<LayoutProp> = (props: LayoutProp) => {
   return (
-    <div>
+    <div className="main">
       <Header />
-      <div className="h-screen">{props.children}</div>
+      <div className="mt-11">{props.children}</div>
       {/* <footer></footer> */}
     </div>
   );
