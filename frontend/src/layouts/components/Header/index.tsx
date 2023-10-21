@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import Logo from "../../../assets/images/logo.svg";
 import NoImage from "../../../assets/images/noImage.jpg";
 import { routes } from "../../../config/routes";
-import Menu from "../Menu";
-import { MENU } from "../../../constants";
-import { MenuProp } from "../type";
 import useDark from "../../../hooks/useDark";
 import Button from "../../../components/Button/Button";
 import { AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
@@ -16,6 +13,8 @@ import Search from "../../../components/Search/Search";
 const Header: React.FC = () => {
   const [isDarkMode, toggleDarkMode] = useDark();
   const [isModalLoginOpen, setIsModalLoginOpen] = useState<boolean>(false);
+  const [isOpenRegister, setIsOpenRegister] = useState<boolean>(false);
+
   const user = !true;
 
   const openModalLogin = () => {
@@ -24,6 +23,7 @@ const Header: React.FC = () => {
 
   const closeModal = () => {
     setIsModalLoginOpen(false);
+    setIsOpenRegister(false);
   };
 
   return (
@@ -77,7 +77,7 @@ const Header: React.FC = () => {
                   </div>
                   <p className="text-sm">Anh Tran</p>
                 </div>
-                <div className="absolute hidden dark:text-white dark:bg-bgModalDark py-2 px-1 w-48 right-0 rounded-lg shadow-lg group-hover:block">
+                <div className="absolute hidden dark:bg-bgModalDark py-2 px-1 w-48 right-0 rounded-lg shadow-lg group-hover:block">
                   <Button
                     href={"/account"}
                     leftIcon={<AiOutlineUser />}
@@ -97,7 +97,12 @@ const Header: React.FC = () => {
           </div>
         </div>
       </header>
-      <Login closeModal={closeModal} isModalLoginOpen={isModalLoginOpen} />
+      <Login
+        closeModal={closeModal}
+        isModalLoginOpen={isModalLoginOpen}
+        isOpenRegister={isOpenRegister}
+        setIsOpenRegister={setIsOpenRegister}
+      />
     </>
   );
 };

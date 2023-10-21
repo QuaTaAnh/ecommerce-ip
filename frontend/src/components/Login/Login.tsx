@@ -3,17 +3,23 @@ import Logo from "../../assets/images/logo.svg";
 import { LoginDataProp, LoginProps, RegisterDataProp } from "../type";
 import { ChangeEvent, useState } from "react";
 import { toast } from "react-toastify";
-import { request } from "../../utils/request";
-// import axios from "axios";
+import { useDispatch } from "react-redux";
+import {
+  register as registerFunction,
+  login as loginFunction,
+} from "../../utils/auth";
+import { IUser } from "../../redux/type";
 
 const Login: React.FC<LoginProps> = ({
   isModalLoginOpen,
   closeModal,
+  isOpenRegister,
+  setIsOpenRegister,
 }: LoginProps) => {
+  const dispatch = useDispatch();
   //login
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [isOpenRegister, setIsOpenRegister] = useState<boolean>(false);
 
   //register
   const [nameRegister, setNameRegister] = useState<string>("");
@@ -24,12 +30,25 @@ const Login: React.FC<LoginProps> = ({
 
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data: LoginDataProp = {
+    const data: IUser = {
       email,
       password,
     };
-    console.log(data);
-    toast.success("hahaha");
+    try {
+      loginFunction(dispatch, data).then((res) => {
+        console.log(res);
+
+        if (res && res.data.success === true) {
+          toast.success(res && res.data.message);
+          closeModal();
+        } else {
+          toast.error(res && res.data.message);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Đã xảy ra lỗi");
+    }
   };
 
   const handleSubmitRegister = async (e: ChangeEvent<HTMLFormElement>) => {
@@ -42,15 +61,15 @@ const Login: React.FC<LoginProps> = ({
       address: addressRegister,
     };
     try {
-      // const res = await axios.post(
-      //   "http://localhost:8080/api/auth/register",
-      //   data
-      // );
-      const res = await request.post("/auth/register", data);
-      if (res && res.data.success) {
-        toast.success(res.data && res.data.message);
-        setIsOpenRegister(false);
-      }
+      registerFunction(dispatch, data).then((res) => {
+        console.log(res);
+        if (res && res.data.success === true) {
+          toast.success(res && res.data.message);
+          setIsOpenRegister(false);
+        } else {
+          toast.error(res && res.data.message);
+        }
+      });
     } catch (error) {
       console.log(error);
       toast.error("Đã xảy ra lỗi");
