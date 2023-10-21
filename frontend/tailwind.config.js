@@ -11,7 +11,7 @@ export default {
         defaultHeader: "44px",
       },
       colors: {
-        bgInput: '#f9fafb',
+        bgInput: "#f9fafb",
         primary: "#f2f2f2",
         textHover: "#0ea5e9",
         bgDark: "#0f172a",
@@ -25,6 +25,22 @@ export default {
       margin: {
         marginTopHeader: "44px",
       },
+      keyframes: {
+        "scale-up-center": {
+          "0%":{
+            "-webkit-transform": "scale(0.5);",
+                    transform: "scale(0.5);"
+          },
+          "100%": {
+            "-webkit-transform": "scale(1);",
+                    transform: "scale(1);"
+          }
+        }, 
+        
+      },
+      animation: {
+        "scale-up-center": "scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;",
+      }
     },
   },
   plugins: [],

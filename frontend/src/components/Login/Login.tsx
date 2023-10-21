@@ -1,6 +1,6 @@
 import Modal from "../Modal/Modal";
 import Logo from "../../assets/images/logo.svg";
-import { LoginDataProp, LoginProps, RegisterDataProp } from "../type";
+import { LoginProps, RegisterDataProp } from "../type";
 import { ChangeEvent, useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -35,14 +35,13 @@ const Login: React.FC<LoginProps> = ({
       password,
     };
     try {
-      loginFunction(dispatch, data).then((res) => {
-        console.log(res);
-
-        if (res && res.data.success === true) {
-          toast.success(res && res.data.message);
+      loginFunction(dispatch, data).then((res: any) => {
+        if (res && res?.data?.success === true) {
+          toast.success(res && res?.data?.message);
+          localStorage.setItem("auth", JSON.stringify(res.data));
           closeModal();
         } else {
-          toast.error(res && res.data.message);
+          toast.error(res && res?.data?.message);
         }
       });
     } catch (error) {
@@ -61,13 +60,13 @@ const Login: React.FC<LoginProps> = ({
       address: addressRegister,
     };
     try {
-      registerFunction(dispatch, data).then((res) => {
+      registerFunction(dispatch, data).then((res: any) => {
         console.log(res);
-        if (res && res.data.success === true) {
-          toast.success(res && res.data.message);
+        if (res && res?.data?.success === true) {
+          toast.success(res && res?.data?.message);
           setIsOpenRegister(false);
         } else {
-          toast.error(res && res.data.message);
+          toast.error(res && res?.data?.message);
         }
       });
     } catch (error) {

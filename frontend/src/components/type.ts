@@ -1,4 +1,5 @@
 export interface ButtonProps {
+  to?: string;
   children: React.ReactNode;
   href?: string;
   leftIcon?: React.ReactNode;

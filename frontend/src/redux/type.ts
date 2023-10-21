@@ -6,6 +6,7 @@ export interface IUser {
   phoneNumber?: string;
   address?: string;
   avatar?: string;
+  role?: number;
 }
 
 export interface UserProps {

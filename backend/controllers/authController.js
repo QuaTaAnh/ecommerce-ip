@@ -83,7 +83,8 @@ export const loginController = async (req, res) =>{
                 password: user.password,
                 phoneNumber: user.phoneNumber,
                 address: user.address,
-                avatar: user.avatar
+                avatar: user.avatar,
+                role: user.role
             },
             token
         })
@@ -92,6 +93,19 @@ export const loginController = async (req, res) =>{
         res.status(500).send({
             success: false, 
             message: 'Đăng nhập thất bại!', 
+            error
+        })
+    }
+}
+
+export const forgotPasswordController = async(req, res) =>{
+    try {
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false, 
+            message: 'Đổi mật khẩu thất bại!', 
             error
         })
     }

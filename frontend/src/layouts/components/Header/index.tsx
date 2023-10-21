@@ -7,15 +7,21 @@ import useDark from "../../../hooks/useDark";
 import Button from "../../../components/Button/Button";
 import { AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
 import { MdOutlineLightMode, MdOutlineDarkMode } from "react-icons/md";
+import { RxDashboard } from "react-icons/rx";
 import Login from "../../../components/Login/Login";
 import Search from "../../../components/Search/Search";
+import { useDispatch, useSelector } from "react-redux";
+import { IState } from "../../../redux/store";
+import { IUser } from "../../../redux/type";
+import { toast } from "react-toastify";
+import { logout as logoutFunction } from "../../../utils/auth";
 
 const Header: React.FC = () => {
   const [isDarkMode, toggleDarkMode] = useDark();
   const [isModalLoginOpen, setIsModalLoginOpen] = useState<boolean>(false);
   const [isOpenRegister, setIsOpenRegister] = useState<boolean>(false);
-
-  const user = !true;
+  const user = useSelector((state: IState) => state.user.user as IUser);
+  const dispatch = useDispatch();
 
   const openModalLogin = () => {
     setIsModalLoginOpen(true);
@@ -24,6 +30,17 @@ const Header: React.FC = () => {
   const closeModal = () => {
     setIsModalLoginOpen(false);
     setIsOpenRegister(false);
+  };
+
+  const handleLogout = () => {
+    try {
+      logoutFunction(dispatch);
+      localStorage.removeItem("auth");
+      toast.success("Đăng xuất thành công!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Đã xảy ra lỗi");
+    }
   };
 
   return (
@@ -58,7 +75,7 @@ const Header: React.FC = () => {
                 />
               )}
             </div>
-            {!user ? (
+            {!user?.user ? (
               <Button
                 className="text-sm text-white bg-bgDark py-2 px-5 rounded-3xl hover:opacity-80 bg-textHover"
                 onClick={openModalLogin}
@@ -70,16 +87,27 @@ const Header: React.FC = () => {
                 <div className="flex justify-center items-center cursor-pointer py-1">
                   <div className="w-8 h-8 rounded-full mr-2">
                     <img
-                      src={user?.image ?? NoImage}
+                      src={user?.user.avatar ?? NoImage}
                       alt="Image"
                       className="w-full h-full rounded-full"
                     />
                   </div>
-                  <p className="text-sm">Anh Tran</p>
+                  <p className="text-sm">{user?.user.name}</p>
                 </div>
                 <div className="absolute hidden dark:bg-bgModalDark py-2 px-1 w-48 right-0 rounded-lg shadow-lg group-hover:block">
                   <Button
-                    href={"/account"}
+                    to={
+                      user?.user.role === 1
+                        ? routes.dashboardAdmin
+                        : routes.dashboardUser
+                    }
+                    leftIcon={<RxDashboard />}
+                    className="flex items-center p-2 w-full hover:bg-primary rounded-lg text-sm dark:hover:bg-indigo-800"
+                  >
+                    Bảng điều khiển
+                  </Button>
+                  <Button
+                    to={"/account"}
                     leftIcon={<AiOutlineUser />}
                     className="flex items-center p-2 w-full hover:bg-primary rounded-lg text-sm dark:hover:bg-indigo-800"
                   >
@@ -88,6 +116,7 @@ const Header: React.FC = () => {
                   <Button
                     leftIcon={<AiOutlineLogout />}
                     className="flex items-center p-2 w-full hover:bg-primary rounded-lg text-sm dark:hover:bg-indigo-800"
+                    onClick={handleLogout}
                   >
                     Đăng xuất
                   </Button>
