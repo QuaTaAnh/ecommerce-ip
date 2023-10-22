@@ -57,9 +57,9 @@ export const loginController = async (req, res) =>{
             })
 
         }
-        const user = await userModel.findOne({email}).populate("avatar") 
+        const user = await userModel.findOne({email})
         if(!user){
-            return res.status(404).send({
+            return res.status(200).send({
                 success: false, 
                 message: 'Email chưa đăng kí!'
             })

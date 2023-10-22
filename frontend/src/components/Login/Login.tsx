@@ -42,7 +42,7 @@ const Login: React.FC<LoginProps> = ({
           localStorage.setItem("auth", JSON.stringify(res.data));
           closeModal();
         } else {
-          toast.error(res && res?.data?.message);
+          toast.error(res?.data?.message);
         }
       });
     } catch (error) {

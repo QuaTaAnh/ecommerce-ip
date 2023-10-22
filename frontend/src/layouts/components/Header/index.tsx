@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../../assets/images/logo.svg";
 import NoImage from "../../../assets/images/noImage.jpg";
@@ -15,14 +15,23 @@ import { IState } from "../../../redux/store";
 import { IUser } from "../../../redux/type";
 import { toast } from "react-toastify";
 import { logout as logoutFunction } from "../../../utils/auth";
+import { loginSuccess } from "../../../redux/userRedux";
 
 const Header: React.FC = () => {
   const [isDarkMode, toggleDarkMode] = useDark();
   const [isModalLoginOpen, setIsModalLoginOpen] = useState<boolean>(false);
   const [isOpenRegister, setIsOpenRegister] = useState<boolean>(false);
   const user = useSelector((state: IState) => state.user.user as IUser);
-
   const dispatch = useDispatch();
+  console.log(user);
+
+  useEffect(() => {
+    const data = localStorage.getItem("auth");
+    if (data) {
+      const parseData = JSON.parse(data);
+      dispatch(loginSuccess(parseData));
+    }
+  }, []);
 
   const openModalLogin = () => {
     setIsModalLoginOpen(true);
