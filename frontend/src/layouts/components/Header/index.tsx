@@ -21,6 +21,7 @@ const Header: React.FC = () => {
   const [isModalLoginOpen, setIsModalLoginOpen] = useState<boolean>(false);
   const [isOpenRegister, setIsOpenRegister] = useState<boolean>(false);
   const user = useSelector((state: IState) => state.user.user as IUser);
+
   const dispatch = useDispatch();
 
   const openModalLogin = () => {
@@ -75,14 +76,7 @@ const Header: React.FC = () => {
                 />
               )}
             </div>
-            {!user?.user ? (
-              <Button
-                className="text-sm text-white bg-bgDark py-2 px-5 rounded-3xl hover:opacity-80 bg-textHover"
-                onClick={openModalLogin}
-              >
-                Đăng nhập
-              </Button>
-            ) : (
+            {user?.user ? (
               <div className="relative group">
                 <div className="flex justify-center items-center cursor-pointer py-1">
                   <div className="w-8 h-8 rounded-full mr-2">
@@ -122,6 +116,13 @@ const Header: React.FC = () => {
                   </Button>
                 </div>
               </div>
+            ) : (
+              <Button
+                className="text-sm text-white bg-bgDark py-2 px-5 rounded-3xl hover:opacity-80 bg-textHover"
+                onClick={openModalLogin}
+              >
+                Đăng nhập
+              </Button>
             )}
           </div>
         </div>

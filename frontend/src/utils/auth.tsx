@@ -1,6 +1,6 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { loginEnd, loginSuccess, registerSuccess } from "../redux/userRedux";
-import { request } from "./request";
+import request from "./request";
 import { IUser } from "../redux/type";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

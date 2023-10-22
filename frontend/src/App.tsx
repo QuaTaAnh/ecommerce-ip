@@ -14,7 +14,8 @@ const App: React.FC = () => {
           <ToastContainer />
           <Routes>
             {publicRoutes.map((route, index) => {
-              let Layout = MainLayout;
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              let Layout: any = MainLayout;
               if (route.layout) {
                 Layout = route.layout;
               } else if (route.layout === null) {

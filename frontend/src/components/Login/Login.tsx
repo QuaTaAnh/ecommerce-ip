@@ -35,6 +35,7 @@ const Login: React.FC<LoginProps> = ({
       password,
     };
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       loginFunction(dispatch, data).then((res: any) => {
         if (res && res?.data?.success === true) {
           toast.success(res && res?.data?.message);
@@ -60,6 +61,7 @@ const Login: React.FC<LoginProps> = ({
       address: addressRegister,
     };
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       registerFunction(dispatch, data).then((res: any) => {
         console.log(res);
         if (res && res?.data?.success === true) {

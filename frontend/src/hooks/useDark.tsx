@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 const useDark = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [isDarkMode, setDarkMode] = useState<string | any>(
     () => localStorage.getItem("theme") === "dark"
   );
