@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserProps } from "./type";
+import { IUser, UserProps } from "./type";
 
 const userSlice = createSlice({
   name: "user",
@@ -14,7 +14,7 @@ const userSlice = createSlice({
     loginSuccess: (state, action: PayloadAction<UserProps>) => {
       state.user = action.payload;
     },
-    editUser: (state, action: PayloadAction<UserProps>) => {
+    editProfile: (state, action: PayloadAction<IUser>) => {
       state.user = { ...state.user, ...action.payload };
     },
     loginEnd: (state) => {
@@ -23,6 +23,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { registerSuccess, loginSuccess, editUser, loginEnd } =
+export const { registerSuccess, loginSuccess, editProfile, loginEnd } =
   userSlice.actions;
 export default userSlice.reducer;

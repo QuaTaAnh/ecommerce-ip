@@ -13,3 +13,8 @@ export interface UserProps {
   user: IUser;
   accessToken?: string;
 }
+
+export interface ProfileProps {
+  file?: string;
+  avtURL?: string;
+}

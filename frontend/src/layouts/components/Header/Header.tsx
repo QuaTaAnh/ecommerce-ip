@@ -29,18 +29,12 @@ const Header: React.FC = () => {
   useEffect(() => {
     if (dataAuthStorage) {
       const parseData = JSON.parse(dataAuthStorage);
-      console.log(parseData);
       dispatch(loginSuccess(parseData));
     }
   }, []);
 
   const openModalLogin = () => {
     setIsOpenLogin(true);
-  };
-
-  const closeModal = () => {
-    setIsOpenLogin(false);
-    setIsOpenRegister(false);
   };
 
   const handleLogout = () => {
@@ -97,12 +91,12 @@ const Header: React.FC = () => {
                       className="w-full h-full rounded-full"
                     />
                   </div>
-                  <p className="text-sm">{user?.user.name}</p>
+                  <p className="text-sm">{user?.user?.name}</p>
                 </div>
-                <div className="absolute hidden dark:bg-bgModalDark py-2 px-1 w-48 right-0 rounded-lg shadow-lg group-hover:block">
+                <div className="absolute z-50 hidden bg-white dark:bg-bgModalDark py-2 px-1 w-48 right-0 rounded-lg shadow-lg group-hover:block">
                   <Button
                     to={
-                      user?.user.role === 1
+                      user?.user?.role === 1
                         ? routes.dashboardAdmin
                         : routes.dashboardUser
                     }
@@ -139,8 +133,8 @@ const Header: React.FC = () => {
         </div>
       </header>
       <Login
-        closeModal={closeModal}
         isOpenLogin={isOpenLogin}
+        setIsOpenLogin={setIsOpenLogin}
         isOpenRegister={isOpenRegister}
         setIsOpenRegister={setIsOpenRegister}
       />

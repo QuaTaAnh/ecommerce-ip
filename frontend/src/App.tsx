@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { publicRoutes } from "./routes";
-import MainLayout from "./layouts/MainLayout";
 import { Fragment } from "react";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { ToastContainer } from "react-toastify";
+import MainLayout from "./layouts/MainLayout/MainLayout";
 
 const App: React.FC = () => {
   return (

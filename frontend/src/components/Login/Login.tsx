@@ -1,30 +1,28 @@
 import Modal from "../Modal/Modal";
 import Logo from "../../assets/images/logo.svg";
 import { LoginProps } from "../type";
-import { ChangeEvent, useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { login as loginFunction } from "../../utils/auth";
 import { IUser } from "../../redux/type";
 import Register from "../Register/Register";
+import { useForm } from "react-hook-form";
 
 const Login: React.FC<LoginProps> = ({
   isOpenLogin,
-  closeModal,
+  setIsOpenLogin,
   isOpenRegister,
   setIsOpenRegister,
 }: LoginProps) => {
   const dispatch = useDispatch();
-  //login
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const data: IUser = {
-      email,
-      password,
-    };
+  const onHandleSubmit = (data: IUser) => {
     console.log(data);
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -43,6 +41,12 @@ const Login: React.FC<LoginProps> = ({
     }
   };
 
+  const closeModal = () => {
+    setIsOpenLogin(false);
+    setIsOpenRegister(false);
+    reset();
+  };
+
   return (
     <Modal isOpen={isOpenLogin} onClose={closeModal}>
       <div className="flex flex-col justify-center items-center">
@@ -59,28 +63,34 @@ const Login: React.FC<LoginProps> = ({
         <Register setIsOpenRegister={setIsOpenRegister} />
       ) : (
         <>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-6 flex justify-center">
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Email"
-                required
-              />
-            </div>
-            <div className="mb-2 flex justify-center">
-              <input
-                type="password"
-                id="password"
-                placeholder="Mật khẩu"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required
-              />
+          <form onSubmit={handleSubmit(onHandleSubmit)}>
+            <div className="flex flex-col justify-center items-center">
+              <div className="mb-6 flex justify-center flex-col">
+                <input
+                  name="email"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Email"
+                  {...register("email", { required: true })}
+                />
+                {errors.email && (
+                  <p className="text-xs text-red-500">
+                    Vui lòng nhập trường này!
+                  </p>
+                )}
+              </div>
+              <div className="mb-2 flex justify-center flex-col">
+                <input
+                  name="password"
+                  placeholder="Mật khẩu"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  {...register("password", { required: true })}
+                />
+                {errors.password && (
+                  <p className="text-xs text-red-500">
+                    Vui lòng nhập trường này!
+                  </p>
+                )}
+              </div>
             </div>
             <div className="mb-2 text-right pr-20">
               <a href="" className="text-xs">

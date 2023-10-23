@@ -34,3 +34,19 @@ export const isAdmin = async (req, res, next) => {
     });
   }
 };
+
+export const auth = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+    const { id, name, phoneNumber, address, avatar } = decodedToken;
+    req.user = { id, name, phoneNumber, address, avatar };
+    next();
+  } catch (error) {
+    console.log(error);
+    res.status(401).json({
+      success: false,
+      message: 'Đã xảy ra lỗi!',
+    });
+  }
+};

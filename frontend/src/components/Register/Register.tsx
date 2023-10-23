@@ -1,28 +1,21 @@
-import { ChangeEvent, useState } from "react";
-import { RegisterDataProp, RegisterProps } from "../type";
+import { RegisterProps } from "../type";
 import { toast } from "react-toastify";
 import { register as registerFunction } from "../../utils/auth";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { IUser } from "../../redux/type";
 
 const Register: React.FC<RegisterProps> = ({
   setIsOpenRegister,
 }: RegisterProps) => {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [phoneNumber, setPhoneNumber] = useState<string>("");
-  const [address, setAddress] = useState<string>("");
   const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const data: RegisterDataProp = {
-      name,
-      email,
-      password,
-      phoneNumber,
-      address,
-    };
+  const onHandleSubmit = (data: IUser) => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       registerFunction(dispatch, data).then((res: any) => {
@@ -42,61 +35,63 @@ const Register: React.FC<RegisterProps> = ({
 
   return (
     <div className="relative">
-      <form onSubmit={handleSubmit}>
-        <div className="mb-6 flex justify-center">
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Họ tên"
-            required
-          />
-        </div>
-        <div className="mb-6 flex justify-center">
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Email"
-            required
-          />
-        </div>
-        <div className="mb-6 flex justify-center">
-          <input
-            type="password"
-            id="password"
-            placeholder="Mật khẩu"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
-        </div>
-        <div className="mb-6 flex justify-center">
-          <input
-            type="text"
-            id="phone"
-            placeholder="Số điện thoại"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
-        </div>
-        <div className="mb-6 flex justify-center">
-          <input
-            type="text"
-            id="address"
-            placeholder="Địa chỉ"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
+      <form onSubmit={handleSubmit(onHandleSubmit)}>
+        <div className="flex flex-col justify-center items-center">
+          <div className="mb-6 flex justify-center flex-col">
+            <input
+              name="name"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Họ tên"
+              {...register("name", { required: true })}
+            />
+            {errors.name && (
+              <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
+            )}
+          </div>
+          <div className="mb-6 flex justify-center flex-col">
+            <input
+              name="email"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Email"
+              {...register("email", { required: true })}
+            />
+            {errors.email && (
+              <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
+            )}
+          </div>
+          <div className="mb-6 flex justify-center flex-col">
+            <input
+              name="password"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Mật khẩu"
+              {...register("password", { required: true })}
+            />
+            {errors.password && (
+              <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
+            )}
+          </div>
+          <div className="mb-6 flex justify-center flex-col">
+            <input
+              name="phoneNumber"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Số điện thoại"
+              {...register("phoneNumber", { required: true })}
+            />
+            {errors.phoneNumber && (
+              <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
+            )}
+          </div>
+          <div className="mb-6 flex justify-center flex-col">
+            <input
+              name="address"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Địa chỉ"
+              {...register("address", { required: true })}
+            />
+            {errors.address && (
+              <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
+            )}
+          </div>
         </div>
         <div className="flex justify-center">
           <button

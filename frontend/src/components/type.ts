@@ -10,9 +10,9 @@ export interface ButtonProps {
 
 export interface LoginProps {
   isOpenLogin: boolean;
+  setIsOpenLogin: (open: boolean) => void;
   isOpenRegister: boolean;
   setIsOpenRegister: (open: boolean) => void;
-  closeModal: () => void;
 }
 
 export interface RegisterProps {
@@ -36,4 +36,9 @@ export interface RegisterDataProp {
   password: string;
   phoneNumber: string;
   address: string;
+}
+
+export interface BreadcrumbProps {
+  label?: string;
+  path?: string;
 }

@@ -13,7 +13,7 @@ const Modal: React.FC<ModalProps> = ({
           className="modal-overlay absolute w-full h-full bg-gray-700 opacity-50 dark:bg-bgModalDark"
           onClick={onClose}
         />
-        <div className="relative animate-scale-up-center modal-container bg-white dark:bg-bgDark w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+        <div className="relative animate-scale-up-center modal-container bg-white dark:bg-bgDark w-11/12 md:max-w-xl mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
           <button
             className="absolute right-3 top-3 p-3 bg-primary rounded-full cursor-pointer text-black"
             onClick={onClose}
