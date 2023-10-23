@@ -43,7 +43,7 @@ const Search: React.FC = () => {
           ref={inputElement}
           type="search"
           placeholder="Tìm kiếm sản phẩm"
-          className="w-[400px] h-8 p-4 text-sm rounded-lg bg-bgInput shadow-lg dark:bg-bgModalDark outline-none"
+          className="w-[360px] h-8 p-4 text-sm rounded-lg bg-bgInput shadow-lg dark:bg-bgModalDark outline-none"
           value={searchValue}
           onChange={(e) => handleChange(e)}
         />

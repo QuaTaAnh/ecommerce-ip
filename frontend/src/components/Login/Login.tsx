@@ -1,17 +1,15 @@
 import Modal from "../Modal/Modal";
 import Logo from "../../assets/images/logo.svg";
-import { LoginProps, RegisterDataProp } from "../type";
+import { LoginProps } from "../type";
 import { ChangeEvent, useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import {
-  register as registerFunction,
-  login as loginFunction,
-} from "../../utils/auth";
+import { login as loginFunction } from "../../utils/auth";
 import { IUser } from "../../redux/type";
+import Register from "../Register/Register";
 
 const Login: React.FC<LoginProps> = ({
-  isModalLoginOpen,
+  isOpenLogin,
   closeModal,
   isOpenRegister,
   setIsOpenRegister,
@@ -20,13 +18,6 @@ const Login: React.FC<LoginProps> = ({
   //login
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
-  //register
-  const [nameRegister, setNameRegister] = useState<string>("");
-  const [emailRegister, setEmailRegister] = useState<string>("");
-  const [passwordRegister, setPasswordRegister] = useState<string>("");
-  const [phoneRegister, setPhoneRegister] = useState<string>("");
-  const [addressRegister, setAddressRegister] = useState<string>("");
 
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,34 +42,8 @@ const Login: React.FC<LoginProps> = ({
     }
   };
 
-  const handleSubmitRegister = async (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const data: RegisterDataProp = {
-      name: nameRegister,
-      email: emailRegister,
-      password: passwordRegister,
-      phoneNumber: phoneRegister,
-      address: addressRegister,
-    };
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      registerFunction(dispatch, data).then((res: any) => {
-        console.log(res);
-        if (res && res?.data?.success === true) {
-          toast.success(res && res?.data?.message);
-          setIsOpenRegister(false);
-        } else {
-          toast.error(res && res?.data?.message);
-        }
-      });
-    } catch (error) {
-      console.log(error);
-      toast.error("Đã xảy ra lỗi");
-    }
-  };
-
   return (
-    <Modal isOpen={isModalLoginOpen} onClose={closeModal}>
+    <Modal isOpen={isOpenLogin} onClose={closeModal}>
       <div className="flex flex-col justify-center items-center">
         <img
           src={Logo}
@@ -90,85 +55,10 @@ const Login: React.FC<LoginProps> = ({
         </h2>
       </div>
       {isOpenRegister ? (
-        <div className="relative">
-          <form onSubmit={handleSubmitRegister} onReset={closeModal}>
-            <div className="mb-6 flex justify-center">
-              <input
-                type="text"
-                id="nameRegister"
-                value={nameRegister}
-                onChange={(e) => setNameRegister(e.target.value)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Họ tên"
-                required
-              />
-            </div>
-            <div className="mb-6 flex justify-center">
-              <input
-                type="email"
-                id="emailRegister"
-                value={emailRegister}
-                onChange={(e) => setEmailRegister(e.target.value)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Email"
-                required
-              />
-            </div>
-            <div className="mb-6 flex justify-center">
-              <input
-                type="password"
-                id="passwordRegister"
-                placeholder="Mật khẩu"
-                value={passwordRegister}
-                onChange={(e) => setPasswordRegister(e.target.value)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required
-              />
-            </div>
-            <div className="mb-6 flex justify-center">
-              <input
-                type="text"
-                id="phoneRegister"
-                placeholder="Số điện thoại"
-                value={phoneRegister}
-                onChange={(e) => setPhoneRegister(e.target.value)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required
-              />
-            </div>
-            <div className="mb-6 flex justify-center">
-              <input
-                type="text"
-                id="addressRegister"
-                placeholder="Địa chỉ"
-                value={addressRegister}
-                onChange={(e) => setAddressRegister(e.target.value)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required
-              />
-            </div>
-            <div className="flex justify-center">
-              <button
-                type="submit"
-                className="text-sm text-white bg-bgDark py-2 px-5 rounded-3xl hover:opacity-80 bg-textHover"
-              >
-                Đăng kí
-              </button>
-            </div>
-          </form>
-          <div className="mt-6 text-sm text-center">
-            Bạn đã có tài khoản?{" "}
-            <button
-              className="underline text-textHover"
-              onClick={() => setIsOpenRegister(false)}
-            >
-              Đăng nhập
-            </button>
-          </div>
-        </div>
+        <Register setIsOpenRegister={setIsOpenRegister} />
       ) : (
         <>
-          <form onSubmit={handleSubmit} onReset={closeModal}>
+          <form onSubmit={handleSubmit}>
             <div className="mb-6 flex justify-center">
               <input
                 type="email"

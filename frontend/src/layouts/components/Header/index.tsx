@@ -19,26 +19,26 @@ import { loginSuccess } from "../../../redux/userRedux";
 
 const Header: React.FC = () => {
   const [isDarkMode, toggleDarkMode] = useDark();
-  const [isModalLoginOpen, setIsModalLoginOpen] = useState<boolean>(false);
+  const [isOpenLogin, setIsOpenLogin] = useState<boolean>(false);
   const [isOpenRegister, setIsOpenRegister] = useState<boolean>(false);
   const user = useSelector((state: IState) => state.user.user as IUser);
   const dispatch = useDispatch();
-  console.log(user);
+  const dataAuthStorage = localStorage.getItem("auth");
 
   useEffect(() => {
-    const data = localStorage.getItem("auth");
-    if (data) {
-      const parseData = JSON.parse(data);
+    if (dataAuthStorage) {
+      const parseData = JSON.parse(dataAuthStorage);
+      console.log(parseData);
       dispatch(loginSuccess(parseData));
     }
   }, []);
 
   const openModalLogin = () => {
-    setIsModalLoginOpen(true);
+    setIsOpenLogin(true);
   };
 
   const closeModal = () => {
-    setIsModalLoginOpen(false);
+    setIsOpenLogin(false);
     setIsOpenRegister(false);
   };
 
@@ -85,7 +85,7 @@ const Header: React.FC = () => {
                 />
               )}
             </div>
-            {user?.user ? (
+            {user?.user && !!dataAuthStorage ? (
               <div className="relative group">
                 <div className="flex justify-center items-center cursor-pointer py-1">
                   <div className="w-8 h-8 rounded-full mr-2">
@@ -138,7 +138,7 @@ const Header: React.FC = () => {
       </header>
       <Login
         closeModal={closeModal}
-        isModalLoginOpen={isModalLoginOpen}
+        isOpenLogin={isOpenLogin}
         isOpenRegister={isOpenRegister}
         setIsOpenRegister={setIsOpenRegister}
       />

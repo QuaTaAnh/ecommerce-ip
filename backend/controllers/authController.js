@@ -25,7 +25,7 @@ export const registerController = async (req, res) =>{
         if(exisitingUser){
             return res.status(200).send({
                 success: false, 
-                message: 'Đã đăng kí, vui lòng đăng nhập'
+                message: 'Email này đã đăng kí, vui lòng đăng nhập!'
             })
         }
 
@@ -33,7 +33,7 @@ export const registerController = async (req, res) =>{
         const user = await new userModel({name, email, password: hashedPass, phoneNumber, address}).save()
         res.status(201).send({
             success: true, 
-            message: 'Người dùng đăng kí thành công',
+            message: 'Người dùng đăng kí thành công!',
             user
         })
     } catch (error) {

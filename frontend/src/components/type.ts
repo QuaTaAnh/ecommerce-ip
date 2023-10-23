@@ -9,10 +9,14 @@ export interface ButtonProps {
 }
 
 export interface LoginProps {
-  isModalLoginOpen: boolean;
+  isOpenLogin: boolean;
   isOpenRegister: boolean;
   setIsOpenRegister: (open: boolean) => void;
   closeModal: () => void;
+}
+
+export interface RegisterProps {
+  setIsOpenRegister: (open: boolean) => void;
 }
 
 export interface ModalProps {
