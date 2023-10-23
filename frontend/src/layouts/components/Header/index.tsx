@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/images/logo.svg";
 import NoImage from "../../../assets/images/noImage.jpg";
 import { routes } from "../../../config/routes";
@@ -23,6 +23,7 @@ const Header: React.FC = () => {
   const [isOpenRegister, setIsOpenRegister] = useState<boolean>(false);
   const user = useSelector((state: IState) => state.user.user as IUser);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const dataAuthStorage = localStorage.getItem("auth");
 
   useEffect(() => {
@@ -46,6 +47,7 @@ const Header: React.FC = () => {
     try {
       logoutFunction(dispatch);
       localStorage.removeItem("auth");
+      navigate("/");
       toast.success("Đăng xuất thành công!");
     } catch (error) {
       console.log(error);

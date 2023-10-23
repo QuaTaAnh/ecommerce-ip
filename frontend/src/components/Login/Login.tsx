@@ -25,6 +25,7 @@ const Login: React.FC<LoginProps> = ({
       email,
       password,
     };
+    console.log(data);
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       loginFunction(dispatch, data).then((res: any) => {

@@ -10,33 +10,31 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <div className="dark:bg-bgDark dark:text-white text-black h-screen transition duration-300 ease-in-out">
-          <ToastContainer />
-          <Routes>
-            {publicRoutes.map((route, index) => {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              let Layout: any = MainLayout;
-              if (route.layout) {
-                Layout = route.layout;
-              } else if (route.layout === null) {
-                Layout = Fragment;
-              }
+        <ToastContainer />
+        <Routes>
+          {publicRoutes.map((route, index) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            let Layout: any = MainLayout;
+            if (route.layout) {
+              Layout = route.layout;
+            } else if (route.layout === null) {
+              Layout = Fragment;
+            }
 
-              const Page = route.component;
-              return (
-                <Route
-                  key={index}
-                  path={route.path}
-                  element={
-                    <Layout>
-                      <Page />
-                    </Layout>
-                  }
-                />
-              );
-            })}
-          </Routes>
-        </div>
+            const Page = route.component;
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  <Layout>
+                    <Page />
+                  </Layout>
+                }
+              />
+            );
+          })}
+        </Routes>
       </BrowserRouter>
     </Provider>
   );
