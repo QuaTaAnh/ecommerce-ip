@@ -7,7 +7,6 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { editUser } from "../../../utils/auth";
-import { editProfile } from "../../../redux/userRedux";
 
 const EditUser: React.FC<EditUserProps> = ({
   isOpenEdit,
@@ -27,7 +26,8 @@ const EditUser: React.FC<EditUserProps> = ({
     reset();
   };
 
-  const handleChangeAvatar = (e: ChangeEvent<HTMLInputElement>) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleChangeAvatar = (e: ChangeEvent<any>) => {
     const file = e.target.files[0];
     if (file) {
       const avtURL = URL.createObjectURL(file);
@@ -39,7 +39,7 @@ const EditUser: React.FC<EditUserProps> = ({
     const params = {
       _id: user?.user?._id,
       ...data,
-      // avatar,
+      avatar,
     };
 
     try {
@@ -107,7 +107,7 @@ const EditUser: React.FC<EditUserProps> = ({
                   <input
                     type="text"
                     disabled
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 disabled:opacity-70"
                     {...field}
                     value={field.value}
                   />
@@ -186,7 +186,7 @@ const EditUser: React.FC<EditUserProps> = ({
                 )}
               />
             </div>
-            {/* <div className="mb-6 flex justify-center flex-row items-center">
+            <div className="mb-6 flex justify-center flex-row items-center">
               <label
                 htmlFor="avatar"
                 className="w-[120px] text-base font-bold mr-3"
@@ -196,17 +196,17 @@ const EditUser: React.FC<EditUserProps> = ({
               <Controller
                 name="avatar"
                 control={control}
-                defaultValue={user?.user?.avatar}
                 render={({ field }) => (
                   <input
                     type="file"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     {...field}
+                    value={field.value}
                     onChange={handleChangeAvatar}
                   />
                 )}
               />
-            </div> */}
+            </div>
           </div>
           <div className="flex justify-center">
             <button

@@ -114,7 +114,7 @@ export const forgotPasswordController = async(req, res) =>{
 
 export const updateProfileController = async (req, res) => {
     try {
-        const { _id, name, email, password, address, phoneNumber } = req.body;
+        const { _id, name, email, password, address, phoneNumber, avatar } = req.body;
         const user = await userModel.findById(_id);
         if (password && password.length < 6) {
             return res.json({ error: "Mật khẩu phải lớn hơn 6 kí tự!" });
@@ -127,7 +127,7 @@ export const updateProfileController = async (req, res) => {
               password: hashedPassword || user.password,
               phoneNumber: phoneNumber || user.phoneNumber,
               address: address || user.address,
-            //   avatar: avatar || user.avatar,
+              avatar: avatar || user.avatar,
             },
             { new: true }
           );
