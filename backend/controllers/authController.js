@@ -78,6 +78,7 @@ export const loginController = async (req, res) =>{
             success: true, 
             message: 'Đăng nhập thành công!', 
             user: {
+                _id: user._id,
                 name: user.name,
                 email: user.email,
                 password: user.password,
@@ -113,20 +114,20 @@ export const forgotPasswordController = async(req, res) =>{
 
 export const updateProfileController = async (req, res) => {
     try {
-        const { name, address, phoneNumber, avatar, password } = req.body;
-        const user = await userModel.findById(req.user._id);
+        const { _id, name, email, password, address, phoneNumber } = req.body;
+        const user = await userModel.findById(_id);
         if (password && password.length < 6) {
             return res.json({ error: "Mật khẩu phải lớn hơn 6 kí tự!" });
           }
         const hashedPassword = password ? await hashPassword(password) : undefined;
         const updatedUser = await userModel.findByIdAndUpdate(
-            req.user._id,
+            _id,
             {
               name: name || user.name,
               password: hashedPassword || user.password,
               phoneNumber: phoneNumber || user.phoneNumber,
               address: address || user.address,
-              avatar: avatar || user.avatar,
+            //   avatar: avatar || user.avatar,
             },
             { new: true }
           );

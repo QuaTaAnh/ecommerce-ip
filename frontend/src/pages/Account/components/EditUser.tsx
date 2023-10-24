@@ -34,18 +34,23 @@ const EditUser: React.FC<EditUserProps> = ({
     }
   };
 
-  const onHandleSubmit = (data: IUser) => {
+  const onHandleSubmit = async (data: IUser) => {
     const params = {
+      _id: user?.user?._id,
       ...data,
-      avatar,
+      // avatar,
     };
-    console.log(params);
 
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       editUser(dispatch, params).then((res: any) => {
-        if (res && res?.data?.success === true) {
-          toast.success(res && res?.data?.message);
+        console.log(res?.updatedUser, "data-user");
+        if (res && res?.success === true) {
+          let ls = localStorage.getItem("auth");
+          ls = JSON.parse(ls);
+          ls.user = res.updatedUser;
+          localStorage.setItem("auth", JSON.stringify(res?.updatedUser));
+          toast.success(res && res?.message);
           closeModal();
         } else {
           toast.error(res?.data?.message);
@@ -97,13 +102,38 @@ const EditUser: React.FC<EditUserProps> = ({
               <Controller
                 name="email"
                 control={control}
+                defaultValue={user?.user?.email}
                 render={({ field }) => (
                   <input
                     type="text"
                     disabled
-                    defaultValue={user?.user?.email}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     {...field}
+                    value={field.value}
+                  />
+                )}
+              />
+            </div>
+            <div className="mb-6 flex justify-center flex-row items-center">
+              <label
+                htmlFor="password"
+                className="w-[120px] text-base font-bold mr-3"
+              >
+                Mật khẩu
+              </label>
+              <Controller
+                name="password"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <input
+                    type="password"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    {...field}
+                    value={field.value}
+                    onChange={(e) => {
+                      field.onChange(e);
+                    }}
                   />
                 )}
               />
@@ -156,7 +186,7 @@ const EditUser: React.FC<EditUserProps> = ({
                 )}
               />
             </div>
-            <div className="mb-6 flex justify-center flex-row items-center">
+            {/* <div className="mb-6 flex justify-center flex-row items-center">
               <label
                 htmlFor="avatar"
                 className="w-[120px] text-base font-bold mr-3"
@@ -176,7 +206,7 @@ const EditUser: React.FC<EditUserProps> = ({
                   />
                 )}
               />
-            </div>
+            </div> */}
           </div>
           <div className="flex justify-center">
             <button

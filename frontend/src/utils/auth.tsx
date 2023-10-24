@@ -13,7 +13,7 @@ import { startLoading, stopLoading } from "../redux/loadingRedux";
 export const register = async (dispatch: Dispatch<any>, user: IUser) => {
   dispatch(startLoading());
   try {
-    const res = await request.put("/api/auth/register", user);
+    const res = await request.post("/api/auth/register", user);
     dispatch(registerSuccess(res.data));
     return res;
   } catch (error) {
@@ -46,9 +46,9 @@ export const logout = (dispatch: Dispatch<any>) => {
 export const editUser = async (dispatch: Dispatch<any>, user: any) => {
   dispatch(startLoading());
   try {
-    const res = await request.put("/api/auth/edit-user", user);
-    dispatch(editProfile(res.data));
-    return res;
+    const { data } = await request.put("/api/auth/profile", user);
+    dispatch(editProfile(data?.updatedUser));
+    return data;
   } catch (error) {
     return "error";
   } finally {

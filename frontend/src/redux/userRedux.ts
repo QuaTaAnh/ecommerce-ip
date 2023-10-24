@@ -15,7 +15,10 @@ const userSlice = createSlice({
       state.user = action.payload;
     },
     editProfile: (state, action: PayloadAction<IUser>) => {
-      state.user = { ...state.user, ...action.payload };
+      state = { ...state, user: { ...action.payload } };
+    },
+    loaderUser: (state, action: PayloadAction<UserProps>) => {
+      state = { ...state, ...action.payload };
     },
     loginEnd: (state) => {
       state.user = {};
@@ -23,6 +26,11 @@ const userSlice = createSlice({
   },
 });
 
-export const { registerSuccess, loginSuccess, editProfile, loginEnd } =
-  userSlice.actions;
+export const {
+  registerSuccess,
+  loginSuccess,
+  editProfile,
+  loaderUser,
+  loginEnd,
+} = userSlice.actions;
 export default userSlice.reducer;

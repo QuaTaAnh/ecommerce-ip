@@ -8,7 +8,7 @@ const router = express.Router()
 router.post('/register', registerController)
 router.post('/login', loginController)
 router.post('/forgot-password', forgotPasswordController)
-router.put('/edit-user', requireSignIn, updateProfileController)
+router.put('/profile', updateProfileController)
 
 router.get("/user-auth", requireSignIn, (req, res) => {
     res.status(200).send({ ok: true });

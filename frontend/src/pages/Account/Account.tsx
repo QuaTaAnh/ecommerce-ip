@@ -1,28 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IUser } from "../../redux/type";
 import { IState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import NoImage from "../../assets/images/noImage.jpg";
 import Button from "../../components/Button/Button";
 import { AiOutlineEdit } from "react-icons/ai";
-import { RiLockPasswordFill } from "react-icons/ri";
 import EditUser from "./components/EditUser";
 
 const Account: React.FC = () => {
   const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false);
   const user = useSelector((state: IState) => state.user.user as IUser);
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
 
   const openModalEdit = () => {
     setIsOpenEdit(true);
   };
+
+  useEffect(() => {
+    const { name, email, phoneNumber, address } = user?.user;
+    setName(name);
+    setEmail(email);
+    setPhoneNumber(phoneNumber);
+    setAddress(address);
+  }, [user?.user]);
 
   return (
     <>
       <div className="bg-white dark:bg-bgModalDark w-full flex rounded-lg shadow-xl">
         <div className="w-1/4 flex flex-col justify-center items-center py-10 px-6">
           <div className="text-center text-lg font-medium mb-4">
-            Hồ sơ của{" "}
-            <strong className="text-textHover">{user?.user?.name}</strong>
+            Hồ sơ của <strong className="text-textHover">{name}</strong>
           </div>
           <div className="relative w-[90px] h-[90px]">
             <img
@@ -38,26 +48,19 @@ const Account: React.FC = () => {
           </h3>
           <ul className="text-sm mb-6">
             <li className="py-2 pr-2 border-b-2">
-              Họ tên <strong className="float-right">{user?.user?.name}</strong>
+              Họ tên <strong className="float-right">{name}</strong>
             </li>
             <li className="py-2 pr-2 border-b-2">
-              Email <strong className="float-right">{user?.user?.email}</strong>
+              Email <strong className="float-right">{email}</strong>
             </li>
             <li className="py-2 pr-2 border-b-2">
               Số điện thoại{" "}
-              <strong className="float-right">{user?.user?.phoneNumber}</strong>
+              <strong className="float-right">{phoneNumber}</strong>
             </li>
             <li className="py-2 pr-2 border-b-2">
-              Địa chỉ{" "}
-              <strong className="float-right">{user?.user?.address}</strong>
+              Địa chỉ <strong className="float-right">{address}</strong>
             </li>
           </ul>
-          <Button
-            className="flex items-center p-2 ml-3 float-right bg-primary rounded-lg text-sm dark:bg-indigo-800"
-            leftIcon={<RiLockPasswordFill />}
-          >
-            Đổi mật khẩu
-          </Button>
           <Button
             className="flex items-center p-2 float-right bg-primary rounded-lg text-sm dark:bg-indigo-800"
             leftIcon={<AiOutlineEdit />}
