@@ -8,7 +8,7 @@ const AdminLayout: React.FC<LayoutProp> = (props: LayoutProp) => {
     <>
       <div className="relative dark:bg-bgDark dark:text-white text-black h-screen overflow-hidden transition duration-300 ease-in-out">
         <Header />
-        <div className="flex">
+        <div className="flex mr-6">
           <div className="h-screen overflow-hidden w-1/5">
             <NavBar />
           </div>

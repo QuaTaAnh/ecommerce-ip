@@ -6,6 +6,7 @@ import NoImage from "../../assets/images/noImage.jpg";
 import Button from "../../components/Button/Button";
 import { AiOutlineEdit } from "react-icons/ai";
 import EditUser from "./components/EditUser";
+import Card from "../../components/Card/Card";
 
 const Account: React.FC = () => {
   const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false);
@@ -17,8 +18,8 @@ const Account: React.FC = () => {
 
   return (
     <>
-      <div className="bg-white dark:bg-bgModalDark w-full flex rounded-lg shadow-xl">
-        <div className="w-1/4 flex flex-col justify-center items-center py-10 px-6">
+      <Card>
+        <div className="w-1/4 flex flex-col justify-center items-center">
           <div className="text-center text-lg font-medium mb-4">
             Hồ sơ của{" "}
             <strong className="text-textHover">{user?.user?.name}</strong>
@@ -31,7 +32,7 @@ const Account: React.FC = () => {
             />
           </div>
         </div>
-        <div className="w-3/4 py-10 px-6">
+        <div className="w-3/4">
           <h3 className="text-base mb-6">
             Quản lý thông tin hồ sơ để bảo mật tài khoản
           </h3>
@@ -59,7 +60,7 @@ const Account: React.FC = () => {
             Cập nhật thông tin
           </Button>
         </div>
-      </div>
+      </Card>
       <EditUser
         isOpenEdit={isOpenEdit}
         setIsOpenEdit={setIsOpenEdit}

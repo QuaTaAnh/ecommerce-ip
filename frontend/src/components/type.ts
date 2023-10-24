@@ -44,3 +44,8 @@ export interface BreadcrumbProps {
   label?: string;
   path?: string;
 }
+
+export interface CardProps {
+  children: React.ReactNode;
+  create?: boolean;
+}
