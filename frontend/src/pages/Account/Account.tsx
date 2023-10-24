@@ -27,7 +27,7 @@ const Account: React.FC = () => {
             <img
               src={user?.user?.avatar || NoImage}
               alt="Ảnh đại diện"
-              className="w-full h-full rounded-full"
+              className="w-full h-full rounded-full object-cover"
             />
           </div>
         </div>

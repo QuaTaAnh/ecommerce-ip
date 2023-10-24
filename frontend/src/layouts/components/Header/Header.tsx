@@ -88,7 +88,7 @@ const Header: React.FC = () => {
                     <img
                       src={user?.user.avatar ?? NoImage}
                       alt="Image"
-                      className="w-full h-full rounded-full"
+                      className="w-full h-full rounded-full object-cover"
                     />
                   </div>
                   <p className="text-sm">{user?.user?.name}</p>
