@@ -7,6 +7,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { editUser } from "../../../utils/auth";
+import { editProfile } from "../../../redux/userRedux";
 
 const EditUser: React.FC<EditUserProps> = ({
   isOpenEdit,
@@ -44,12 +45,11 @@ const EditUser: React.FC<EditUserProps> = ({
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       editUser(dispatch, params).then((res: any) => {
-        console.log(res?.updatedUser, "data-user");
         if (res && res?.success === true) {
           let ls = localStorage.getItem("auth");
           ls = JSON.parse(ls);
           ls.user = res.updatedUser;
-          localStorage.setItem("auth", JSON.stringify(res?.updatedUser));
+          localStorage.setItem("auth", JSON.stringify(ls));
           toast.success(res && res?.message);
           closeModal();
         } else {
