@@ -37,7 +37,7 @@ const EditUser: React.FC<EditUserProps> = ({
 
   const onHandleSubmit = async (data: IUser) => {
     const params = {
-      _id: user?.user?._id,
+      _id: user?._id,
       ...data,
       avatar,
     };
@@ -52,8 +52,6 @@ const EditUser: React.FC<EditUserProps> = ({
           localStorage.setItem("auth", JSON.stringify(ls));
           toast.success(res && res?.message);
           closeModal();
-        } else {
-          toast.error(res?.data?.message);
         }
       });
     } catch (error) {
@@ -78,7 +76,7 @@ const EditUser: React.FC<EditUserProps> = ({
               <Controller
                 name="name"
                 control={control}
-                defaultValue={user?.user?.name}
+                defaultValue={user?.name}
                 render={({ field }) => (
                   <input
                     type="text"
@@ -102,7 +100,7 @@ const EditUser: React.FC<EditUserProps> = ({
               <Controller
                 name="email"
                 control={control}
-                defaultValue={user?.user?.email}
+                defaultValue={user?.email}
                 render={({ field }) => (
                   <input
                     type="text"
@@ -148,7 +146,7 @@ const EditUser: React.FC<EditUserProps> = ({
               <Controller
                 name="phoneNumber"
                 control={control}
-                defaultValue={user?.user?.phoneNumber}
+                defaultValue={user?.phoneNumber}
                 render={({ field }) => (
                   <input
                     type="text"
@@ -172,7 +170,7 @@ const EditUser: React.FC<EditUserProps> = ({
               <Controller
                 name="address"
                 control={control}
-                defaultValue={user?.user?.address}
+                defaultValue={user?.address}
                 render={({ field }) => (
                   <input
                     type="text"

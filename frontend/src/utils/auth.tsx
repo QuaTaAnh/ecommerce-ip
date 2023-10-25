@@ -8,6 +8,7 @@ import {
 import request from "./request";
 import { IUser } from "../redux/type";
 import { startLoading, stopLoading } from "../redux/loadingRedux";
+import { toast } from "react-toastify";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const register = async (dispatch: Dispatch<any>, user: IUser) => {
@@ -47,7 +48,11 @@ export const editUser = async (dispatch: Dispatch<any>, user: any) => {
   dispatch(startLoading());
   try {
     const { data } = await request.put("/api/auth/profile", user);
-    dispatch(editProfile(data?.updatedUser));
+    if (data?.error) {
+      toast.error(data?.error);
+    } else {
+      dispatch(editProfile(data?.updatedUser));
+    }
     return data;
   } catch (error) {
     return "error";

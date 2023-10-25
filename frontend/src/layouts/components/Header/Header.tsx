@@ -12,7 +12,7 @@ import Login from "../../../components/Login/Login";
 import Search from "../../../components/Search/Search";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../redux/store";
-import { IUser } from "../../../redux/type";
+import { UserProps } from "../../../redux/type";
 import { toast } from "react-toastify";
 import { logout as logoutFunction } from "../../../utils/auth";
 import { loginSuccess } from "../../../redux/userRedux";
@@ -21,7 +21,7 @@ const Header: React.FC = () => {
   const [isDarkMode, toggleDarkMode] = useDark();
   const [isOpenLogin, setIsOpenLogin] = useState<boolean>(false);
   const [isOpenRegister, setIsOpenRegister] = useState<boolean>(false);
-  const user = useSelector((state: IState) => state.user.user as IUser);
+  const { user } = useSelector((state: IState) => state.user.user as UserProps);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const dataAuthStorage = localStorage.getItem("auth");
@@ -81,22 +81,22 @@ const Header: React.FC = () => {
                 />
               )}
             </div>
-            {user?.user && !!dataAuthStorage ? (
+            {user && !!dataAuthStorage ? (
               <div className="relative group">
                 <div className="flex justify-center items-center cursor-pointer py-1">
                   <div className="w-8 h-8 rounded-full mr-2">
                     <img
-                      src={user?.user.avatar ?? NoImage}
+                      src={user?.avatar ?? NoImage}
                       alt="Image"
                       className="w-full h-full rounded-full object-cover"
                     />
                   </div>
-                  <p className="text-sm">{user?.user?.name}</p>
+                  <p className="text-sm">{user?.name}</p>
                 </div>
                 <div className="absolute z-50 hidden bg-white dark:bg-bgModalDark py-2 px-1 w-48 right-0 rounded-lg shadow-lg group-hover:block">
                   <Button
                     to={
-                      user?.user?.role === 1
+                      user?.role === 1
                         ? routes.dashboardAdmin
                         : routes.dashboardUser
                     }
