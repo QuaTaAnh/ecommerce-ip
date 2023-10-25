@@ -11,7 +11,7 @@ export interface IUser {
 
 export interface UserProps {
   user: IUser;
-  accessToken?: string;
+  token: string;
 }
 
 export interface ProfileProps {

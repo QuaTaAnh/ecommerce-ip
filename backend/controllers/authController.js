@@ -59,7 +59,7 @@ export const loginController = async (req, res) =>{
         }
         const user = await userModel.findOne({email})
         if(!user){
-            return res.status(200).send({
+            return res.status(404).send({
                 success: false, 
                 message: 'Email chưa đăng kí!'
             })
@@ -87,26 +87,13 @@ export const loginController = async (req, res) =>{
                 avatar: user.avatar,
                 role: user.role
             },
-            token
+            token,
         })
     } catch (error) {
         console.log(error)
         res.status(500).send({
             success: false, 
             message: 'Đăng nhập thất bại!', 
-            error
-        })
-    }
-}
-
-export const forgotPasswordController = async(req, res) =>{
-    try {
-        
-    } catch (error) {
-        console.log(error)
-        res.status(500).send({
-            success: false, 
-            message: 'Đổi mật khẩu thất bại!', 
             error
         })
     }

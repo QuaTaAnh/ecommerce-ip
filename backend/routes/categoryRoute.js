@@ -4,8 +4,8 @@ import { createCategoryController, deleteCategoryController, getAllCategoryContr
 
 const router = express.Router()
 
-router.post('/create-category', requireSignIn, isAdmin, createCategoryController)
-router.post('/update-category', requireSignIn, isAdmin, updateCategoryController)
+router.post('/create-category', createCategoryController)
+router.put('/update-category/:id', updateCategoryController)
 router.get('/get-category', getAllCategoryControlller)
 router.get('/get-category-by/:slug', getOneCategoryController)
 router.delete("/delete-category/:id", requireSignIn, isAdmin, deleteCategoryController)

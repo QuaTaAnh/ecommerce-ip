@@ -2,9 +2,14 @@ import JWT from "jsonwebtoken";
 import userModel from "../models/userModel.js";
 
 export const requireSignIn = async (req, res, next) => {
+  const token = req.headers.authorization;
+  console.log(token, '123');
+  if (!token) {
+    return res.status(401).json({ message: 'Lỗi jwt!' });
+  }
   try {
     const decode = JWT.verify(
-      req.headers.authorization,
+      token,
       process.env.JWT_SECRET
     );
     req.user = decode;
@@ -16,6 +21,7 @@ export const requireSignIn = async (req, res, next) => {
 
 export const isAdmin = async (req, res, next) => {
   try {
+    console.log(req.user._id, 'isAdmin');
     const user = await userModel.findById(req.user._id);
     if (user.role !== 1) {
       return res.status(200).send({
@@ -31,22 +37,6 @@ export const isAdmin = async (req, res, next) => {
       success: false,
       error,
       message: "Lỗi",
-    });
-  }
-};
-
-export const auth = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
-    const { id, name, phoneNumber, address, avatar } = decodedToken;
-    req.user = { id, name, phoneNumber, address, avatar };
-    next();
-  } catch (error) {
-    console.log(error);
-    res.status(401).json({
-      success: false,
-      message: 'Đã xảy ra lỗi!',
     });
   }
 };

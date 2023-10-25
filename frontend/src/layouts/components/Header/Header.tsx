@@ -16,6 +16,7 @@ import { UserProps } from "../../../redux/type";
 import { toast } from "react-toastify";
 import { logout as logoutFunction } from "../../../utils/auth";
 import { loginSuccess } from "../../../redux/userRedux";
+import axios from "axios";
 
 const Header: React.FC = () => {
   const [isDarkMode, toggleDarkMode] = useDark();
@@ -24,12 +25,17 @@ const Header: React.FC = () => {
   const { user } = useSelector((state: IState) => state.user.user as UserProps);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const dataAuthStorage = localStorage.getItem("auth");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [startLocalStorage, setStartLocalStorage] = useState<any>();
+
+  axios.defaults.headers.common["Authorization"] = startLocalStorage?.token;
 
   useEffect(() => {
+    const dataAuthStorage = localStorage.getItem("auth");
     if (dataAuthStorage) {
       const parseData = JSON.parse(dataAuthStorage);
       dispatch(loginSuccess(parseData));
+      setStartLocalStorage(parseData);
     }
   }, []);
 
@@ -81,7 +87,7 @@ const Header: React.FC = () => {
                 />
               )}
             </div>
-            {user && !!dataAuthStorage ? (
+            {user && !!startLocalStorage ? (
               <div className="relative group">
                 <div className="flex justify-center items-center cursor-pointer py-1">
                   <div className="w-8 h-8 rounded-full mr-2">

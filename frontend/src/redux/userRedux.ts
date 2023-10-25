@@ -5,7 +5,6 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     user: {},
-    accessToken: "",
   },
   reducers: {
     registerSuccess: (state, action: PayloadAction<UserProps>) => {
