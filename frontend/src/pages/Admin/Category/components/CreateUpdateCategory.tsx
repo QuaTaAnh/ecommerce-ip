@@ -1,13 +1,13 @@
 import React from "react";
-import Modal from "../../../components/Modal/Modal";
-import { CreateUpdateCategoryProps } from "../type";
+import Modal from "../../../../components/Modal/Modal";
+import { CreateUpdateCategoryProps } from "../../type";
 import { useForm } from "react-hook-form";
 import { RiAddLine } from "react-icons/ri";
 import { AiOutlineEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import request from "../../../utils/request";
-import { startLoading, stopLoading } from "../../../redux/loadingRedux";
+import request from "../../../../utils/request";
+import { startLoading, stopLoading } from "../../../../redux/loadingRedux";
 
 const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
   isOpenAddCategory,
@@ -84,14 +84,14 @@ const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
           <div className="flex flex-col justify-center items-center">
             <div className="mb-6 flex justify-center flex-col">
               <div className="flex justify-center items-center">
-                <label htmlFor="name" className="text-sm mr-3">
+                <label htmlFor="name" className="w-[100px] text-sm mr-3">
                   Tên danh mục
                 </label>
                 <input
                   {...register("name", { required: true })}
                   name="name"
                   defaultValue={isEdit ? initValue?.name : ""}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
               </div>
               {errors.name && (

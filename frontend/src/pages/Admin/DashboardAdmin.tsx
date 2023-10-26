@@ -1,7 +1,7 @@
 import React from "react";
 
 const DashboardAdmin: React.FC = () => {
-  return <div>DashboardAdmin</div>;
+  return <div>Dashboard Admin</div>;
 };
 
 export default DashboardAdmin;

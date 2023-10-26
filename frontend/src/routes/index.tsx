@@ -4,9 +4,9 @@ import Home from "../pages/Home/Home";
 import Cart from "../pages/Cart/Cart";
 import Account from "../pages/Account/Account";
 import DashboardUser from "../pages/User/DashboardUser";
-import Category from "../pages/Admin/Category";
-import Product from "../pages/Admin/Product";
-import Order from "../pages/Admin/Order";
+import Category from "../pages/Admin/Category/Category";
+import Product from "../pages/Admin/Product/Product";
+import Order from "../pages/Admin/Order/Order";
 
 export const publicRoutes = [
   { path: routes.home, component: Home },

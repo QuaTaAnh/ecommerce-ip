@@ -1,11 +1,11 @@
 import React from "react";
-import Modal from "../../../components/Modal/Modal";
-import { DeleteCategoryProps } from "../type";
+import Modal from "../../../../components/Modal/Modal";
+import { DeleteCategoryProps } from "../../type";
 import { AiOutlineDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { startLoading, stopLoading } from "../../../redux/loadingRedux";
-import request from "../../../utils/request";
+import { startLoading, stopLoading } from "../../../../redux/loadingRedux";
+import request from "../../../../utils/request";
 
 const DeleteCategory: React.FC<DeleteCategoryProps> = ({
   isOpenDeleteCategory,

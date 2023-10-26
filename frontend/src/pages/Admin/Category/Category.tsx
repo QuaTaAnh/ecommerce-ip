@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Card from "../../components/Card/Card";
-import Button from "../../components/Button/Button";
+import Card from "../../../components/Card/Card";
+import Button from "../../../components/Button/Button";
 import { RiAddLine } from "react-icons/ri";
-import CustomTable from "../../components/Table/Table";
-import { CategoryProps } from "./type";
+import CustomTable from "../../../components/Table/Table";
+import { CategoryProps } from "../type";
 import { toast } from "react-toastify";
-import request from "../../utils/request";
+import request from "../../../utils/request";
 import CreateUpdateCategory from "./components/CreateUpdateCategory";
 import DeleteCategory from "./components/DeleteCategory";
 
