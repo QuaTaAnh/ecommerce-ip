@@ -12,6 +12,8 @@ export interface IUser {
 export interface UserProps {
   user: IUser;
   token: string;
+  success?: boolean;
+  message?: string;
 }
 
 export interface ProfileProps {

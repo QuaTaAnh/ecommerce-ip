@@ -10,7 +10,7 @@ import Card from "../../components/Card/Card";
 
 const Account: React.FC = () => {
   const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false);
-  const { user } = useSelector((state: IState) => state.user.user as UserProps);
+  const { user } = useSelector((state: IState) => state.user as UserProps);
 
   const openModalEdit = () => {
     setIsOpenEdit(true);

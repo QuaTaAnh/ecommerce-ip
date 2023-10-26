@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import Modal from "../../../components/Modal/Modal";
 import { EditUserProps } from "../type";
-import { IUser } from "../../../redux/type";
+import { IUser, UserProps } from "../../../redux/type";
 import { Controller, useForm } from "react-hook-form";
 import { AiOutlineEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
@@ -46,7 +46,7 @@ const EditUser: React.FC<EditUserProps> = ({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       editUser(dispatch, params).then((res: any) => {
         if (res && res?.success === true) {
-          let ls = localStorage.getItem("auth");
+          let ls: UserProps = localStorage.getItem("auth");
           ls = JSON.parse(ls);
           ls.user = res.updatedUser;
           localStorage.setItem("auth", JSON.stringify(ls));

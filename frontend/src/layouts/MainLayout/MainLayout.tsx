@@ -7,23 +7,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../redux/store";
 import { UserProps } from "../../redux/type";
 import NavBar from "../components/NavBar/NavBar";
-import axios from "axios";
 import { loginSuccess } from "../../redux/userRedux";
+import request from "../../utils/request";
 
 const MainLayout: React.FC<LayoutProp> = (props: LayoutProp) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
-  const { user } = useSelector((state: IState) => state.user.user as UserProps);
+  const { user } = useSelector((state: IState) => state.user as UserProps);
   const [startLocalStorage, setStartLocalStorage] = useState<any>();
-  console.log(startLocalStorage);
 
-  axios.defaults.headers.common["Authorization"] = startLocalStorage?.token;
-  console.log(startLocalStorage, "start");
+  request.defaults.headers.common["Authorization"] = startLocalStorage?.token;
 
   useEffect(() => {
     const dataAuthStorage = localStorage.getItem("auth");
     if (dataAuthStorage) {
       const parseData = JSON.parse(dataAuthStorage);
+      console.log(parseData, "1231231");
       dispatch(loginSuccess(parseData));
       setStartLocalStorage(parseData);
     }

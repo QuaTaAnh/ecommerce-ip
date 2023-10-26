@@ -22,7 +22,6 @@ const Category: React.FC = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await request.get("/api/category/get-category");
-      console.log(data);
       setAllCategory(data?.category);
     } catch (error) {
       console.log(error);

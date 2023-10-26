@@ -20,7 +20,7 @@ const Header: React.FC = () => {
   const [isDarkMode, toggleDarkMode] = useDark();
   const [isOpenLogin, setIsOpenLogin] = useState<boolean>(false);
   const [isOpenRegister, setIsOpenRegister] = useState<boolean>(false);
-  const { user } = useSelector((state: IState) => state.user.user as UserProps);
+  const { user } = useSelector((state: IState) => state.user as UserProps);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
