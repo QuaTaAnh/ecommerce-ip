@@ -8,6 +8,6 @@ router.post('/create-category', createCategoryController)
 router.put('/update-category/:id', updateCategoryController)
 router.get('/get-category', getAllCategoryControlller)
 router.get('/get-category-by/:slug', getOneCategoryController)
-router.delete("/delete-category/:id", requireSignIn, isAdmin, deleteCategoryController)
+router.delete("/delete-category/:id", deleteCategoryController)
 
 export default router

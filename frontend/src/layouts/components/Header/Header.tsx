@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/images/logo.svg";
 import NoImage from "../../../assets/images/noImage.jpg";
@@ -15,8 +15,6 @@ import { IState } from "../../../redux/store";
 import { UserProps } from "../../../redux/type";
 import { toast } from "react-toastify";
 import { logout as logoutFunction } from "../../../utils/auth";
-import { loginSuccess } from "../../../redux/userRedux";
-import axios from "axios";
 
 const Header: React.FC = () => {
   const [isDarkMode, toggleDarkMode] = useDark();
@@ -26,18 +24,6 @@ const Header: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [startLocalStorage, setStartLocalStorage] = useState<any>();
-
-  axios.defaults.headers.common["Authorization"] = startLocalStorage?.token;
-
-  useEffect(() => {
-    const dataAuthStorage = localStorage.getItem("auth");
-    if (dataAuthStorage) {
-      const parseData = JSON.parse(dataAuthStorage);
-      dispatch(loginSuccess(parseData));
-      setStartLocalStorage(parseData);
-    }
-  }, []);
 
   const openModalLogin = () => {
     setIsOpenLogin(true);
@@ -87,7 +73,7 @@ const Header: React.FC = () => {
                 />
               )}
             </div>
-            {user && !!startLocalStorage ? (
+            {user?._id ? (
               <div className="relative group">
                 <div className="flex justify-center items-center cursor-pointer py-1">
                   <div className="w-8 h-8 rounded-full mr-2">

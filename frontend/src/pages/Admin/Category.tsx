@@ -7,10 +7,12 @@ import { CategoryProps } from "./type";
 import { toast } from "react-toastify";
 import request from "../../utils/request";
 import CreateUpdateCategory from "./components/CreateUpdateCategory";
+import DeleteCategory from "./components/DeleteCategory";
 
 const Category: React.FC = () => {
   const [isOpenAddCategory, setIsOpenAddCategory] = useState<boolean>(false);
-  useState<boolean>(false);
+  const [isOpenDeleteCategory, setIsOpenDeleteCategory] =
+    useState<boolean>(false);
   const [allCategory, setAllCategory] = useState<CategoryProps[]>([]);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [initValue, setInitValue] = useState<CategoryProps>();
@@ -36,6 +38,8 @@ const Category: React.FC = () => {
 
   const handleDelete = (row: CategoryProps) => {
     console.log(row);
+    setInitValue(row);
+    setIsOpenDeleteCategory(true);
   };
 
   useEffect(() => {
@@ -60,6 +64,7 @@ const Category: React.FC = () => {
           actions
           onDelete={handleDelete}
           onEdit={handleEdit}
+          itemsPerPage={10}
         />
       </Card>
       <CreateUpdateCategory
@@ -67,6 +72,12 @@ const Category: React.FC = () => {
         setIsOpenAddCategory={setIsOpenAddCategory}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
+        getAllCategory={getAllCategory}
+        initValue={initValue}
+      />
+      <DeleteCategory
+        isOpenDeleteCategory={isOpenDeleteCategory}
+        setIsOpenDeleteCategory={setIsOpenDeleteCategory}
         getAllCategory={getAllCategory}
         initValue={initValue}
       />

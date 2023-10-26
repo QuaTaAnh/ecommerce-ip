@@ -7,7 +7,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import request from "../../../utils/request";
-import { startLoading } from "../../../redux/loadingRedux";
+import { startLoading, stopLoading } from "../../../redux/loadingRedux";
 
 const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
   isOpenAddCategory,
@@ -31,12 +31,13 @@ const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
       try {
         dispatch(startLoading());
         const { data } = await request.put(
-          `/api/category/update-category/${initValue._id}`,
+          `/api/category/update-category/${initValue?._id}`,
           params
         );
         if (data?.success) {
           toast.success(data?.message);
           getAllCategory();
+          closeModal();
         } else {
           toast.error(data.message);
         }
@@ -44,6 +45,7 @@ const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
         console.log(error);
         toast.error("Đã xảy ra lỗi");
       }
+      dispatch(stopLoading());
     } else {
       try {
         dispatch(startLoading());
@@ -54,6 +56,7 @@ const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
         if (data?.success) {
           toast.success(data?.message);
           getAllCategory();
+          closeModal();
         } else {
           toast.error(data.message);
         }
@@ -61,8 +64,8 @@ const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
         console.log(error);
         toast.error("Đã xảy ra lỗi");
       }
+      dispatch(stopLoading());
     }
-    closeModal();
   };
 
   const closeModal = () => {
@@ -85,10 +88,10 @@ const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
                   Tên danh mục
                 </label>
                 <input
+                  {...register("name", { required: true })}
                   name="name"
                   defaultValue={isEdit ? initValue?.name : ""}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  {...register("name", { required: true })}
                 />
               </div>
               {errors.name && (

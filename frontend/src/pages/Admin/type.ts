@@ -12,3 +12,10 @@ export interface CreateUpdateCategoryProps {
   getAllCategory: () => void;
   initValue: CategoryProps | undefined;
 }
+
+export interface DeleteCategoryProps {
+  isOpenDeleteCategory: boolean;
+  setIsOpenDeleteCategory: (open: boolean) => void;
+  getAllCategory: () => void;
+  initValue: CategoryProps | undefined;
+}

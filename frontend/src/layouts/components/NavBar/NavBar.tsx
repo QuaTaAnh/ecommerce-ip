@@ -25,8 +25,8 @@ const NavBar: React.FC = () => {
   return (
     <div className="h-screen flex flex-col scroll-auto items-center shadow-light dark:shadow-dark p-3 mt-marginTopHeader overflow-auto">
       <Button
-        to={routes.dashboardAdmin}
-        className={LinkActive(routes.dashboardAdmin)}
+        to={routes.home}
+        className={LinkActive(routes.home)}
         leftIcon={<AiOutlineHome />}
       >
         Home

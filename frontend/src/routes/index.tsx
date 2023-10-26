@@ -4,7 +4,6 @@ import Home from "../pages/Home/Home";
 import Cart from "../pages/Cart/Cart";
 import Account from "../pages/Account/Account";
 import DashboardUser from "../pages/User/DashboardUser";
-import AdminLayout from "../layouts/AdminLayout/AdminLayout";
 import Category from "../pages/Admin/Category";
 import Product from "../pages/Admin/Product";
 import Order from "../pages/Admin/Order";
@@ -14,22 +13,22 @@ export const publicRoutes = [
   {
     path: routes.dashboardAdmin,
     component: DashboardAdmin,
-    layout: AdminLayout,
+    // layout: AdminLayout,
   },
   {
     path: routes.category,
     component: Category,
-    layout: AdminLayout,
+    // layout: AdminLayout,
   },
   {
     path: routes.product,
     component: Product,
-    layout: AdminLayout,
+    // layout: AdminLayout,
   },
   {
     path: routes.order,
     component: Order,
-    layout: AdminLayout,
+    // layout: AdminLayout,
   },
   {
     path: routes.dashboardUser,
@@ -39,5 +38,6 @@ export const publicRoutes = [
   {
     path: routes.cart,
     component: Cart,
+    layout: null,
   },
 ];

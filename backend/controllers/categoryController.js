@@ -36,6 +36,13 @@ export const updateCategoryController = async (req, res) => {
     try {
       const { name } = req.body;
       const { id } = req.params;
+      const exisitingCategory = await categoryModel.findOne({name})
+        if(exisitingCategory){
+            return res.status(200).send({
+                success: false, 
+                message: 'Danh mục đã tồn tại!'
+            })
+      }
       const category = await categoryModel.findByIdAndUpdate(
         id,
         { name, slug: slugify(name) },

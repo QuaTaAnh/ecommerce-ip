@@ -39,10 +39,10 @@ const Register: React.FC<RegisterProps> = ({
         <div className="flex flex-col justify-center items-center">
           <div className="mb-6 flex justify-center flex-col">
             <input
+              {...register("name", { required: true })}
               name="name"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Họ tên"
-              {...register("name", { required: true })}
             />
             {errors.name && (
               <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
@@ -50,10 +50,10 @@ const Register: React.FC<RegisterProps> = ({
           </div>
           <div className="mb-6 flex justify-center flex-col">
             <input
+              {...register("email", { required: true })}
               name="email"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Email"
-              {...register("email", { required: true })}
             />
             {errors.email && (
               <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
@@ -61,10 +61,10 @@ const Register: React.FC<RegisterProps> = ({
           </div>
           <div className="mb-6 flex justify-center flex-col">
             <input
+              {...register("password", { required: true })}
               name="password"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Mật khẩu"
-              {...register("password", { required: true })}
             />
             {errors.password && (
               <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
@@ -72,10 +72,10 @@ const Register: React.FC<RegisterProps> = ({
           </div>
           <div className="mb-6 flex justify-center flex-col">
             <input
+              {...register("phoneNumber", { required: true })}
               name="phoneNumber"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Số điện thoại"
-              {...register("phoneNumber", { required: true })}
             />
             {errors.phoneNumber && (
               <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
@@ -83,10 +83,10 @@ const Register: React.FC<RegisterProps> = ({
           </div>
           <div className="mb-6 flex justify-center flex-col">
             <input
+              {...register("address", { required: true })}
               name="address"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Địa chỉ"
-              {...register("address", { required: true })}
             />
             {errors.address && (
               <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
