@@ -29,7 +29,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
             {columns.map((column) => (
               <th
                 key={column.value}
-                className="px-6 py-3 text-left text-base font-medium text-gray-500 uppercase tracking-wider"
+                className="px-4 py-3 text-left text-base font-semibold uppercase tracking-wider"
               >
                 {column.label}
               </th>
@@ -37,7 +37,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
             {actions ? (
               <th
                 key={"*"}
-                className="px-6 py-3 text-left text-base font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-base font-semibold uppercase tracking-wider"
               >
                 Actions
               </th>
@@ -57,14 +57,14 @@ const CustomTable: React.FC<CustomTableProps> = ({
                 <>
                   <td
                     key={column.value}
-                    className="px-6 py-2 whitespace-nowrap"
+                    className="px-6 py-1 text-sm whitespace-nowrap"
                   >
                     {row[column.value]}
                   </td>
                 </>
               ))}
               {actions ? (
-                <td className="flex items-center px-6 py-2">
+                <td className="flex items-center px-6 py-1">
                   <button
                     className="cursor-pointer text-white p-1 mr-4 bg-textHover rounded-lg"
                     onClick={() => onEdit(row)}

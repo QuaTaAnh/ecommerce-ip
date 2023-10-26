@@ -10,7 +10,7 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <ToastContainer />
+        <ToastContainer pauseOnHover={false} autoClose={2000} />
         <Routes>
           {publicRoutes.map((route, index) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
