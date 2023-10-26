@@ -37,7 +37,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
             {actions ? (
               <th
                 key={"*"}
-                className="px-6 py-3 text-left text-base font-semibold uppercase tracking-wider"
+                className="px-6 py-3 text-left text-base font-semibold uppercase tracking-wider float-right"
               >
                 Actions
               </th>
@@ -64,7 +64,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                 </>
               ))}
               {actions ? (
-                <td className="flex items-center px-6 py-1">
+                <td className="flex items-center px-6 py-1 float-right">
                   <button
                     className="cursor-pointer text-white p-1 mr-4 bg-textHover rounded-lg"
                     onClick={() => onEdit(row)}

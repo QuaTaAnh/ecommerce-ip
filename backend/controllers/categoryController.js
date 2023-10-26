@@ -6,7 +6,7 @@ export const createCategoryController = async (req, res) =>{
         const {name} = req.body
         //validate
         if(!name){
-            return res.send({error: 'Vui lòng nhập tên sản phẩm!'})
+            return res.send({error: 'Vui lòng nhập tên danh mục!'})
         }
         const exisitingCategory = await categoryModel.findOne({name})
         if(exisitingCategory){
@@ -50,7 +50,7 @@ export const updateCategoryController = async (req, res) => {
       );
       res.status(200).send({
         success: true,
-        messsage: "Cập nhật danh mục thành công!",
+        message: "Cập nhật danh mục thành công!",
         category,
       });
     } catch (error) {
