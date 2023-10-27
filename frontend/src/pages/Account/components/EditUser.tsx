@@ -7,6 +7,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { editUser } from "../../../utils/auth";
+import { startLoading, stopLoading } from "../../../redux/loadingRedux";
 
 const EditUser: React.FC<EditUserProps> = ({
   isOpenEdit,
@@ -26,12 +27,30 @@ const EditUser: React.FC<EditUserProps> = ({
     reset();
   };
 
+  console.log(avatar, "123");
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeAvatar = (e: ChangeEvent<any>) => {
     const file = e.target.files[0];
-    if (file) {
-      const avtURL = URL.createObjectURL(file);
-      setAvatar(avtURL);
+    if (file.type === "image/jpeg" || file.type === "image/png") {
+      dispatch(startLoading());
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", "notezipper");
+      data.append("cloud_name", "piyushproj");
+      fetch("https://api.cloudinary.com/v1_1/piyushproj/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setAvatar(data.url.toString());
+          dispatch(stopLoading());
+          console.log(file);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
@@ -197,9 +216,9 @@ const EditUser: React.FC<EditUserProps> = ({
                 render={({ field }) => (
                   <input
                     type="file"
+                    accept=".png, .jpg, .jpeg"
                     className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     {...field}
-                    value={field.value}
                     onChange={handleChangeAvatar}
                   />
                 )}
