@@ -43,6 +43,7 @@ const Register: React.FC<RegisterProps> = ({
               name="name"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Họ tên"
+              autoComplete="off"
             />
             {errors.name && (
               <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
@@ -54,6 +55,7 @@ const Register: React.FC<RegisterProps> = ({
               name="email"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Email"
+              autoComplete="off"
             />
             {errors.email && (
               <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
@@ -65,6 +67,7 @@ const Register: React.FC<RegisterProps> = ({
               name="password"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Mật khẩu"
+              autoComplete="off"
             />
             {errors.password && (
               <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
@@ -76,6 +79,7 @@ const Register: React.FC<RegisterProps> = ({
               name="phoneNumber"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Số điện thoại"
+              autoComplete="off"
             />
             {errors.phoneNumber && (
               <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>
@@ -87,6 +91,7 @@ const Register: React.FC<RegisterProps> = ({
               name="address"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Địa chỉ"
+              autoComplete="off"
             />
             {errors.address && (
               <p className="text-xs text-red-500">Vui lòng nhập trường này!</p>

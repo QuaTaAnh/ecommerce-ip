@@ -46,3 +46,49 @@ export const createProductController = async (req, res) =>{
         })
     }
 }
+
+export const getAllProductByPageController = async (req, res) =>{
+    try {
+        const page = req.params.page ? req.params.page : 1;
+        const perPage = 10;
+        const product = await productModel
+        .find({})
+        // .populate("category")
+        .select("-image")
+        .skip((page - 1) * perPage)
+        .limit(perPage)
+        .sort({ createdAt: -1 });
+        res.status(200).send({
+            success: true,
+            message: "Lấy danh sách sản phẩm thành công!",
+            product,
+          });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+        success: false,
+        error,
+        message: "Đã xảy ra lỗi!",
+      });
+    }
+}
+
+export const searchProduct = async (req, res) =>{
+    try {
+        const {searchValue} = req.params
+        const result = await productModel.find({
+            $or: [
+                { name: { $regex: searchValue, $options: "i" }}
+            ]
+        })
+        .select("-image")
+        res.json(result)
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+        success: false,
+        error,
+        message: "Đã xảy ra lỗi!",
+      });
+    }
+}

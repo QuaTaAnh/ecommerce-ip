@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { CustomTableProps } from "../type";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
@@ -9,15 +9,16 @@ const CustomTable: React.FC<CustomTableProps> = ({
   onEdit,
   onDelete,
   itemsPerPage,
+  page,
+  setPage,
 }) => {
-  const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+    setPage(page);
   };
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
+  const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentData = data.slice(startIndex, endIndex);
 
@@ -48,16 +49,16 @@ const CustomTable: React.FC<CustomTableProps> = ({
         </thead>
         <tbody className="divide-y divide-gray-200">
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          {currentData.map((row: any, index: any) => (
+          {currentData.map((row: any) => (
             <tr
-              key={index}
+              key={row?._id}
               className="hover:bg-primary dark:hover:bg-indigo-800 cursor-pointer"
             >
               {columns.map((column) => (
                 <>
                   <td
                     key={column.value}
-                    className="px-6 py-1 text-sm whitespace-nowrap"
+                    className="px-4 py-1/5 text-sm whitespace-nowrap"
                   >
                     {row[column.value]}
                   </td>
@@ -92,9 +93,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
               <li
                 key={index}
                 className={`mr-2 inline-flex items-center px-2 py-0 border rounded-md cursor-pointer ${
-                  currentPage === index + 1
-                    ? "bg-primary dark:bg-textHover"
-                    : ""
+                  page === index + 1 ? "bg-primary dark:bg-textHover" : ""
                 }`}
                 onClick={() => handlePageChange(index + 1)}
               >

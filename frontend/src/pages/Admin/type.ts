@@ -39,6 +39,7 @@ export interface CreateUpdateProductProps {
   setIsEdit: (open: boolean) => void;
   getAllProduct: () => void;
   initValue: ProductProps | undefined;
+  allCategory: CategoryProps[];
 }
 
 export interface DeleteProductProps {

@@ -16,6 +16,7 @@ const Category: React.FC = () => {
   const [allCategory, setAllCategory] = useState<CategoryProps[]>([]);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [initValue, setInitValue] = useState<CategoryProps>();
+  const [page, setPage] = useState<number>(1);
 
   const columns = [{ value: "name", label: "Danh mục" }];
 
@@ -28,6 +29,7 @@ const Category: React.FC = () => {
       toast.error("Đã có lỗi xảy ra!");
     }
   };
+
   const handleEdit = (row: CategoryProps) => {
     setIsEdit(true);
     setIsOpenAddCategory(true);
@@ -64,6 +66,8 @@ const Category: React.FC = () => {
           onDelete={handleDelete}
           onEdit={handleEdit}
           itemsPerPage={10}
+          page={page}
+          setPage={setPage}
         />
       </Card>
       <CreateUpdateCategory

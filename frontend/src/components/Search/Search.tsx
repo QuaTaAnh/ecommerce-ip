@@ -1,6 +1,9 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import useDebounce from "../../hooks/useDebounce";
+import request from "../../utils/request";
+import { ProductProps } from "../../pages/Admin/type";
+import Button from "../Button/Button";
 // import { request } from "../../utils/request";
 
 const Search: React.FC = () => {
@@ -8,7 +11,7 @@ const Search: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchResult, setSearchResult] = useState([]);
   const debounced = useDebounce(searchValue, 500);
-
+  console.log(searchResult, "search");
   useEffect(() => {
     if (!debounced.trim()) {
       setSearchResult([]);
@@ -16,8 +19,11 @@ const Search: React.FC = () => {
     }
     //Call API
     const fetchApi = async () => {
-      // const result = await request.search(debounced);
-      // setSearchResult(result);
+      const result = await request.get(
+        `/api/product/search-product/${debounced}`
+      );
+
+      setSearchResult(result.data);
     };
     fetchApi();
   }, [debounced]);
@@ -62,9 +68,15 @@ const Search: React.FC = () => {
       </div>
 
       {searchResult.length > 0 && (
-        <div className="absolute top-12 p-2 text-sm bg-bgInput shadow-lg dark:bg-bgModalDark w-full rounded-lg left-1/2 -translate-x-1/2 flex flex-col gap-2">
-          {searchResult.map((s) => (
-            <span>{s}</span>
+        <div className="absolute top-12 py-2 text-sm bg-bgInput shadow-lg dark:bg-bgModalDark w-full rounded-lg left-1/2 -translate-x-1/2 flex flex-col gap-2">
+          {searchResult.map((data: ProductProps) => (
+            <Button
+              to=""
+              key={data._id}
+              className="flex justify-start hover:bg-primary dark:hover:bg-indigo-800 py-1.5 px-3 rounded-lg"
+            >
+              {data.name}
+            </Button>
           ))}
         </div>
       )}
