@@ -11,8 +11,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
   itemsPerPage,
   page,
   setPage,
+  totalPage,
 }) => {
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const totalPages = Math.ceil(totalPage / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     setPage(page);
@@ -27,6 +28,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
       <table className="min-w-full divide-y divide-gray-200 border mt-6">
         <thead>
           <tr>
+            <th className="px-4 py-3 text-left text-base font-semibold uppercase tracking-wider">
+              STT
+            </th>
             {columns.map((column) => (
               <th
                 key={column.value}
@@ -49,18 +53,31 @@ const CustomTable: React.FC<CustomTableProps> = ({
         </thead>
         <tbody className="divide-y divide-gray-200">
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          {currentData.map((row: any) => (
+          {currentData.map((row: any, index: any) => (
             <tr
               key={row?._id}
               className="hover:bg-primary dark:hover:bg-indigo-800 cursor-pointer"
             >
+              <td className="px-4 py-1/5 text-sm whitespace-nowrap">
+                {index + 1}
+              </td>
               {columns.map((column) => (
                 <>
                   <td
                     key={column.value}
                     className="px-4 py-1/5 text-sm whitespace-nowrap"
                   >
-                    {row[column.value]}
+                    {column?.value === "image" ? (
+                      <img
+                        src={`http://localhost:8080/api/product/image-product/${row._id}`}
+                        alt={row?.name}
+                        className="w-20 h-8"
+                      />
+                    ) : column?.value === "category" ? (
+                      row?.category?.name
+                    ) : (
+                      row[column.value]
+                    )}
                   </td>
                 </>
               ))}

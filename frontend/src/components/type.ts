@@ -71,4 +71,5 @@ export interface CustomTableProps {
   itemsPerPage?: number | undefined;
   page: number;
   setPage: (page: number) => void;
+  totalPage: number;
 }

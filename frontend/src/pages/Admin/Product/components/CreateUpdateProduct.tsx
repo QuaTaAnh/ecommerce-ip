@@ -26,24 +26,25 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
   } = useForm();
   const dispatch = useDispatch();
   const [category, setCategory] = useState<string>("");
+  const [image, setImage] = useState<string>("");
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onHandleSubmit = async (params: ProductProps | any) => {
-    const { name, description, price, quantity, image } = params;
+    const { name, description, price, quantity } = params;
     const dataProduct = new FormData();
     dataProduct.append("name", name);
     dataProduct.append("description", description);
     dataProduct.append("price", price);
     dataProduct.append("quantity", quantity);
-    dataProduct.append("image", image);
+    image && dataProduct.append("image", image);
     dataProduct.append("category", category);
 
     if (isEdit) {
       try {
         dispatch(startLoading());
         const { data } = await request.put(
-          `/api/Product/update-product/${initValue?._id}`,
-          params
+          `/api/product/update-product/${initValue?._id}`,
+          dataProduct
         );
         if (data?.success) {
           toast.success(data?.message);
@@ -137,6 +138,7 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
                   Danh mục
                 </label>
                 <select
+                  {...register("category", { required: true })}
                   name="category"
                   placeholder="Chọn danh mục"
                   className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -204,7 +206,7 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
                   {...register("image", { required: true })}
                   name="image"
                   type="file"
-                  defaultValue={isEdit ? initValue?.image : ""}
+                  onChange={(e) => setImage(e.target.files[0])}
                   className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
               </div>

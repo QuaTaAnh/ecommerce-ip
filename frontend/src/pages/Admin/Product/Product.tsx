@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import request from "../../../utils/request";
 import DeleteProduct from "./components/DeleteProduct";
 import CreateUpdateProduct from "./components/CreateUpdateProduct";
+import { useDispatch } from "react-redux";
+import { startLoading, stopLoading } from "../../../redux/loadingRedux";
 
 const Product: React.FC = () => {
   const [isOpenAddProduct, setIsOpenAddProduct] = useState<boolean>(false);
@@ -18,6 +20,8 @@ const Product: React.FC = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [initValue, setInitValue] = useState<ProductProps>();
   const [page, setPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(1);
+  const dispatch = useDispatch();
 
   const columns = [
     { value: "name", label: "Tên sản phẩm" },
@@ -40,10 +44,13 @@ const Product: React.FC = () => {
 
   const getAllProduct = async () => {
     try {
+      dispatch(startLoading());
       const { data } = await request.get(
         `/api/product/get-all-product-by-page/${page}`
       );
+      dispatch(stopLoading());
       setAllProduct(data?.product);
+      setTotalPage(data?.totalProduct);
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -67,7 +74,7 @@ const Product: React.FC = () => {
   useEffect(() => {
     getAllProduct();
     getAllCategory();
-  }, []);
+  }, [page]);
 
   return (
     <>
@@ -90,6 +97,7 @@ const Product: React.FC = () => {
           itemsPerPage={10}
           page={page}
           setPage={setPage}
+          totalPage={totalPage}
         />
       </Card>
       <CreateUpdateProduct
