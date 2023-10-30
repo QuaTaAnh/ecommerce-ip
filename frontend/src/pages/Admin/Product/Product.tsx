@@ -10,6 +10,7 @@ import DeleteProduct from "./components/DeleteProduct";
 import CreateUpdateProduct from "./components/CreateUpdateProduct";
 import { useDispatch } from "react-redux";
 import { startLoading, stopLoading } from "../../../redux/loadingRedux";
+import Filter from "./components/Filter";
 
 const Product: React.FC = () => {
   const [isOpenAddProduct, setIsOpenAddProduct] = useState<boolean>(false);
@@ -18,6 +19,7 @@ const Product: React.FC = () => {
   const [allProduct, setAllProduct] = useState<ProductProps[]>([]);
   const [allCategory, setAllCategory] = useState<CategoryProps[]>([]);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isCopy, setIsCopy] = useState<boolean>(false);
   const [initValue, setInitValue] = useState<ProductProps>();
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
@@ -62,13 +64,17 @@ const Product: React.FC = () => {
     setIsEdit(true);
     setIsOpenAddProduct(true);
     setInitValue(row);
-    console.log(row);
   };
 
   const handleDelete = (row: ProductProps) => {
-    console.log(row);
     setInitValue(row);
     setIsOpenDeleteProduct(true);
+  };
+
+  const handleCopy = (row: ProductProps) => {
+    setIsCopy(true);
+    setInitValue(row);
+    setIsOpenAddProduct(true);
   };
 
   useEffect(() => {
@@ -78,6 +84,7 @@ const Product: React.FC = () => {
 
   return (
     <>
+      <Filter />
       <Card>
         <div className="absolute right-8 top-6">
           <Button
@@ -94,6 +101,7 @@ const Product: React.FC = () => {
           actions
           onDelete={handleDelete}
           onEdit={handleEdit}
+          onCopy={handleCopy}
           itemsPerPage={10}
           page={page}
           setPage={setPage}
@@ -105,6 +113,8 @@ const Product: React.FC = () => {
         setIsOpenAddProduct={setIsOpenAddProduct}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
+        isCopy={isCopy}
+        setIsCopy={setIsCopy}
         getAllProduct={getAllProduct}
         initValue={initValue}
         allCategory={allCategory}

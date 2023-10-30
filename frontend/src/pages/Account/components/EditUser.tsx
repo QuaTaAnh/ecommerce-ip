@@ -27,8 +27,6 @@ const EditUser: React.FC<EditUserProps> = ({
     reset();
   };
 
-  console.log(avatar, "123");
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeAvatar = (e: ChangeEvent<any>) => {
     const file = e.target.files[0];

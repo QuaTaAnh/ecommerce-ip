@@ -1,6 +1,6 @@
 import React from "react";
 import { CustomTableProps } from "../type";
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineCopy, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
 const CustomTable: React.FC<CustomTableProps> = ({
   columns,
@@ -8,6 +8,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
   actions,
   onEdit,
   onDelete,
+  onCopy,
   itemsPerPage,
   page,
   setPage,
@@ -84,13 +85,19 @@ const CustomTable: React.FC<CustomTableProps> = ({
               {actions ? (
                 <td className="flex items-center px-6 py-1 float-right">
                   <button
-                    className="cursor-pointer text-white p-1 mr-4 bg-textHover rounded-lg"
+                    className="cursor-pointer text-white p-0.5 mr-2 bg-textHover rounded-lg"
+                    onClick={() => onCopy(row)}
+                  >
+                    <AiOutlineCopy />
+                  </button>
+                  <button
+                    className="cursor-pointer text-white p-0.5 mr-2 bg-textHover rounded-lg"
                     onClick={() => onEdit(row)}
                   >
                     <AiOutlineEdit />
                   </button>
                   <div
-                    className="cursor-pointer text-white p-1 bg-textHover rounded-lg"
+                    className="cursor-pointer text-white p-0.5 bg-textHover rounded-lg"
                     onClick={() => onDelete(row)}
                   >
                     <AiOutlineDelete />

@@ -68,7 +68,9 @@ export interface CustomTableProps {
   onEdit: (row: any) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onDelete: (row: any) => void;
-  itemsPerPage?: number | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onCopy: (row: any) => void;
+  itemsPerPage: number;
   page: number;
   setPage: (page: number) => void;
   totalPage: number;

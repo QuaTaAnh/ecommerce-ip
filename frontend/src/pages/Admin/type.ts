@@ -35,6 +35,8 @@ export interface DeleteCategoryProps {
 export interface CreateUpdateProductProps {
   isOpenAddProduct: boolean;
   setIsOpenAddProduct: (open: boolean) => void;
+  isCopy: boolean;
+  setIsCopy: (open: boolean) => void;
   isEdit: boolean;
   setIsEdit: (open: boolean) => void;
   getAllProduct: () => void;

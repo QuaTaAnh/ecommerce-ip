@@ -17,6 +17,8 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
   getAllProduct,
   initValue,
   allCategory,
+  isCopy,
+  setIsCopy,
 }: CreateUpdateProductProps) => {
   const {
     handleSubmit,
@@ -37,7 +39,7 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
     dataProduct.append("price", price);
     dataProduct.append("quantity", quantity);
     image && dataProduct.append("image", image);
-    dataProduct.append("category", category);
+    category && dataProduct.append("category", category);
 
     if (isEdit) {
       try {
@@ -83,6 +85,7 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
   const closeModal = () => {
     setIsOpenAddProduct(false);
     setIsEdit(false);
+    setIsCopy(false);
     reset();
   };
 
@@ -90,7 +93,11 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
     <Modal isOpen={isOpenAddProduct} onClose={closeModal}>
       <div className="flex flex-col justify-center items-center">
         <div className="text-2xl mb-10">
-          {!isEdit ? "Thêm mới sản phẩm" : "Cập nhật sản phẩm"}
+          {isEdit
+            ? "Cập nhật sản phẩm"
+            : isCopy
+            ? "Sao chép sản phẩm"
+            : "Thêm mới sản phẩm"}
         </div>
         <form onSubmit={handleSubmit(onHandleSubmit)}>
           <div className="flex flex-col justify-center items-center">
@@ -102,7 +109,7 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
                 <input
                   {...register("name", { required: true })}
                   name="name"
-                  defaultValue={isEdit ? initValue?.name : ""}
+                  defaultValue={isEdit || isCopy ? initValue?.name : ""}
                   className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   autoComplete="off"
                 />
@@ -121,7 +128,8 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
                 <input
                   {...register("description", { required: true })}
                   name="description"
-                  defaultValue={isEdit ? initValue?.description : ""}
+                  maxLength={40}
+                  defaultValue={isEdit || isCopy ? initValue?.description : ""}
                   className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   autoComplete="off"
                 />
@@ -141,6 +149,7 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
                   {...register("category", { required: true })}
                   name="category"
                   placeholder="Chọn danh mục"
+                  autoComplete="off"
                   className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   onChange={(e) => setCategory(e.target.value)}
                 >
@@ -150,7 +159,6 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
                       {option.name}
                     </option>
                   ))}
-                  autoComplete="off"
                 </select>
               </div>
               {errors.category && (
@@ -167,9 +175,12 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
                 <input
                   {...register("price", { required: true })}
                   name="price"
-                  defaultValue={isEdit ? initValue?.price : ""}
+                  type="number"
+                  min={0}
+                  defaultValue={isEdit || isCopy ? initValue?.price : ""}
                   className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   autoComplete="off"
+                  onWheel={(e) => e.preventDefault()}
                 />
               </div>
               {errors.price && (
@@ -186,9 +197,12 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
                 <input
                   {...register("quantity", { required: true })}
                   name="quantity"
-                  defaultValue={isEdit ? initValue?.quantity : ""}
+                  type="number"
+                  min={1}
+                  defaultValue={isEdit || isCopy ? initValue?.quantity : ""}
                   className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   autoComplete="off"
+                  onWheel={(e) => e.preventDefault()}
                 />
               </div>
               {errors.quantity && (
@@ -203,7 +217,6 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
                   Hình ảnh
                 </label>
                 <input
-                  {...register("image", { required: true })}
                   name="image"
                   type="file"
                   onChange={(e) => setImage(e.target.files[0])}
