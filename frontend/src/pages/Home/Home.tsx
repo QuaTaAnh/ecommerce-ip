@@ -1,5 +1,11 @@
+import MySlider from "../../components/MySlider/MySlider";
+
 const Home: React.FC = () => {
-  return <div>ANh Tran</div>;
+  return (
+    <>
+      <MySlider />
+    </>
+  );
 };
 
 export default Home;

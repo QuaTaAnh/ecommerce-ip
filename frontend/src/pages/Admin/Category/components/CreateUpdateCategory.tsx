@@ -14,6 +14,8 @@ const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
   setIsOpenAddCategory,
   isEdit,
   setIsEdit,
+  isCopy,
+  setIsCopy,
   getAllCategory,
   initValue,
 }: CreateUpdateCategoryProps) => {
@@ -71,6 +73,7 @@ const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
   const closeModal = () => {
     setIsOpenAddCategory(false);
     setIsEdit(false);
+    setIsCopy(false);
     reset();
   };
 
@@ -78,7 +81,11 @@ const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
     <Modal isOpen={isOpenAddCategory} onClose={closeModal}>
       <div className="flex flex-col justify-center items-center">
         <div className="text-2xl mb-10">
-          {!isEdit ? "Thêm mới danh mục" : "Cập nhật danh mục"}
+          {isEdit
+            ? "Cập nhật danh mục"
+            : isCopy
+            ? "Sao chép danh mục"
+            : "Thêm mới danh mục"}
         </div>
         <form onSubmit={handleSubmit(onHandleSubmit)}>
           <div className="flex flex-col justify-center items-center">
@@ -90,7 +97,7 @@ const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
                 <input
                   {...register("name", { required: true })}
                   name="name"
-                  defaultValue={isEdit ? initValue?.name : ""}
+                  defaultValue={isEdit || isCopy ? initValue?.name : ""}
                   className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   autoComplete="off"
                 />

@@ -15,6 +15,7 @@ const Category: React.FC = () => {
     useState<boolean>(false);
   const [allCategory, setAllCategory] = useState<CategoryProps[]>([]);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isCopy, setIsCopy] = useState<boolean>(false);
   const [initValue, setInitValue] = useState<CategoryProps>();
   const [page, setPage] = useState<number>(1);
 
@@ -33,14 +34,18 @@ const Category: React.FC = () => {
   const handleEdit = (row: CategoryProps) => {
     setIsEdit(true);
     setIsOpenAddCategory(true);
-    console.log(row);
     setInitValue(row);
   };
 
   const handleDelete = (row: CategoryProps) => {
-    console.log(row);
     setInitValue(row);
     setIsOpenDeleteCategory(true);
+  };
+
+  const handleCopy = (row: CategoryProps) => {
+    setIsCopy(true);
+    setInitValue(row);
+    setIsOpenAddCategory(true);
   };
 
   useEffect(() => {
@@ -65,6 +70,7 @@ const Category: React.FC = () => {
           actions
           onDelete={handleDelete}
           onEdit={handleEdit}
+          onCopy={handleCopy}
           itemsPerPage={10}
           page={page}
           setPage={setPage}
@@ -75,6 +81,8 @@ const Category: React.FC = () => {
         setIsOpenAddCategory={setIsOpenAddCategory}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
+        isCopy={isCopy}
+        setIsCopy={setIsCopy}
         getAllCategory={getAllCategory}
         initValue={initValue}
       />

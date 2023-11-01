@@ -4,6 +4,7 @@ import useDebounce from "../../hooks/useDebounce";
 import request from "../../utils/request";
 import { ProductProps } from "../../pages/Admin/type";
 import Button from "../Button/Button";
+import { useNavigate } from "react-router-dom";
 // import { request } from "../../utils/request";
 
 const Search: React.FC = () => {
@@ -11,6 +12,7 @@ const Search: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchResult, setSearchResult] = useState([]);
   const debounced = useDebounce(searchValue, 500);
+  const navigate = useNavigate();
   console.log(searchResult, "search");
   useEffect(() => {
     if (!debounced.trim()) {
@@ -71,7 +73,10 @@ const Search: React.FC = () => {
         <div className="absolute top-12 py-2 text-sm bg-bgInput shadow-lg dark:bg-bgModalDark w-full rounded-lg left-1/2 -translate-x-1/2 flex flex-col gap-2">
           {searchResult.map((data: ProductProps) => (
             <Button
-              to=""
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`/product/${data.slug}`);
+              }}
               key={data._id}
               className="flex justify-start hover:bg-primary dark:hover:bg-indigo-800 py-1.5 px-3 rounded-lg"
             >

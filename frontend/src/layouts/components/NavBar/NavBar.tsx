@@ -32,15 +32,15 @@ const NavBar: React.FC = () => {
         Home
       </Button>
       <Button
-        to={routes.category}
-        className={LinkActive(routes.category)}
+        to={routes.categoryAdmin}
+        className={LinkActive(routes.categoryAdmin)}
         leftIcon={<BiCategory />}
       >
         Category
       </Button>
       <Button
-        to={routes.product}
-        className={LinkActive(routes.product)}
+        to={routes.productAdmin}
+        className={LinkActive(routes.productAdmin)}
         leftIcon={<BiBox />}
       >
         Products

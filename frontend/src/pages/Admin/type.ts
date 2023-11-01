@@ -21,6 +21,8 @@ export interface CreateUpdateCategoryProps {
   setIsOpenAddCategory: (open: boolean) => void;
   isEdit: boolean;
   setIsEdit: (open: boolean) => void;
+  isCopy: boolean;
+  setIsCopy: (open: boolean) => void;
   getAllCategory: () => void;
   initValue: CategoryProps | undefined;
 }

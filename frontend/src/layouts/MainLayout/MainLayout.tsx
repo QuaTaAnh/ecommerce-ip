@@ -22,7 +22,6 @@ const MainLayout: React.FC<LayoutProp> = (props: LayoutProp) => {
     const dataAuthStorage = localStorage.getItem("auth");
     if (dataAuthStorage) {
       const parseData = JSON.parse(dataAuthStorage);
-      console.log(parseData, "1231231");
       dispatch(loginSuccess(parseData));
       setStartLocalStorage(parseData);
     }

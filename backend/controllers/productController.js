@@ -1,6 +1,7 @@
 import productModel from "../models/productModel.js"
 import fs from "fs";
 import slugify from "slugify";
+import categoryModel from "../models/categoryModel.js";
 
 export const createProductController = async (req, res) =>{
     try {
@@ -44,6 +45,26 @@ export const createProductController = async (req, res) =>{
             message: 'Thêm mới sản phẩm thất bại!', 
             error
         })
+    }
+}
+
+export const getProductBanner = async (req, res) =>{
+    try {
+        const searchValue = 'slider' 
+        const result = await productModel.find({
+            $or: [
+                { description: { $regex: searchValue, $options: "i" }}
+            ]
+        })
+        .select("-image")
+        res.json(result)
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+        success: false,
+        error,
+        message: "Đã xảy ra lỗi!",
+      });
     }
 }
 
@@ -175,6 +196,25 @@ export const deleteProductController = async (req, res) =>{
         res.status(500).send({
             success: false, 
             message: 'Xóa sản phẩm thất bại!', 
+            error
+        })
+    }
+}
+
+export const getProductInCategoryController = async (req, res) =>{
+    try {
+        const category = await categoryModel.findOne({ slug: req.params.slug });
+        const products = await productModel.find({ category }).select("-image").populate("category");
+        res.status(200).send({
+        success: true,
+        category,
+        products,
+    });
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false, 
+            message: 'Đã xảy ra lỗi!', 
             error
         })
     }
