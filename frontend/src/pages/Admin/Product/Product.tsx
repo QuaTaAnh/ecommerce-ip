@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { startLoading, stopLoading } from "../../../redux/loadingRedux";
 import Filter from "./components/Filter";
 
-const Product: React.FC = () => {
+const ProductAdmin: React.FC = () => {
   const [isOpenAddProduct, setIsOpenAddProduct] = useState<boolean>(false);
   const [isOpenDeleteProduct, setIsOpenDeleteProduct] =
     useState<boolean>(false);
@@ -129,4 +129,4 @@ const Product: React.FC = () => {
   );
 };
 
-export default Product;
+export default ProductAdmin;
