@@ -2,11 +2,11 @@ import productModel from "../models/productModel.js"
 import fs from "fs";
 import slugify from "slugify";
 import categoryModel from "../models/categoryModel.js";
+import cloudinary from "../config/cloudinary.js";
 
 export const createProductController = async (req, res) =>{
     try {
-        const { name, description, price, category, quantity, shipping } = req.fields;
-        const { image } = req.files
+        const { name, description, price, category, quantity, image, shipping } = req.body;
         //validate
         if(!name){
             return res.send({error: 'Vui lòng nhập tên sản phẩm!'})
@@ -27,17 +27,25 @@ export const createProductController = async (req, res) =>{
             return res.send({error: 'Dung lượng ảnh phải nhỏ hơn 1Mb!'})
         }
 
-        const product = new productModel({...req.fields, slug: slugify(name)})
-        if(image){
-            product.image.data = fs.readFileSync(image.path);
-            product.image.contentType = image.type;
-        }
-        await product.save()
-        res.status(201).send({
-            success: true, 
-            message: 'Thêm mới sản phẩm thành công!',
-            product
+        const result = await cloudinary.uploader.upload(image, {
+            folder: "products",
         })
+        if(result){
+            const product = new productModel({
+                name,
+                description,
+                category, 
+                price,
+                quantity,
+                image: result.secure_url, 
+                slug: slugify(name)})
+            await product.save()
+            res.status(201).send({
+                success: true, 
+                message: 'Thêm mới sản phẩm thành công!',
+                product
+            })
+        }
     } catch (error) {
         console.log(error)
         res.status(500).send({
@@ -56,7 +64,6 @@ export const getProductBanner = async (req, res) =>{
                 { description: { $regex: searchValue, $options: "i" }}
             ]
         })
-        .select("-image")
         res.json(result)
     } catch (error) {
         console.log(error);
@@ -75,7 +82,6 @@ export const getAllProductByPageController = async (req, res) =>{
         const totalProducts = await productModel.countDocuments({});
         const product = await productModel
         .find({})
-        .select("-image")
         .populate("category")
         .skip((page - 1) * perPage)
         .limit(perPage)
@@ -96,24 +102,6 @@ export const getAllProductByPageController = async (req, res) =>{
     }
 }
 
-export const getImageController = async (req, res) =>{
-    try {
-        const product = await productModel.findById(req.params.id).select("image")
-        console.log(product);
-        if(product.image.data){
-            res.set("Content-type", product.image.contentType);
-            return res.status(200).send(product.image.data);
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({
-        success: false,
-        message: "Lỗi lấy ảnh sản phẩm!",
-        error,
-    });
-    }
-}
-
 export const searchProduct = async (req, res) =>{
     try {
         const {searchValue} = req.params
@@ -122,7 +110,6 @@ export const searchProduct = async (req, res) =>{
                 { name: { $regex: searchValue, $options: "i" }}
             ]
         })
-        .select("-image")
         res.json(result)
     } catch (error) {
         console.log(error);
@@ -136,8 +123,7 @@ export const searchProduct = async (req, res) =>{
 
 export const updateProductController = async (req, res) =>{
     try {
-        const { name, description, price, category, quantity, shipping } = req.fields;
-        const { image } = req.files
+        const { name, description, price, category, quantity, image, shipping } = req.body;
         //validate
         if(!name){
             return res.send({error: 'Vui lòng nhập tên sản phẩm!'})
@@ -158,15 +144,21 @@ export const updateProductController = async (req, res) =>{
             return res.send({error: 'Dung lượng ảnh phải nhỏ hơn 1Mb!'})
         }
 
+        const result = await cloudinary.uploader.upload(image, {
+            folder: "products",
+        })
+
         const product = await productModel.findByIdAndUpdate(
             req.params.id, 
-            {...req.fields, slug: slugify(name)},
+            { name,
+            description,
+            category, 
+            price,
+            quantity,
+            image: result.secure_url, 
+            slug: slugify(name)},
             { new: true },
         )
-        if(image){
-            product.image.data = fs.readFileSync(image.path);
-            product.image.contentType = image.type;
-        }
         await product.save()
         res.status(201).send({
             success: true, 
@@ -204,7 +196,7 @@ export const deleteProductController = async (req, res) =>{
 export const getProductInCategoryController = async (req, res) =>{
     try {
         const category = await categoryModel.findOne({ slug: req.params.slug });
-        const products = await productModel.find({ category }).select("-image").populate("category");
+        const products = await productModel.find({ category }).populate("category");
         res.status(200).send({
         success: true,
         category,

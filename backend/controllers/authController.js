@@ -1,6 +1,7 @@
 import { comparePassword, hashPassword } from "../helpers/authHelper.js"
 import userModel from "../models/userModel.js"
 import JWT from 'jsonwebtoken'
+import cloudinary from "../config/cloudinary.js"
 
 export const registerController = async (req, res) =>{
     try {
@@ -101,11 +102,14 @@ export const loginController = async (req, res) =>{
 
 export const updateProfileController = async (req, res) => {
     try {
-        const { _id, name, email, password, address, phoneNumber, avatar } = req.body;
+        const { _id, name, password, address, phoneNumber, avatar } = req.body;
         const user = await userModel.findById(_id);
         if (password && password.length < 6) {
             return res.json({ error: "Mật khẩu phải lớn hơn 6 kí tự!" });
           }
+        const result = await cloudinary.uploader.upload(avatar, {
+            folder: "users",
+        })
         const hashedPassword = password ? await hashPassword(password) : undefined;
         const updatedUser = await userModel.findByIdAndUpdate(
             _id,
@@ -114,7 +118,7 @@ export const updateProfileController = async (req, res) => {
               password: hashedPassword || user.password,
               phoneNumber: phoneNumber || user.phoneNumber,
               address: address || user.address,
-              avatar: avatar || user.avatar,
+              avatar: avatar || result.secure_url
             },
             { new: true }
           );

@@ -7,7 +7,6 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { editUser } from "../../../utils/auth";
-import { startLoading, stopLoading } from "../../../redux/loadingRedux";
 
 const EditUser: React.FC<EditUserProps> = ({
   isOpenEdit,
@@ -26,29 +25,22 @@ const EditUser: React.FC<EditUserProps> = ({
     setIsOpenEdit(false);
     reset();
   };
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeAvatar = (e: ChangeEvent<any>) => {
     const file = e.target.files[0];
-    if (file.type === "image/jpeg" || file.type === "image/png") {
-      dispatch(startLoading());
-      const data = new FormData();
-      data.append("file", file);
-      data.append("upload_preset", "notezipper");
-      data.append("cloud_name", "piyushproj");
-      fetch("https://api.cloudinary.com/v1_1/piyushproj/image/upload", {
-        method: "post",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setAvatar(data.url.toString());
-          dispatch(stopLoading());
-          console.log(file);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    setFileToBase(file);
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const setFileToBase = (file: any) => {
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setAvatar(reader.result);
+      };
+    } else {
+      setAvatar("");
     }
   };
 

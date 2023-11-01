@@ -49,15 +49,14 @@ const CategoryDetail: React.FC = () => {
         <Card>
           <div className="grid grid-cols-4 gap-4">
             {productCate.map((product: ProductProps) => {
-              const ImageUrl = `http://localhost:8080/api/product/image-product/${product?._id}`;
               const priceFormat = formatNumber(product?.price || 0);
               return (
                 <Button
-                  className="cursor-pointer border dark:border-colorBorderDark rounded-lg py-4 mb-4"
+                  className="cursor-pointer border dark:border-colorBorderDark rounded-lg pb-4 mb-4"
                   onClick={() => navigate(`/product/${product?.slug}`)}
                 >
                   <div className="">
-                    <img src={ImageUrl} className="h-200" alt="" />
+                    <img src={product.image} className="h-200" alt="" />
                     <div className="font-bold pt-2 px-6">{product.name}</div>
                     <div className="font-bold pt-2 text-textHover">
                       {priceFormat} VND

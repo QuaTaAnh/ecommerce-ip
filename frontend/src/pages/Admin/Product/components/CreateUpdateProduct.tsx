@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Modal from "../../../../components/Modal/Modal";
 import { CreateUpdateProductProps, ProductProps } from "../../type";
 import { useForm } from "react-hook-form";
@@ -31,22 +31,34 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
   const [image, setImage] = useState<string>("");
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleChangeImage = (e: ChangeEvent<any>) => {
+    const file = e.target.files[0];
+    setFileToBase(file);
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const setFileToBase = (file: any) => {
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+    } else {
+      setImage("");
+    }
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onHandleSubmit = async (params: ProductProps | any) => {
-    const { name, description, price, quantity } = params;
-    const dataProduct = new FormData();
-    dataProduct.append("name", name);
-    dataProduct.append("description", description);
-    dataProduct.append("price", price);
-    dataProduct.append("quantity", quantity);
-    image && dataProduct.append("image", image);
-    category && dataProduct.append("category", category);
+    const dataSubmit = { ...params, category, image };
 
     if (isEdit) {
       try {
         dispatch(startLoading());
         const { data } = await request.put(
           `/api/product/update-product/${initValue?._id}`,
-          dataProduct
+          dataSubmit
         );
         if (data?.success) {
           toast.success(data?.message);
@@ -65,7 +77,7 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
         dispatch(startLoading());
         const { data } = await request.post(
           "/api/Product/create-product",
-          dataProduct
+          dataSubmit
         );
         if (data?.success) {
           toast.success(data?.message);
@@ -219,7 +231,7 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
                 <input
                   name="image"
                   type="file"
-                  onChange={(e) => setImage(e.target.files[0])}
+                  onChange={handleChangeImage}
                   className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
               </div>

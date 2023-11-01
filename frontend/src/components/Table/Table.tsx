@@ -70,7 +70,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                   >
                     {column?.value === "image" ? (
                       <img
-                        src={`http://localhost:8080/api/product/image-product/${row._id}`}
+                        src={row?.image}
                         alt={row?.name}
                         className="w-20 h-8"
                       />

@@ -33,14 +33,13 @@ const MySlider: React.FC = () => {
   return (
     <Slider {...settings}>
       {productBanner.map((product) => {
-        const productImageUrl = `http://localhost:8080/api/product/image-product/${product._id}`;
         return (
           <Button
             className="w-full h-[600px]"
             onClick={() => navigate(`/category/${product.slug}`)}
           >
             <img
-              src={productImageUrl}
+              src={product.image}
               alt="Slide"
               className="object-cover w-full h-full rounded-md"
             />
