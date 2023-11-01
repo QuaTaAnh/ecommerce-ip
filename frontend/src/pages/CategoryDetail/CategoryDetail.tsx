@@ -8,6 +8,8 @@ import Button from "../../components/Button/Button";
 import { useDispatch } from "react-redux";
 import { startLoading, stopLoading } from "../../redux/loadingRedux";
 import { formatNumber } from "../../components/Global/FormatNumber";
+import ChooseOur from "../../components/Global/ChooseOur";
+import { AiFillHeart } from "react-icons/ai";
 
 const CategoryDetail: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,24 +47,30 @@ const CategoryDetail: React.FC = () => {
       <div className="text-[60px] py-5 text-center font-bold text-textHover">
         {formattedParam}
       </div>
+      <ChooseOur />
       {productCate.length > 0 ? (
         <Card>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-4 gap-4 px-10">
             {productCate.map((product: ProductProps) => {
               const priceFormat = formatNumber(product?.price || 0);
               return (
-                <Button
-                  className="cursor-pointer border dark:border-colorBorderDark rounded-lg pb-4 mb-4"
-                  onClick={() => navigate(`/product/${product?.slug}`)}
-                >
-                  <div className="">
-                    <img src={product.image} className="h-200" alt="" />
-                    <div className="font-bold pt-2 px-6">{product.name}</div>
-                    <div className="font-bold pt-2 text-textHover">
-                      {priceFormat} VND
+                <div className="relative">
+                  <Button
+                    className="cursor-pointer border dark:border-colorBorderDark rounded-lg pb-4 mb-4"
+                    onClick={() => navigate(`/product/${product?.slug}`)}
+                  >
+                    <div>
+                      <img src={product.image} className="h-200" alt="" />
+                      <div className="font-bold pt-2 px-6">{product.name}</div>
+                      <div className="font-bold pt-2 text-textHover">
+                        {priceFormat} VND
+                      </div>
                     </div>
-                  </div>
-                </Button>
+                  </Button>
+                  <button className="absolute top-4 right-2 text-2xl">
+                    <AiFillHeart />
+                  </button>
+                </div>
               );
             })}
           </div>

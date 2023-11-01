@@ -42,7 +42,7 @@ const MainLayout: React.FC<LayoutProp> = (props: LayoutProp) => {
               </div>
             </div>
           ) : (
-            <div className="mt-11 px-10 pt-6">{props.children}</div>
+            <div className="mt-11 pt-6">{props.children}</div>
           )}
           {/* <footer></footer> */}
         </div>
