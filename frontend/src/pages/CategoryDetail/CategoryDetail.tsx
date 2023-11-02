@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ProductProps } from "../Admin/type";
 import request from "../../utils/request";
 import { toast } from "react-toastify";
@@ -10,10 +10,12 @@ import { startLoading, stopLoading } from "../../redux/loadingRedux";
 import { formatNumber } from "../../components/Global/FormatNumber";
 import ChooseOur from "../../components/Global/ChooseOur";
 import { AiFillHeart } from "react-icons/ai";
+import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 
 const CategoryDetail: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const param: any = useParams();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [productCate, setProductCate] = useState<ProductProps[]>([]);
@@ -47,6 +49,7 @@ const CategoryDetail: React.FC = () => {
       <div className="text-[60px] py-5 text-center font-bold text-textHover">
         {formattedParam}
       </div>
+      <Breadcrumbs path={pathname} />
       <ChooseOur />
       {productCate.length > 0 ? (
         <Card>

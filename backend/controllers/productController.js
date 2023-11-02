@@ -82,6 +82,24 @@ export const getAllProductByPageController = async (req, res) =>{
     }
 }
 
+export const getOneProductController = async (req, res) =>{
+    try {
+        const product = await productModel.findOne({slug: req.params.slug})
+        res.status(200).send({
+            success: true,
+            message: "Lấy sản phẩm thành công!",
+            product
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+        success: false,
+        error,
+        message: "Đã xảy ra lỗi!",
+      });
+    }
+}
+
 export const searchProduct = async (req, res) =>{
     try {
         const {searchValue} = req.params

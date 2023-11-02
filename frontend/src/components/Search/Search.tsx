@@ -13,7 +13,7 @@ const Search: React.FC = () => {
   const [searchResult, setSearchResult] = useState([]);
   const debounced = useDebounce(searchValue, 500);
   const navigate = useNavigate();
-  console.log(searchResult, "search");
+
   useEffect(() => {
     if (!debounced.trim()) {
       setSearchResult([]);

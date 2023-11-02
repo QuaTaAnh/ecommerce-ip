@@ -1,11 +1,12 @@
 import express  from "express";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
-import { createProductController, deleteProductController, getAllProductByPageController, getProductInCategoryController, searchProduct, updateProductController } from "../controllers/productController.js";
+import { createProductController, deleteProductController, getAllProductByPageController, getOneProductController, getProductInCategoryController, searchProduct, updateProductController } from "../controllers/productController.js";
 
 const router = express.Router()
 
 router.post('/create-product', requireSignIn, isAdmin, createProductController)
 router.get('/get-all-product-by-page/:page', getAllProductByPageController)
+router.get('/get-product-by/:slug', getOneProductController)
 router.get('/search-product/:searchValue', searchProduct)
 router.put('/update-product/:id', requireSignIn, isAdmin, updateProductController)
 router.delete("/delete-product/:id", requireSignIn, isAdmin, deleteProductController)

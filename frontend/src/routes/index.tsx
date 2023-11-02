@@ -8,7 +8,7 @@ import Category from "../pages/Admin/Category/Category";
 import Order from "../pages/Admin/Order/Order";
 import CategoryDetail from "../pages/CategoryDetail/CategoryDetail";
 import ProductAdmin from "../pages/Admin/Product/Product";
-import Product from "../pages/Product/Product";
+import ProductDetail from "../pages/ProductDetail/ProductDetail";
 
 export const publicRoutes = [
   { path: routes.home, component: Home },
@@ -17,7 +17,7 @@ export const publicRoutes = [
   { path: routes.productAdmin, component: ProductAdmin },
   { path: routes.order, component: Order },
   { path: routes.dashboardUser, component: DashboardUser },
-  { path: routes.product, component: Product },
+  { path: routes.product, component: ProductDetail },
   { path: routes.category, component: CategoryDetail },
   { path: routes.account, component: Account },
   { path: routes.cart, component: Cart, layout: null },
