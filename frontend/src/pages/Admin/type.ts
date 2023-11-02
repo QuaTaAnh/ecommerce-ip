@@ -2,6 +2,7 @@ export interface CategoryProps {
   _id?: string;
   name?: string;
   slug?: string;
+  type?: string;
 }
 
 export interface ProductProps {

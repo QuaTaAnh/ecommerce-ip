@@ -24,7 +24,7 @@ const MySlider: React.FC = () => {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const result = await request.get(`/api/product/get-product-banner`);
+      const result = await request.get(`/api/category/get-category-banner`);
       getProductBanner(result.data);
     };
     fetchApi();

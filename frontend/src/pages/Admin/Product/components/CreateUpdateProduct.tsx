@@ -30,6 +30,8 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
   const [category, setCategory] = useState<string>("");
   const [image, setImage] = useState<string>("");
 
+  console.log(initValue, "123");
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeImage = (e: ChangeEvent<any>) => {
     const file = e.target.files[0];

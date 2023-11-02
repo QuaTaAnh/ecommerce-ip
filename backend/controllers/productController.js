@@ -1,5 +1,4 @@
 import productModel from "../models/productModel.js"
-import fs from "fs";
 import slugify from "slugify";
 import categoryModel from "../models/categoryModel.js";
 import cloudinary from "../config/cloudinary.js";
@@ -53,25 +52,6 @@ export const createProductController = async (req, res) =>{
             message: 'Thêm mới sản phẩm thất bại!', 
             error
         })
-    }
-}
-
-export const getProductBanner = async (req, res) =>{
-    try {
-        const searchValue = 'slider' 
-        const result = await productModel.find({
-            $or: [
-                { description: { $regex: searchValue, $options: "i" }}
-            ]
-        })
-        res.json(result)
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({
-        success: false,
-        error,
-        message: "Đã xảy ra lỗi!",
-      });
     }
 }
 

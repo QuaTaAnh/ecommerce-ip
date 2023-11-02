@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import Modal from "../../../../components/Modal/Modal";
 import { CreateUpdateCategoryProps } from "../../type";
 import { useForm } from "react-hook-form";
@@ -26,15 +26,37 @@ const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
+  const [image, setImage] = useState<string>("");
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleChangeImage = (e: ChangeEvent<any>) => {
+    const file = e.target.files[0];
+    setFileToBase(file);
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const setFileToBase = (file: any) => {
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+    } else {
+      setImage("");
+    }
+  };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onHandleSubmit = async (params: any) => {
+    const dataSubmit = { ...params, image };
+
     if (isEdit) {
       try {
         dispatch(startLoading());
         const { data } = await request.put(
           `/api/category/update-category/${initValue?._id}`,
-          params
+          dataSubmit
         );
         if (data?.success) {
           toast.success(data?.message);
@@ -53,7 +75,7 @@ const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
         dispatch(startLoading());
         const { data } = await request.post(
           "/api/category/create-category",
-          params
+          dataSubmit
         );
         if (data?.success) {
           toast.success(data?.message);
@@ -103,6 +125,43 @@ const CreateUpdateCategory: React.FC<CreateUpdateCategoryProps> = ({
                 />
               </div>
               {errors.name && (
+                <p className="text-xs text-red-500 ml-28">
+                  Vui lòng nhập trường này!
+                </p>
+              )}
+            </div>
+            <div className="mb-6 flex justify-center flex-col">
+              <div className="flex justify-center items-center">
+                <label htmlFor="type" className="w-[100px] text-sm mr-3">
+                  Loại
+                </label>
+                <input
+                  {...register("type", { required: true })}
+                  name="type"
+                  defaultValue={isEdit || isCopy ? initValue?.type : ""}
+                  className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  autoComplete="off"
+                />
+              </div>
+              {errors.name && (
+                <p className="text-xs text-red-500 ml-28">
+                  Vui lòng nhập trường này!
+                </p>
+              )}
+            </div>
+            <div className="mb-6 flex justify-center flex-col">
+              <div className="flex justify-center items-center">
+                <label htmlFor="image" className="w-[100px] text-sm mr-3">
+                  Ảnh mô tả
+                </label>
+                <input
+                  name="image"
+                  type="file"
+                  onChange={handleChangeImage}
+                  className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+              </div>
+              {errors.image && (
                 <p className="text-xs text-red-500 ml-28">
                   Vui lòng nhập trường này!
                 </p>

@@ -19,7 +19,11 @@ const Category: React.FC = () => {
   const [initValue, setInitValue] = useState<CategoryProps>();
   const [page, setPage] = useState<number>(1);
 
-  const columns = [{ value: "name", label: "Danh mục" }];
+  const columns = [
+    { value: "name", label: "Danh mục" },
+    { value: "type", label: "Loại" },
+    { value: "image", label: "Ảnh mô tả" },
+  ];
 
   const getAllCategory = async () => {
     try {

@@ -1,9 +1,10 @@
 import slugify from "slugify"
 import categoryModel from "../models/categoryModel.js"
+import cloudinary from "../config/cloudinary.js";
 
 export const createCategoryController = async (req, res) =>{
     try {
-        const {name} = req.body
+        const {name, type, image} = req.body
         //validate
         if(!name){
             return res.send({error: 'Vui lòng nhập tên danh mục!'})
@@ -16,7 +17,11 @@ export const createCategoryController = async (req, res) =>{
             })
         }
 
-        const category = await new categoryModel({name, slug: slugify(name)}).save()
+        const result = await cloudinary.uploader.upload(image, {
+          folder: "categories",
+        })
+
+        const category = await new categoryModel({name, type, image: result.secure_url, slug: slugify(name)}).save()
         res.status(201).send({
             success: true, 
             message: 'Thêm mới danh mục thành công!',
@@ -34,18 +39,14 @@ export const createCategoryController = async (req, res) =>{
 
 export const updateCategoryController = async (req, res) => {
     try {
-      const { name } = req.body;
+      const { name, type, image } = req.body;
       const { id } = req.params;
-      const exisitingCategory = await categoryModel.findOne({name})
-        if(exisitingCategory){
-            return res.status(200).send({
-                success: false, 
-                message: 'Danh mục đã tồn tại!'
-            })
-      }
+      const result = await cloudinary.uploader.upload(image, {
+        folder: "categories",
+      })
       const category = await categoryModel.findByIdAndUpdate(
         id,
-        { name, slug: slugify(name) },
+        { name, type, image: result.secure_url, slug: slugify(name) },
         { new: true }
       );
       res.status(200).send({
@@ -116,4 +117,23 @@ export const deleteCategoryController = async (req, res) =>{
         message: "Đã xảy ra lỗi!",
       });
     }
+}
+
+export const getCategoryBanner = async (req, res) =>{
+  try {
+      const searchValue = 'slider' 
+      const result = await categoryModel.find({
+          $or: [
+              { type: { $regex: searchValue, $options: "i" }}
+          ]
+      })
+      res.json(result)
+  } catch (error) {
+      console.log(error);
+      res.status(500).send({
+      success: false,
+      error,
+      message: "Đã xảy ra lỗi!",
+    });
+  }
 }
