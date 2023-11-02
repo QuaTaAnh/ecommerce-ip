@@ -80,6 +80,7 @@ const Search: React.FC = () => {
               key={data._id}
               className="flex justify-start hover:bg-primary dark:hover:bg-indigo-800 py-1.5 px-3 rounded-lg"
             >
+              <img src={data.image} alt="" className="w-10 h-10 mr-4" />
               {data.name}
             </Button>
           ))}

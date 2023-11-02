@@ -10,7 +10,6 @@ import DeleteProduct from "./components/DeleteProduct";
 import CreateUpdateProduct from "./components/CreateUpdateProduct";
 import { useDispatch } from "react-redux";
 import { startLoading, stopLoading } from "../../../redux/loadingRedux";
-import Filter from "./components/Filter";
 
 const ProductAdmin: React.FC = () => {
   const [isOpenAddProduct, setIsOpenAddProduct] = useState<boolean>(false);
@@ -84,7 +83,6 @@ const ProductAdmin: React.FC = () => {
 
   return (
     <>
-      <Filter />
       <Card>
         <div className="absolute right-8 top-6">
           <Button

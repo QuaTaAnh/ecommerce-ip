@@ -109,7 +109,7 @@ export const searchProduct = async (req, res) =>{
             $or: [
                 { name: { $regex: searchValue, $options: "i" }}
             ]
-        })
+        }).limit(5)
         res.json(result)
     } catch (error) {
         console.log(error);
