@@ -5,7 +5,11 @@ import NoImage from "../../../assets/images/noImage.jpg";
 import { routes } from "../../../config/routes";
 import useDark from "../../../hooks/useDark";
 import Button from "../../../components/Button/Button";
-import { AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
+import {
+  AiOutlineUser,
+  AiOutlineLogout,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
 import { MdOutlineLightMode, MdOutlineDarkMode } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
 import Login from "../../../components/Login/Login";
@@ -58,6 +62,9 @@ const Header: React.FC = () => {
         </div>
         <div>
           <div className="flex items-center">
+            <div className="cursor-pointer text-2xl px-2 py-2.5 mr-4">
+              <AiOutlineShoppingCart onClick={() => alert("123")} />
+            </div>
             <div className="cursor-pointer text-2xl px-2 py-2.5 mr-4">
               {isDarkMode ? (
                 <MdOutlineLightMode

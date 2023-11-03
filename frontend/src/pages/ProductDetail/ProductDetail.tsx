@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import request from "../../utils/request";
 import { ProductProps } from "../Admin/type";
 import { formatNumber } from "../../components/Global/FormatNumber";
 import Button from "../../components/Button/Button";
+import ChooseOur from "../../components/Global/ChooseOur";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../redux/cartRedux";
 
 const ProductDetail: React.FC = () => {
   const { pathname } = useLocation();
   const params = useParams();
   const [product, setProduct] = useState<ProductProps>({});
   const formatPrice = formatNumber(product?.price || 0);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const getProduct = async () => {
     try {
@@ -29,9 +34,15 @@ const ProductDetail: React.FC = () => {
     }
   }, []);
 
+  const handleAddCart = () => {
+    dispatch(addItem(product));
+    navigate("/cart");
+  };
+
   return (
     <div>
       <Breadcrumbs path={pathname} />
+      <ChooseOur />
       <div className="w-full flex mt-6 px-10">
         <div className="w-1/3 bg-primary dark:bg-bgModalDark rounded-lg mr-10 py-6">
           <div className="w-80 h-80">
@@ -45,7 +56,10 @@ const ProductDetail: React.FC = () => {
             <p className="text-xl text-textHover mb-4">{formatPrice} VND</p>
           </div>
           <div className="mt-20">
-            <Button className="mr-10 text-sm dark:dark:bg-indigo-800 py-2 px-5 rounded-lg bg-white">
+            <Button
+              className="mr-10 text-sm dark:dark:bg-indigo-800 py-2 px-5 rounded-lg bg-white"
+              onClick={handleAddCart}
+            >
               Thêm giỏ hàng
             </Button>
             <Button className="text-sm dark:dark:bg-indigo-800 py-2 px-5 rounded-lg bg-white">

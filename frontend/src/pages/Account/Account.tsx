@@ -17,7 +17,7 @@ const Account: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="mx-10">
       <Card>
         <div className="w-1/4 flex flex-col justify-center items-center">
           <div className="text-center text-lg font-medium mb-4">
@@ -64,7 +64,7 @@ const Account: React.FC = () => {
         setIsOpenEdit={setIsOpenEdit}
         user={user as IUser}
       />
-    </>
+    </div>
   );
 };
 

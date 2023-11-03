@@ -1,3 +1,5 @@
+import { ProductProps } from "../pages/Admin/type";
+
 export interface IUser {
   _id?: string;
   name?: string;
@@ -19,4 +21,10 @@ export interface UserProps {
 export interface ProfileProps {
   file?: string;
   avtURL?: string;
+}
+
+export interface CartProps {
+  items: ProductProps[];
+  totalPrice: number;
+  quantity: number;
 }

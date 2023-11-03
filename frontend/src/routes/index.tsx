@@ -20,5 +20,5 @@ export const publicRoutes = [
   { path: routes.product, component: ProductDetail },
   { path: routes.category, component: CategoryDetail },
   { path: routes.account, component: Account },
-  { path: routes.cart, component: Cart, layout: null },
+  { path: routes.cart, component: Cart },
 ];
