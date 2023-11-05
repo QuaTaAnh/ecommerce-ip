@@ -26,5 +26,5 @@ export interface ProfileProps {
 export interface CartProps {
   items: ProductProps[];
   totalPrice: number;
-  quantity: number;
+  quantityCart: number;
 }

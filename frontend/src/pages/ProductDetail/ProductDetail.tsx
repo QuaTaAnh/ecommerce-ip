@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import request from "../../utils/request";
 import { ProductProps } from "../Admin/type";
 import { formatNumber } from "../../components/Global/FormatNumber";
@@ -8,6 +8,7 @@ import Button from "../../components/Button/Button";
 import ChooseOur from "../../components/Global/ChooseOur";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/cartRedux";
+import { toast } from "react-toastify";
 
 const ProductDetail: React.FC = () => {
   const { pathname } = useLocation();
@@ -15,7 +16,6 @@ const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<ProductProps>({});
   const formatPrice = formatNumber(product?.price || 0);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const getProduct = async () => {
     try {
@@ -36,7 +36,7 @@ const ProductDetail: React.FC = () => {
 
   const handleAddCart = () => {
     dispatch(addItem(product));
-    navigate("/cart");
+    toast.success("Bạn đã thêm vào giỏ hàng!");
   };
 
   return (

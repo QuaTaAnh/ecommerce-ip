@@ -5,7 +5,6 @@ import request from "../../utils/request";
 import { ProductProps } from "../../pages/Admin/type";
 import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
-// import { request } from "../../utils/request";
 
 const Search: React.FC = () => {
   const inputElement = useRef<HTMLInputElement | undefined>();
@@ -58,12 +57,15 @@ const Search: React.FC = () => {
         {searchValue ? (
           <button
             className="absolute right-1 top-1/2 -translate-y-1/2 p-2 bg-primary dark:bg-slate-600 rounded-full"
-            onClick={(e) => handleSearchClear(e)}
+            onClick={(e) => e.preventDefault()}
           >
             <AiOutlineClose />
           </button>
         ) : (
-          <button className="absolute right-1 top-1/2 -translate-y-1/2 p-2 bg-primary dark:bg-slate-600 rounded-full">
+          <button
+            className="absolute right-1 top-1/2 -translate-y-1/2 p-2 bg-primary dark:bg-slate-600 rounded-full"
+            onClick={(e) => handleSearchClear(e)}
+          >
             <AiOutlineSearch />
           </button>
         )}
@@ -73,7 +75,7 @@ const Search: React.FC = () => {
         <div className="absolute top-12 py-2 text-sm bg-bgInput shadow-lg dark:bg-bgModalDark w-full rounded-lg left-1/2 -translate-x-1/2 flex flex-col gap-2">
           {searchResult.map((data: ProductProps) => (
             <Button
-              onClick={(e) => {
+              onClick={(e: ChangeEvent<HTMLButtonElement>) => {
                 e.preventDefault();
                 navigate(`/product/${data.slug}`);
               }}

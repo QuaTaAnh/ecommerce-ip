@@ -14,16 +14,16 @@ const MainLayout: React.FC<LayoutProp> = (props: LayoutProp) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
   const { user } = useSelector((state: IState) => state.user as UserProps);
-  const [startLocalStorage, setStartLocalStorage] = useState<any>();
+  const [startLocalStorage, setStartLocalStorage] = useState<UserProps>();
 
   request.defaults.headers.common["Authorization"] = startLocalStorage?.token;
 
   useEffect(() => {
     const dataAuthStorage = localStorage.getItem("auth");
     if (dataAuthStorage) {
-      const parseData = JSON.parse(dataAuthStorage);
-      dispatch(loginSuccess(parseData));
-      setStartLocalStorage(parseData);
+      const parseDataAuth = JSON.parse(dataAuthStorage);
+      dispatch(loginSuccess(parseDataAuth));
+      setStartLocalStorage(parseDataAuth);
     }
   }, []);
 

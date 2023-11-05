@@ -27,7 +27,7 @@ const Header: React.FC = () => {
   const { user } = useSelector((state: IState) => state.user as UserProps);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const quantityCart = useSelector((state: IState) => state.cart.quantityCart);
 
   const openModalLogin = () => {
     setIsOpenLogin(true);
@@ -62,9 +62,15 @@ const Header: React.FC = () => {
         </div>
         <div>
           <div className="flex items-center">
-            <div className="cursor-pointer text-2xl px-2 py-2.5 mr-4">
-              <AiOutlineShoppingCart onClick={() => alert("123")} />
-            </div>
+            <button
+              className="relative cursor-pointer text-2xl px-2 py-2.5 mr-4"
+              onClick={() => navigate("/cart")}
+            >
+              <AiOutlineShoppingCart />
+              <p className="absolute w-4 h-4 text-center text-xs text-white top-2 right-0 bg-textHover rounded-full">
+                {quantityCart}
+              </p>
+            </button>
             <div className="cursor-pointer text-2xl px-2 py-2.5 mr-4">
               {isDarkMode ? (
                 <MdOutlineLightMode
