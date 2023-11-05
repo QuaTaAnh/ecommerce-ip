@@ -1,4 +1,5 @@
 import ChooseOur from "../../components/Global/ChooseOur";
+import MyCategory from "../../components/MyCategory/MyCategory";
 import MySlider from "../../components/MySlider/MySlider";
 
 const Home: React.FC = () => {
@@ -8,6 +9,7 @@ const Home: React.FC = () => {
         <MySlider />
       </div>
       <ChooseOur />
+      <MyCategory />
     </>
   );
 };

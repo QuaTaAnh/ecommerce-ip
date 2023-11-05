@@ -19,7 +19,7 @@ const Product: React.FC<ProductProp> = (product: ProductProp) => {
         onClick={() => navigate(`/product/${product?.product?.slug}`)}
       >
         <div>
-          <img src={product?.product?.image} className="h-200" alt="" />
+          <img src={product?.product?.image} alt="" />
           <div className="font-bold pt-2 px-6">{product?.product?.name}</div>
           <div className="font-bold pt-2 text-textHover">{priceFormat} VND</div>
         </div>

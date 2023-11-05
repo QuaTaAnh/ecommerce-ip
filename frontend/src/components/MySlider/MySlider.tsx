@@ -19,20 +19,22 @@ const MySlider: React.FC = () => {
     slidesToScroll: 1,
   };
 
-  const [productBanner, getProductBanner] = useState<ProductProps[]>([]);
+  const [categoryBanner, getCategoryBanner] = useState<ProductProps[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchApi = async () => {
-      const result = await request.get(`/api/category/get-category-banner`);
-      getProductBanner(result.data);
+      const result = await request.get(
+        `/api/category/get-category-by-type/slider`
+      );
+      getCategoryBanner(result.data);
     };
     fetchApi();
   }, []);
 
   return (
     <Slider {...settings}>
-      {productBanner.map((product) => {
+      {categoryBanner.map((product) => {
         return (
           <Button
             className="w-full h-[600px]"

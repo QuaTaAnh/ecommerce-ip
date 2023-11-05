@@ -119,9 +119,9 @@ export const deleteCategoryController = async (req, res) =>{
     }
 }
 
-export const getCategoryBanner = async (req, res) =>{
+export const getCategoryByType = async (req, res) =>{
   try {
-      const searchValue = 'slider' 
+      const searchValue = req.params.slug 
       const result = await categoryModel.find({
           $or: [
               { type: { $regex: searchValue, $options: "i" }}
