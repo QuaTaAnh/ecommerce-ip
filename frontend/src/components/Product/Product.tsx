@@ -1,20 +1,16 @@
 import React from "react";
 import Button from "../Button/Button";
-import { ProductProps } from "../../pages/Admin/type";
 import { formatNumber } from "../Global/FormatNumber";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/cartRedux";
 import { toast } from "react-toastify";
-
-interface ProductProp {
-  product: ProductProps;
-}
+import { ProductProp } from "../type";
 
 const Product: React.FC<ProductProp> = (product: ProductProp) => {
   const navigate = useNavigate();
-  const priceFormat = formatNumber(product?.product?.price || 0);
+  const priceFormat = formatNumber(product?.product?.price as number);
   const dispatch = useDispatch();
 
   const handleAddCart = () => {

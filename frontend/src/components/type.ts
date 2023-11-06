@@ -1,3 +1,5 @@
+import { ProductProps } from "../pages/Admin/type";
+
 export interface ButtonProps {
   to?: string;
   children: React.ReactNode;
@@ -70,4 +72,8 @@ export interface CustomTableProps {
   page: number;
   setPage: (page: number) => void;
   totalPage: number | undefined;
+}
+
+export interface ProductProp {
+  product: ProductProps;
 }
