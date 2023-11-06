@@ -61,14 +61,10 @@ export interface TableRow {
 
 export interface CustomTableProps {
   columns: TableColumn[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: TableRow[] | any;
   actions?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onEdit: (row: any) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onDelete: (row: any) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onCopy: (row: any) => void;
   itemsPerPage: number;
   page: number;

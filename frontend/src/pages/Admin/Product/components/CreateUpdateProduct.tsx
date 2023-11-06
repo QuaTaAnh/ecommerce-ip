@@ -32,26 +32,24 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
 
   console.log(initValue, "123");
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeImage = (e: ChangeEvent<any>) => {
     const file = e.target.files[0];
     setFileToBase(file);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const setFileToBase = (file: any) => {
     const reader = new FileReader();
+    const imge: string | ArrayBuffer = reader.result as string;
     if (file) {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        setImage(reader.result);
+        setImage(imge);
       };
     } else {
       setImage("");
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onHandleSubmit = async (params: ProductProps | any) => {
     const dataSubmit = { ...params, category, image };
 

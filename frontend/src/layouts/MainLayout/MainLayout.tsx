@@ -3,16 +3,14 @@ import Header from "../components/Header/Header";
 import { LayoutProp } from "../type";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../../components/Loading/Loading";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { IState } from "../../redux/store";
 import { UserProps } from "../../redux/type";
 import NavBar from "../components/NavBar/NavBar";
-import { loginSuccess } from "../../redux/userRedux";
 import request from "../../utils/request";
 
 const MainLayout: React.FC<LayoutProp> = (props: LayoutProp) => {
-  const dispatch = useDispatch();
-  const loading = useSelector((state) => state.loading);
+  const loading = useSelector((state: boolean | any) => state.loading);
   const { user } = useSelector((state: IState) => state.user as UserProps);
   const [startLocalStorage, setStartLocalStorage] = useState<UserProps>();
 
@@ -22,7 +20,6 @@ const MainLayout: React.FC<LayoutProp> = (props: LayoutProp) => {
     const dataAuthStorage = localStorage.getItem("auth");
     if (dataAuthStorage) {
       const parseDataAuth = JSON.parse(dataAuthStorage);
-      dispatch(loginSuccess(parseDataAuth));
       setStartLocalStorage(parseDataAuth);
     }
   }, []);

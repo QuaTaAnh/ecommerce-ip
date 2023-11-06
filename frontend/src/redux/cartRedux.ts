@@ -3,7 +3,7 @@ import { CartProps } from "./type";
 import { ProductProps } from "../pages/Admin/type";
 
 const initialCartState: CartProps = localStorage.getItem("cart")
-  ? JSON.parse(localStorage.getItem("cart"))
+  ? JSON.parse(localStorage.getItem("cart") || "{}")
   : {
       items: [],
       totalPrice: 0,

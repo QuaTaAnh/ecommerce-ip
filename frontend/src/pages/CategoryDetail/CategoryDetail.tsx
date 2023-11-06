@@ -11,7 +11,6 @@ import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Product from "../../components/Product/Product";
 
 const CategoryDetail: React.FC = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const param: any = useParams();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
@@ -49,13 +48,15 @@ const CategoryDetail: React.FC = () => {
       <Breadcrumbs path={pathname} />
       <ChooseOur />
       {productCate.length > 0 ? (
-        <Card>
-          <div className="grid grid-cols-4 gap-4 px-10">
-            {productCate.map((product: ProductProps) => {
-              return <Product product={product} />;
-            })}
-          </div>
-        </Card>
+        <div className="mx-10">
+          <Card>
+            <div className="grid grid-cols-4 gap-4">
+              {productCate.map((product: ProductProps) => {
+                return <Product product={product} />;
+              })}
+            </div>
+          </Card>
+        </div>
       ) : (
         <></>
       )}

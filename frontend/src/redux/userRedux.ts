@@ -1,12 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserProps } from "./type";
 
+const initialAuthState = localStorage.getItem("auth")
+  ? JSON.parse(localStorage.getItem("auth") || "{}")
+  : {
+      user: {},
+      token: "",
+    };
+
 const userSlice = createSlice({
   name: "user",
-  initialState: {
-    user: {},
-    token: "",
-  },
+  initialState: initialAuthState,
   reducers: {
     registerSuccess: (state, action: PayloadAction<UserProps>) => {
       state.user = action.payload;

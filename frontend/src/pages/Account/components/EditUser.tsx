@@ -25,19 +25,18 @@ const EditUser: React.FC<EditUserProps> = ({
     setIsOpenEdit(false);
     reset();
   };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeAvatar = (e: ChangeEvent<any>) => {
     const file = e.target.files[0];
     setFileToBase(file);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const setFileToBase = (file: any) => {
     const reader = new FileReader();
+    const avt: string | ArrayBuffer = reader.result as string;
     if (file) {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        setAvatar(reader.result);
+        setAvatar(avt);
       };
     } else {
       setAvatar("");
@@ -52,10 +51,9 @@ const EditUser: React.FC<EditUserProps> = ({
     };
 
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       editUser(dispatch, params).then((res: any) => {
         if (res && res?.success === true) {
-          let ls: UserProps = localStorage.getItem("auth");
+          let ls: UserProps | any = localStorage.getItem("auth");
           ls = JSON.parse(ls);
           ls.user = res.updatedUser;
           localStorage.setItem("auth", JSON.stringify(ls));

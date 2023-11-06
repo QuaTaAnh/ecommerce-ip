@@ -10,7 +10,6 @@ import { IUser } from "../redux/type";
 import { startLoading, stopLoading } from "../redux/loadingRedux";
 import { toast } from "react-toastify";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const register = async (dispatch: Dispatch<any>, user: IUser) => {
   dispatch(startLoading());
   try {
@@ -24,7 +23,6 @@ export const register = async (dispatch: Dispatch<any>, user: IUser) => {
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const login = async (dispatch: Dispatch<any>, user: IUser) => {
   dispatch(startLoading());
   try {
@@ -38,12 +36,10 @@ export const login = async (dispatch: Dispatch<any>, user: IUser) => {
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const logout = (dispatch: Dispatch<any>) => {
   dispatch(loginEnd());
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const editUser = async (dispatch: Dispatch<any>, user: any) => {
   dispatch(startLoading());
   try {

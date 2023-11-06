@@ -4,12 +4,10 @@ const loadingSlice = createSlice({
   name: "loading",
   initialState: false,
   reducers: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    startLoading: (state) => {
+    startLoading: () => {
       return true;
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    stopLoading: (state) => {
+    stopLoading: () => {
       return false;
     },
   },

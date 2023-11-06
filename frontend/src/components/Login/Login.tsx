@@ -25,7 +25,6 @@ const Login: React.FC<LoginProps> = ({
   const onHandleSubmit = (data: IUser) => {
     console.log(data);
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       loginFunction(dispatch, data).then((res: any) => {
         if (res && res?.data?.success === true) {
           toast.success(res && res?.data?.message);

@@ -17,7 +17,6 @@ const Register: React.FC<RegisterProps> = ({
 
   const onHandleSubmit = (data: IUser) => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       registerFunction(dispatch, data).then((res: any) => {
         console.log(res);
         if (res && res?.data?.success === true) {

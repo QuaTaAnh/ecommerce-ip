@@ -13,7 +13,6 @@ const App: React.FC = () => {
         <ToastContainer pauseOnHover={false} autoClose={2000} />
         <Routes>
           {publicRoutes.map((route, index) => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             let Layout: any = MainLayout;
             if (route.layout) {
               Layout = route.layout;
