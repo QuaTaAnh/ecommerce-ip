@@ -3,7 +3,6 @@ import { useLocation, useParams } from "react-router-dom";
 import { ProductProps } from "../Admin/type";
 import request from "../../utils/request";
 import { toast } from "react-toastify";
-import Card from "../../components/Card/Card";
 import { useDispatch } from "react-redux";
 import { startLoading, stopLoading } from "../../redux/loadingRedux";
 import ChooseOur from "../../components/Global/ChooseOur";
@@ -49,13 +48,11 @@ const CategoryDetail: React.FC = () => {
       <ChooseOur />
       {productCate.length > 0 ? (
         <div className="mx-10">
-          <Card>
-            <div className="grid grid-cols-4 gap-4">
-              {productCate.map((product: ProductProps) => {
-                return <Product product={product} />;
-              })}
-            </div>
-          </Card>
+          <div className="grid grid-cols-4 gap-4">
+            {productCate.map((product: ProductProps) => {
+              return <Product product={product} />;
+            })}
+          </div>
         </div>
       ) : (
         <></>

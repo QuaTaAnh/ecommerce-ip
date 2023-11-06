@@ -3,7 +3,10 @@ import Button from "../Button/Button";
 import { ProductProps } from "../../pages/Admin/type";
 import { formatNumber } from "../Global/FormatNumber";
 import { useNavigate } from "react-router-dom";
-import { AiFillHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../redux/cartRedux";
+import { toast } from "react-toastify";
 
 interface ProductProp {
   product: ProductProps;
@@ -12,10 +15,17 @@ interface ProductProp {
 const Product: React.FC<ProductProp> = (product: ProductProp) => {
   const navigate = useNavigate();
   const priceFormat = formatNumber(product?.product?.price || 0);
+  const dispatch = useDispatch();
+
+  const handleAddCart = () => {
+    dispatch(addItem(product?.product));
+    toast.success("Bạn đã thêm vào giỏ hàng!");
+  };
+
   return (
-    <div className="relative">
+    <div className="relative group">
       <Button
-        className="cursor-pointer border dark:border-colorBorderDark rounded-lg pb-4 mb-4"
+        className="cursor-pointer shadow-xl dark:bg-bgModalDark dark:shadow-lg rounded-lg pb-4 mb-4"
         onClick={() => navigate(`/product/${product?.product?.slug}`)}
       >
         <div>
@@ -24,9 +34,17 @@ const Product: React.FC<ProductProp> = (product: ProductProp) => {
           <div className="font-bold pt-2 text-textHover">{priceFormat} VND</div>
         </div>
       </Button>
-      <button className="absolute top-4 right-2 text-2xl">
-        <AiFillHeart />
-      </button>
+      <div className="absolute top-1/2 left-1/3 transform -translate-y-1/2 hidden group-hover:block animate-slideIn">
+        <button className="text-2xl p-2 rounded-lg bg-white dark:bg-bgModalDark hover:bg-red-500 hover:text-white dark:hover:bg-red-500 mr-2">
+          <AiOutlineHeart />
+        </button>
+        <button
+          className="text-2xl p-2 rounded-lg bg-white dark:bg-bgModalDark hover:bg-red-500 hover:text-white dark:hover:bg-red-500"
+          onClick={handleAddCart}
+        >
+          <AiOutlineShoppingCart />
+        </button>
+      </div>
     </div>
   );
 };

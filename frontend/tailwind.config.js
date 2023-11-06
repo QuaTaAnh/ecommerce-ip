@@ -37,9 +37,20 @@ export default {
                     transform: "scale(1);"
           }
         }, 
+        "slideIn": {
+          "0%":{
+            "opacity": "0;",
+            transform: "translateY(20px);"
+          },
+          "100%":{
+            "opacity": "1;",
+            transform: "translateY(0);"
+          }
+        }
       },
       animation: {
         "scale-up-center": "scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;",
+        "slideIn": "slideIn 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;",
       }
     },
   },
