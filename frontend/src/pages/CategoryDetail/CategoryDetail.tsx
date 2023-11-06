@@ -37,7 +37,7 @@ const CategoryDetail: React.FC = () => {
     if (param.slug) {
       getProductByCategory();
     }
-  }, []);
+  }, [param.slug]);
 
   return (
     <div>
@@ -45,9 +45,8 @@ const CategoryDetail: React.FC = () => {
         {formattedParam}
       </div>
       <Breadcrumbs path={pathname} />
-      <ChooseOur />
       {productCate.length > 0 ? (
-        <div className="mx-10">
+        <div className="mx-10 mt-10">
           <div className="grid grid-cols-4 gap-4">
             {productCate.map((product: ProductProps) => {
               return <Product product={product} />;
@@ -57,6 +56,7 @@ const CategoryDetail: React.FC = () => {
       ) : (
         <></>
       )}
+      <ChooseOur />
     </div>
   );
 };

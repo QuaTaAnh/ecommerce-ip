@@ -99,17 +99,23 @@ const Header: React.FC = () => {
                   <p className="text-sm">{user?.name}</p>
                 </div>
                 <div className="absolute z-50 hidden bg-white dark:bg-bgModalDark py-2 px-1 w-48 right-0 rounded-lg shadow-lg group-hover:block">
-                  <Button
-                    to={
-                      user?.role === 1
-                        ? routes.dashboardAdmin
-                        : routes.dashboardUser
-                    }
-                    leftIcon={<RxDashboard />}
-                    className="flex items-center p-2 w-full hover:bg-primary rounded-lg text-sm dark:hover:bg-indigo-800"
-                  >
-                    Bảng điều khiển
-                  </Button>
+                  {user?.role === 1 ? (
+                    <Button
+                      to={routes.dashboardAdmin}
+                      leftIcon={<RxDashboard />}
+                      className="flex items-center p-2 w-full hover:bg-primary rounded-lg text-sm dark:hover:bg-indigo-800"
+                    >
+                      Bảng điều khiển
+                    </Button>
+                  ) : (
+                    <Button
+                      to={routes.orderUser}
+                      leftIcon={<RxDashboard />}
+                      className="flex items-center p-2 w-full hover:bg-primary rounded-lg text-sm dark:hover:bg-indigo-800"
+                    >
+                      Đơn hàng của tôi
+                    </Button>
+                  )}
                   <Button
                     to={"/account"}
                     leftIcon={<AiOutlineUser />}

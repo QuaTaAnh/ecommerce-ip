@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Search: React.FC = () => {
   const inputElement = useRef<HTMLInputElement | undefined>();
   const [searchValue, setSearchValue] = useState<string>("");
+  const [isOpenResult, setIsOpenResult] = useState<boolean>(false);
   const [searchResult, setSearchResult] = useState([]);
   const debounced = useDebounce(searchValue, 500);
   const navigate = useNavigate();
@@ -42,10 +43,11 @@ const Search: React.FC = () => {
       return;
     }
     setSearchValue(searchValue);
+    setIsOpenResult(true);
   };
   return (
     <form className=" relative">
-      <div className="relative">
+      <div className="relative flex items-center justify-center">
         <input
           ref={inputElement}
           type="search"
@@ -54,30 +56,27 @@ const Search: React.FC = () => {
           value={searchValue}
           onChange={(e) => handleChange(e)}
         />
-        {searchValue ? (
+        {searchValue && (
           <button
-            className="absolute right-1 top-1/2 -translate-y-1/2 p-2 bg-primary dark:bg-slate-600 rounded-full"
-            onClick={(e) => e.preventDefault()}
+            className="absolute right-10 top-1/2 -translate-y-1/2 p-1 bg-primary dark:bg-slate-600 rounded-full"
+            onClick={(e) => handleSearchClear(e)}
           >
             <AiOutlineClose />
           </button>
-        ) : (
-          <button
-            className="absolute right-1 top-1/2 -translate-y-1/2 p-2 bg-primary dark:bg-slate-600 rounded-full"
-            onClick={(e) => handleSearchClear(e)}
-          >
-            <AiOutlineSearch />
-          </button>
         )}
+        <button className="p-2 bg-white dark:bg-slate-600 rounded-full">
+          <AiOutlineSearch />
+        </button>
       </div>
 
-      {searchResult.length > 0 && (
+      {searchResult.length > 0 && isOpenResult && (
         <div className="absolute top-12 py-2 text-sm bg-bgInput shadow-lg dark:bg-bgModalDark w-full rounded-lg left-1/2 -translate-x-1/2 flex flex-col gap-2">
           {searchResult.map((data: ProductProps) => (
             <Button
-              onClick={(e: ChangeEvent<HTMLButtonElement>) => {
+              onClick={(e) => {
                 e.preventDefault();
                 navigate(`/product/${data.slug}`);
+                setIsOpenResult(false);
               }}
               key={data._id}
               className="flex justify-start hover:bg-primary dark:hover:bg-indigo-800 py-1.5 px-3 rounded-lg"

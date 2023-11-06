@@ -32,7 +32,7 @@ const ProductDetail: React.FC = () => {
     if (params.slug) {
       getProduct();
     }
-  }, []);
+  }, [params.slug]);
 
   const handleAddCart = () => {
     dispatch(addItem(product));
