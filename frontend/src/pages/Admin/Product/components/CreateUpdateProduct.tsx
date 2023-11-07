@@ -30,8 +30,6 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
   const [category, setCategory] = useState<string>("");
   const [image, setImage] = useState<string>("");
 
-  console.log(initValue, "123");
-
   const handleChangeImage = (e: ChangeEvent<any>) => {
     const file = e.target.files[0];
     setFileToBase(file);
@@ -50,7 +48,8 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
   };
 
   const onHandleSubmit = async (params: ProductProps | any) => {
-    const dataSubmit = { ...params, category, image };
+    const dataCategory = isEdit || isCopy ? initValue?.category?._id : category;
+    const dataSubmit = { ...params, dataCategory, image };
 
     if (isEdit) {
       try {
@@ -162,6 +161,9 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
                   placeholder="Chọn danh mục"
                   autoComplete="off"
                   className="w-[260px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-96 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  defaultValue={
+                    isEdit || isCopy ? initValue?.category?._id : ""
+                  }
                   onChange={(e) => setCategory(e.target.value)}
                 >
                   <option value="">Chọn danh mục</option>

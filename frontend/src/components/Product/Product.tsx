@@ -26,8 +26,10 @@ const Product: React.FC<ProductProp> = (product: ProductProp) => {
       >
         <div>
           <img src={product?.product?.image} alt="" />
-          <div className="font-bold pt-2 px-6">{product?.product?.name}</div>
-          <div className="font-bold pt-2 text-textHover">{priceFormat} VND</div>
+          <div className="font-bold pt-2 px-6 h-14 overflow-hidden">
+            {product?.product?.name}
+          </div>
+          <div className="font-bold pt-1 text-textHover">{priceFormat} VND</div>
         </div>
       </Button>
       <div className="absolute top-1/2 left-1/3 transform -translate-y-1/2 hidden group-hover:block animate-slideIn">

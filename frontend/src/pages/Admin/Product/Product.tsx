@@ -33,6 +33,8 @@ const ProductAdmin: React.FC = () => {
     { value: "image", label: "Hình ảnh" },
   ];
 
+  console.log(allProduct, "123");
+
   const getAllCategory = async () => {
     try {
       const { data } = await request.get("/api/category/get-category");
@@ -52,7 +54,6 @@ const ProductAdmin: React.FC = () => {
       dispatch(stopLoading());
       setAllProduct(data?.product);
       setTotalPage(data?.totalProduct);
-      console.log(data);
     } catch (error) {
       console.log(error);
       toast.error("Đã có lỗi xảy ra!");

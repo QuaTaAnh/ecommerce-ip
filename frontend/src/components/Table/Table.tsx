@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CustomTableProps } from "../type";
 import { AiOutlineCopy, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
@@ -19,10 +19,6 @@ const CustomTable: React.FC<CustomTableProps> = ({
   const handlePageChange = (page: number) => {
     setPage(page);
   };
-
-  const startIndex = (page - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentData = data.slice(startIndex, endIndex);
 
   return (
     <div className="flex flex-col items-center min-w-full">
@@ -54,7 +50,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
         </thead>
         <tbody className="divide-y divide-gray-200">
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          {currentData.map((row: any, index: any) => (
+          {data.map((row: any, index: any) => (
             <tr
               key={row?._id}
               className="hover:bg-primary dark:hover:bg-indigo-800 cursor-pointer"
