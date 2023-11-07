@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Header from "../components/Header/Header";
 import { LayoutProp } from "../type";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,22 +7,10 @@ import { useSelector } from "react-redux";
 import { IState } from "../../redux/store";
 import { UserProps } from "../../redux/type";
 import NavBar from "../components/NavBar/NavBar";
-import request from "../../utils/request";
 
 const MainLayout: React.FC<LayoutProp> = (props: LayoutProp) => {
   const loading = useSelector((state: boolean | any) => state.loading);
   const { user } = useSelector((state: IState) => state.user as UserProps);
-  const [startLocalStorage, setStartLocalStorage] = useState<UserProps>();
-
-  request.defaults.headers.common["Authorization"] = startLocalStorage?.token;
-
-  useEffect(() => {
-    const dataAuthStorage = localStorage.getItem("auth");
-    if (dataAuthStorage) {
-      const parseDataAuth = JSON.parse(dataAuthStorage);
-      setStartLocalStorage(parseDataAuth);
-    }
-  }, []);
 
   return (
     <>
