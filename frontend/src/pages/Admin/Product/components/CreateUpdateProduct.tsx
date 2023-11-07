@@ -39,11 +39,10 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
 
   const setFileToBase = (file: any) => {
     const reader = new FileReader();
-    const imge: string | ArrayBuffer = reader.result as string;
     if (file) {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        setImage(imge);
+        setImage(reader.result);
       };
     } else {
       setImage("");

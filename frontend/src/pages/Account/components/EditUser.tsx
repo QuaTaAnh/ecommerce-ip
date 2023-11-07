@@ -32,11 +32,10 @@ const EditUser: React.FC<EditUserProps> = ({
 
   const setFileToBase = (file: any) => {
     const reader = new FileReader();
-    const avt: string | ArrayBuffer = reader.result as string;
     if (file) {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        setAvatar(avt);
+        setAvatar(reader.result);
       };
     } else {
       setAvatar("");
