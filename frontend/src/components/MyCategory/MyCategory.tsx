@@ -20,14 +20,14 @@ const MyCategory: React.FC = () => {
   }, []);
 
   return (
-    <div className="mx-10">
+    <div className="mx-10 mt-10">
       <Card>
         <div className="grid grid-cols-4 gap-4">
           {category.map((product) => {
             return (
               <Button
                 className="w-full"
-                onClick={() => navigate(`/category/${product.slug}`)}
+                onClick={() => navigate(`/categories/${product.slug}`)}
               >
                 <img src={product.image} alt="Slide" className="object-cover" />
                 <p className="text-center text-xl font-bold pt-2">

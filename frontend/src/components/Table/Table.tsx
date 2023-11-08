@@ -123,7 +123,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
               <li
                 key={index}
                 className={`mr-2 inline-flex items-center px-2 py-0 border rounded-md cursor-pointer ${
-                  page === index + 1 ? "bg-primary dark:bg-textHover" : ""
+                  page === index + 1 ? "bg-textHover text-white" : ""
                 }`}
                 onClick={() => handlePageChange(index + 1)}
               >

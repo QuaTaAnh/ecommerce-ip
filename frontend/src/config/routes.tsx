@@ -6,7 +6,9 @@ export const routes = {
   orderAdmin: "/dashboard/admin/orders",
   orderUser: "/order",
   account: "/account",
-  product: "/product/:slug",
-  category: "/category/:slug",
+  product: "/products/:slug",
+  category: "/categories/:slug",
+  categories: "/categories",
+  products: "/products",
   cart: "/cart",
 };

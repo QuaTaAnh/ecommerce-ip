@@ -11,7 +11,7 @@ import DeleteCategory from "./components/DeleteCategory";
 import { startLoading, stopLoading } from "../../../redux/loadingRedux";
 import { useDispatch } from "react-redux";
 
-const Category: React.FC = () => {
+const CategoryAdmin: React.FC = () => {
   const [isOpenAddCategory, setIsOpenAddCategory] = useState<boolean>(false);
   const [isOpenDeleteCategory, setIsOpenDeleteCategory] =
     useState<boolean>(false);
@@ -110,4 +110,4 @@ const Category: React.FC = () => {
   );
 };
 
-export default Category;
+export default CategoryAdmin;

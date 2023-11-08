@@ -22,7 +22,7 @@ const Product: React.FC<ProductProp> = (product: ProductProp) => {
     <div className="relative group">
       <Button
         className="cursor-pointer shadow-xl dark:bg-bgModalDark dark:shadow-lg rounded-lg pb-4 mb-4"
-        onClick={() => navigate(`/product/${product?.product?.slug}`)}
+        onClick={() => navigate(`/products/${product?.product?.slug}`)}
       >
         <div>
           <img src={product?.product?.image} alt="" />

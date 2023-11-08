@@ -38,7 +38,7 @@ const MySlider: React.FC = () => {
         return (
           <Button
             className="w-full h-[600px]"
-            onClick={() => navigate(`/category/${product.slug}`)}
+            onClick={() => navigate(`/categories/${product.slug}`)}
           >
             <img
               src={product.image}

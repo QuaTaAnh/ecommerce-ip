@@ -58,7 +58,7 @@ export const createProductController = async (req, res) =>{
 export const getAllProductByPageController = async (req, res) =>{
     try {
         const page = req.params.page ? req.params.page : 1;
-        const perPage = 10;
+        const perPage = 8;
         const totalProducts = await productModel.countDocuments({});
         const product = await productModel
         .find({})

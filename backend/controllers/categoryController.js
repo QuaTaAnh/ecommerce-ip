@@ -88,7 +88,7 @@ export const getAllCategoryControlller = async (req, res) =>{
 export const getAllCategoryByPageControlller = async (req, res) => {
     try {
       const page = req.params.page ? req.params.page : 1;
-      const perPage = 10;
+      const perPage = 8;
       const totalCategory = await categoryModel.countDocuments({});
       const category = await categoryModel
       .find({})
