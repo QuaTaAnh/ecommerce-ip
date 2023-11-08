@@ -43,7 +43,7 @@ const Products: React.FC = () => {
         Sản phẩm
       </div>
       <Breadcrumbs path={pathname} />
-      <div className="mx-10 mt-10">
+      <div className="mx-10 mt-10 flex flex-col items-center">
         <div className="grid grid-cols-4 gap-4">
           {product.map((product: ProductProps) => {
             return <Product product={product} />;
