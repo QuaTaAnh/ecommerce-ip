@@ -64,14 +64,42 @@ export const updateCategoryController = async (req, res) => {
     }
   };
 
-//getAll
-export const getAllCategoryControlller = async (req, res) => {
+//getALl 
+export const getAllCategoryControlller = async (req, res) =>{
+  try {
+    const category = await categoryModel
+    .find({})
+    res.status(200).send({
+      success: true,
+      message: "Lấy danh sách danh mục thành công!",
+      category,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Đã xảy ra lỗi!",
+    });
+  }
+}
+
+//getAllByPage
+export const getAllCategoryByPageControlller = async (req, res) => {
     try {
-      const category = await categoryModel.find({});
+      const page = req.params.page ? req.params.page : 1;
+      const perPage = 10;
+      const totalCategory = await categoryModel.countDocuments({});
+      const category = await categoryModel
+      .find({})
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
       res.status(200).send({
         success: true,
         message: "Lấy danh sách danh mục thành công!",
         category,
+        totalCategory
       });
     } catch (error) {
       console.log(error);

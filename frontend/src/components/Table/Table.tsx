@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { CustomTableProps } from "../type";
 import { AiOutlineCopy, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
@@ -49,7 +48,6 @@ const CustomTable: React.FC<CustomTableProps> = ({
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {data.map((row: any, index: any) => (
             <tr
               key={row?._id}

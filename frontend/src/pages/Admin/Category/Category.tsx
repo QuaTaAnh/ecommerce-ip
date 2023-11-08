@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import request from "../../../utils/request";
 import CreateUpdateCategory from "./components/CreateUpdateCategory";
 import DeleteCategory from "./components/DeleteCategory";
+import { startLoading, stopLoading } from "../../../redux/loadingRedux";
+import { useDispatch } from "react-redux";
 
 const Category: React.FC = () => {
   const [isOpenAddCategory, setIsOpenAddCategory] = useState<boolean>(false);
@@ -18,6 +20,8 @@ const Category: React.FC = () => {
   const [isCopy, setIsCopy] = useState<boolean>(false);
   const [initValue, setInitValue] = useState<CategoryProps>();
   const [page, setPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(1);
+  const dispatch = useDispatch();
 
   const columns = [
     { value: "name", label: "Danh mục" },
@@ -27,8 +31,13 @@ const Category: React.FC = () => {
 
   const getAllCategory = async () => {
     try {
-      const { data } = await request.get("/api/category/get-category");
+      dispatch(startLoading());
+      const { data } = await request.get(
+        `/api/category/get-all-category-by/${page}`
+      );
+      dispatch(stopLoading());
       setAllCategory(data?.category);
+      setTotalPage(data?.totalCategory);
     } catch (error) {
       console.log(error);
       toast.error("Đã có lỗi xảy ra!");
@@ -78,6 +87,7 @@ const Category: React.FC = () => {
           itemsPerPage={10}
           page={page}
           setPage={setPage}
+          totalPage={totalPage}
         />
       </Card>
       <CreateUpdateCategory

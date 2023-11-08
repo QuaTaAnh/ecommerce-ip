@@ -33,11 +33,9 @@ const ProductAdmin: React.FC = () => {
     { value: "image", label: "Hình ảnh" },
   ];
 
-  console.log(allProduct, "123");
-
   const getAllCategory = async () => {
     try {
-      const { data } = await request.get("/api/category/get-category");
+      const { data } = await request.get("/api/category/get-all-category");
       setAllCategory(data?.category);
     } catch (error) {
       console.log(error);
