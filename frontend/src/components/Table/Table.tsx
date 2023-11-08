@@ -1,3 +1,4 @@
+import { formatNumber } from "../Global/FormatNumber";
 import { CustomTableProps } from "../type";
 import { AiOutlineCopy, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
@@ -62,17 +63,28 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     key={column.value}
                     className="px-4 py-1/5 text-sm whitespace-nowrap"
                   >
-                    {column?.value === "image" ? (
-                      <img
-                        src={row?.image}
-                        alt={row?.name}
-                        className="w-20 h-8"
-                      />
-                    ) : column?.value === "category" ? (
-                      row?.category?.name
-                    ) : (
-                      row[column.value]
-                    )}
+                    {(() => {
+                      switch (column.value) {
+                        case "image":
+                          return (
+                            <img
+                              src={row?.image}
+                              alt={row?.name}
+                              className="w-20 h-8"
+                            />
+                          );
+                        case "category":
+                          return row?.category?.name;
+                        case "description":
+                          return row?.description?.length > 28
+                            ? row?.description?.slice(0, 28) + "..."
+                            : row?.description;
+                        case "price":
+                          return formatNumber(row?.price) + " VND";
+                        default:
+                          return row[column.value];
+                      }
+                    })()}
                   </td>
                 </>
               ))}
