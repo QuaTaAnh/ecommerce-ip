@@ -49,12 +49,9 @@ const Header: React.FC = () => {
     <>
       <header className="fixed h-defaultHeader top-0 right-0 z-20 w-screen px-7 bg-primary flex justify-between items-center dark:bg-bgDark shadow-light dark:shadow-dark">
         <Link to={routes.home}>
-          <div className="h-10 w-10">
-            <img
-              src={Logo}
-              alt="Iphone"
-              className="w-full h-full rounded-full bg-textHover"
-            />
+          <div className="flex items-center">
+            <div className="text-xl font-bold mr-2">Apple</div>
+            <img src={Logo} alt="Iphone" />
           </div>
         </Link>
         <div className="flex">

@@ -49,11 +49,10 @@ const Login: React.FC<LoginProps> = ({
   return (
     <Modal isOpen={isOpenLogin} onClose={closeModal}>
       <div className="flex flex-col justify-center items-center">
-        <img
-          src={Logo}
-          alt="Iphone"
-          className="w-10 h-10 rounded-full bg-textHover"
-        />
+        <div className="flex items-center">
+          <div className="text-xl font-bold mr-2">Apple</div>
+          <img src={Logo} alt="Iphone" />
+        </div>
         <h2 className="text-2xl text-center font-semibold mb-4 py-5">
           Chào mừng đến với Apple
         </h2>
