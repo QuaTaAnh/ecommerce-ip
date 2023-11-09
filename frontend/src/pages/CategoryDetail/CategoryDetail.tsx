@@ -8,6 +8,7 @@ import { startLoading, stopLoading } from "../../redux/loadingRedux";
 import ChooseOur from "../../components/Global/ChooseOur";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Product from "../../components/Product/Product";
+import { formatSlug } from "../../components/Global/FormatSlug";
 
 const CategoryDetail: React.FC = () => {
   const param: any = useParams();
@@ -17,12 +18,8 @@ const CategoryDetail: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
   const totalPages = Math.ceil(totalPage / 8);
-  console.log(totalPage);
 
-  const formattedParam = param.slug
-    .split("-")
-    .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+  const formattedParam = formatSlug(param.slug);
 
   const getProductByCategory = async () => {
     try {
@@ -43,6 +40,7 @@ const CategoryDetail: React.FC = () => {
     if (param.slug) {
       getProductByCategory();
     }
+    document.title = formattedParam;
   }, [param.slug, page]);
 
   const handleChangePage = (page: number) => {

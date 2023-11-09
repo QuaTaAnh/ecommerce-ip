@@ -75,7 +75,7 @@ const Search: React.FC = () => {
             <Button
               onClick={(e) => {
                 e.preventDefault();
-                navigate(`/product/${data.slug}`);
+                navigate(`/products/${data.slug}`);
                 setIsOpenResult(false);
               }}
               key={data._id}

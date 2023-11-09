@@ -9,13 +9,15 @@ import ChooseOur from "../../components/Global/ChooseOur";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/cartRedux";
 import { toast } from "react-toastify";
+import { formatSlug } from "../../components/Global/FormatSlug";
 
 const ProductDetail: React.FC = () => {
   const { pathname } = useLocation();
-  const params = useParams();
+  const params: any = useParams();
   const [product, setProduct] = useState<ProductProps>({});
   const formatPrice = formatNumber(product?.price || 0);
   const dispatch = useDispatch();
+  const formattedParam = formatSlug(params.slug);
 
   const getProduct = async () => {
     try {
@@ -32,6 +34,7 @@ const ProductDetail: React.FC = () => {
     if (params.slug) {
       getProduct();
     }
+    document.title = formattedParam;
   }, [params.slug]);
 
   const handleAddCart = () => {
