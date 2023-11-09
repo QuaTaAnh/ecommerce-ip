@@ -5,11 +5,16 @@ import { useLocation } from "react-router-dom";
 import ChooseOur from "../../components/Global/ChooseOur";
 import Card from "../../components/Card/Card";
 import Button from "../../components/Button/Button";
-import { AiOutlineDelete } from "react-icons/ai";
+import {
+  AiOutlineDelete,
+  AiOutlineMinusCircle,
+  AiOutlinePlusCircle,
+} from "react-icons/ai";
 import { formatNumber } from "../../components/Global/FormatNumber";
-import { removeItem } from "../../redux/cartRedux";
+import { addItem, decreaseQuantity, removeItem } from "../../redux/cartRedux";
 import { toast } from "react-toastify";
 import { RiDeleteBin2Line } from "react-icons/ri";
+import { ProductProps } from "../Admin/type";
 
 const Cart: React.FC = () => {
   const { pathname } = useLocation();
@@ -21,6 +26,14 @@ const Cart: React.FC = () => {
   const handleRemove = (id: string) => {
     dispatch(removeItem(id));
     toast.success("Cập nhật giỏ hàng thành công!");
+  };
+
+  const handleDecreaseQuantity = (item: ProductProps) => {
+    dispatch(decreaseQuantity(item));
+  };
+
+  const handleIncreaseQuantity = (item: ProductProps) => {
+    dispatch(addItem(item));
   };
 
   return (
@@ -67,7 +80,23 @@ const Cart: React.FC = () => {
                       </td>
                       <td>{item?.name}</td>
                       <td>{formatNumber(item?.price as number)} VND</td>
-                      <td>{item?.quantityCart}</td>
+                      <td>
+                        <div className="flex items-center h-10">
+                          <button
+                            className="text-2xl"
+                            onClick={() => handleDecreaseQuantity(item)}
+                          >
+                            <AiOutlineMinusCircle />
+                          </button>
+                          <p className="mx-4">{item?.quantityCart}</p>
+                          <button
+                            className="text-2xl"
+                            onClick={() => handleIncreaseQuantity(item)}
+                          >
+                            <AiOutlinePlusCircle />
+                          </button>
+                        </div>
+                      </td>
                       <td>
                         <Button
                           className="rounded-lg px-3 py-1 bg-textHover text-white hover:opacity-80 flex items-center"
