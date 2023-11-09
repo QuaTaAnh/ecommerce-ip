@@ -12,7 +12,7 @@ const Products: React.FC = () => {
   const [product, setProduct] = useState<ProductProps[]>([]);
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
-  const totalPages = Math.ceil(totalPage / 10);
+  const totalPages = Math.ceil(totalPage / 8);
   const dispatch = useDispatch();
 
   const getProduct = async () => {

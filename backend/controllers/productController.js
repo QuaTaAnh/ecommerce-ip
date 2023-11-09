@@ -209,3 +209,31 @@ export const getProductInCategoryController = async (req, res) =>{
         })
     }
 }
+
+export const getProductInCategoryControllerByPage = async (req, res) =>{
+    try {
+        const page = req.params.page ? req.params.page : 1;
+        const perPage = 8;
+        const category = await categoryModel.findOne({ slug: req.params.slug });
+        const totalProducts = await productModel.countDocuments({category: category._id});
+        const products = await productModel
+        .find({ category })
+        .populate("category")
+        .skip((page - 1) * perPage)
+        .limit(perPage)
+        .sort({ createdAt: -1 });
+        res.status(200).send({
+        success: true,
+        category,
+        products,
+        totalProducts: totalProducts
+    });
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false, 
+            message: 'Đã xảy ra lỗi!', 
+            error
+        })
+    }
+}
