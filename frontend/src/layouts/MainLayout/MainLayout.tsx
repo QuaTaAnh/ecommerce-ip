@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { IState } from "../../redux/store";
 import { UserProps } from "../../redux/type";
 import NavBar from "../components/NavBar/NavBar";
+import { Helmet } from "react-helmet";
 
 const MainLayout: React.FC<LayoutProp> = (props: LayoutProp) => {
   const loading = useSelector((state: boolean | any) => state.loading);
@@ -14,6 +15,13 @@ const MainLayout: React.FC<LayoutProp> = (props: LayoutProp) => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <meta name="description" content="mern stack project" />
+        <meta name="keywords" content="mern, mongodb, express, react, node" />
+        <meta name="author" content="Anh Tran" />
+        <title>{props.title}</title>
+      </Helmet>
       <div className="relative dark:bg-bgDark dark:text-white text-black h-screen overflow-auto transition duration-300 ease-in-out">
         <div className="main">
           <Header />

@@ -12,15 +12,27 @@ import Categories from "../pages/Categories/Categories";
 import Products from "../pages/Products/Products";
 
 export const publicRoutes = [
-  { path: routes.home, component: Home },
+  { path: routes.home, component: Home, title: "iPhone số 1 Hà Nội - Apple" },
   { path: routes.dashboardAdmin, component: DashboardAdmin },
   { path: routes.categoryAdmin, component: CategoryAdmin },
   { path: routes.productAdmin, component: ProductAdmin },
   { path: routes.orderUser, component: Order },
   { path: routes.product, component: ProductDetail },
   { path: routes.category, component: CategoryDetail },
-  { path: routes.categories, component: Categories },
-  { path: routes.products, component: Products },
-  { path: routes.account, component: Account },
-  { path: routes.cart, component: Cart },
+  {
+    path: routes.categories,
+    component: Categories,
+    title: "Danh mục sản phẩm - Apple",
+  },
+  {
+    path: routes.products,
+    component: Products,
+    title: "Tất cả sản phẩm - Apple",
+  },
+  {
+    path: routes.account,
+    component: Account,
+    title: "Thông tin cá nhân - Apple",
+  },
+  { path: routes.cart, component: Cart, title: "Thông tin giỏ hàng - Apple" },
 ];

@@ -26,7 +26,7 @@ const App: React.FC = () => {
                 key={index}
                 path={route.path}
                 element={
-                  <Layout>
+                  <Layout title={route.title}>
                     <Page />
                   </Layout>
                 }

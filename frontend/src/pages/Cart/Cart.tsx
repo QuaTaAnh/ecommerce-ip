@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../redux/store";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
@@ -36,10 +35,6 @@ const Cart: React.FC = () => {
   const handleIncreaseQuantity = (item: ProductProps) => {
     dispatch(addItem(item));
   };
-
-  useEffect(() => {
-    document.title = "Thông tin giỏ hàng";
-  }, []);
 
   return (
     <div>

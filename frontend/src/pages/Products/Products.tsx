@@ -31,7 +31,6 @@ const Products: React.FC = () => {
 
   useEffect(() => {
     getProduct();
-    document.title = "Tất cả sản phẩm";
   }, [page]);
 
   const handleChangePage = (page: number) => {
