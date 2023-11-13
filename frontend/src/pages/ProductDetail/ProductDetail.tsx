@@ -46,7 +46,7 @@ const ProductDetail: React.FC = () => {
     <div>
       <Breadcrumbs path={pathname} />
       <ChooseOur />
-      <div className="w-full flex mt-6 px-10">
+      <div className="w-full flex my-6 px-10">
         <div className="w-1/3 bg-primary dark:bg-bgModalDark rounded-lg mr-10 py-6">
           <div className="w-80 h-80">
             <img src={product.image} className="w-full h-full " alt="Ảnh" />

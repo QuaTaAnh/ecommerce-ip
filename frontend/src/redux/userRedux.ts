@@ -24,6 +24,7 @@ const userSlice = createSlice({
     },
     loginEnd: (state) => {
       state.user = {};
+      state.token = "";
     },
   },
 });
