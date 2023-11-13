@@ -8,6 +8,7 @@ import { IState } from "../../redux/store";
 import { UserProps } from "../../redux/type";
 import NavBar from "../components/NavBar/NavBar";
 import { Helmet } from "react-helmet";
+import Footer from "../components/Footer/Footer";
 
 const MainLayout: React.FC<LayoutProp> = (props: LayoutProp) => {
   const loading = useSelector((state: boolean | any) => state.loading);
@@ -37,7 +38,7 @@ const MainLayout: React.FC<LayoutProp> = (props: LayoutProp) => {
           ) : (
             <div className="mt-11 pt-6">{props.children}</div>
           )}
-          {/* <footer></footer> */}
+          <Footer />
         </div>
       </div>
       {loading ? <Loading /> : <></>}

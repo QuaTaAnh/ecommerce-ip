@@ -5,7 +5,7 @@ import { LiaShippingFastSolid } from "react-icons/lia";
 
 const ChooseOur: React.FC = () => {
   return (
-    <div className="w-full flex justify-around mt-10 bg-primary dark:bg-bgModalDark py-8 my-6">
+    <div className="w-full flex justify-around mt-10 bg-primary dark:bg-bgModalDark py-8">
       <div className="flex flex-row items-center">
         <div className="mr-4 text-5xl">
           <PiNumberOneBold />
