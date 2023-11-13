@@ -51,13 +51,14 @@ const cartSlice = createSlice({
       );
 
       if (itemIndex !== -1) {
-        if (state.items[itemIndex].quantityCart > 1) {
-          state.items[itemIndex].quantityCart -= 1;
-          state.items[itemIndex].totalPrice -= newItem.price;
+        const decreaseItem = state.items[itemIndex];
+        if (decreaseItem.quantityCart > 1) {
+          decreaseItem.quantityCart -= 1;
+          decreaseItem.totalPrice -= newItem.price;
           state.quantityCart -= 1;
           state.totalPrice -= newItem.price;
-        } else if (state.items[itemIndex].quantityCart === 1) {
-          state.items[itemIndex].quantityCart -= 1;
+        } else if (decreaseItem.quantityCart === 1) {
+          decreaseItem.quantityCart -= 1;
           state.totalPrice -= newItem.price;
           state.quantityCart -= 1;
           state.items.splice(itemIndex, 1);

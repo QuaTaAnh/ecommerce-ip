@@ -16,6 +16,7 @@ export interface ProductProps {
   image?: string;
   shipping?: boolean;
   quantityCart?: number;
+  totalPrice?: number;
 }
 
 export interface CreateUpdateCategoryProps {
