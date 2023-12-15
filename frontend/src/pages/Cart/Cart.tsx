@@ -99,7 +99,9 @@ const Cart: React.FC = () => {
                             >
                               <AiOutlineMinusCircle />
                             </button>
-                            <p className="mx-4">{item?.quantityCart}</p>
+                            <p className="mx-4 w-5 h-5 text-center">
+                              {item?.quantityCart}
+                            </p>
                             <button
                               className="text-2xl"
                               onClick={() => handleIncreaseQuantity(item)}
