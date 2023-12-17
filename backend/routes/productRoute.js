@@ -1,6 +1,6 @@
 import express  from "express";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
-import { createProductController, deleteProductController, getAllProductByPageController, getOneProductController, getProductInCategoryController, getProductInCategoryControllerByPage, searchProduct, updateProductController } from "../controllers/productController.js";
+import { brainTreePaymentController, braintreeTokenController, createProductController, deleteProductController, getAllProductByPageController, getOneProductController, getProductInCategoryController, getProductInCategoryControllerByPage, searchProduct, updateProductController } from "../controllers/productController.js";
 
 const router = express.Router()
 
@@ -12,5 +12,7 @@ router.put('/update-product/:id', requireSignIn, isAdmin, updateProductControlle
 router.delete("/delete-product/:id", requireSignIn, isAdmin, deleteProductController)
 router.get('/get-product-in-category/:slug', getProductInCategoryController)
 router.get('/get-product-in-category-by-page/:slug/:page', getProductInCategoryControllerByPage)
+router.get("/braintree/token", braintreeTokenController);
+router.post("/braintree/payment", brainTreePaymentController);
 
 export default router

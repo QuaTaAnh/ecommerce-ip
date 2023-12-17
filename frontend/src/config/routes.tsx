@@ -11,4 +11,5 @@ export const routes = {
   categories: "/categories",
   products: "/products",
   cart: "/cart",
+  payment: "/payment",
 };

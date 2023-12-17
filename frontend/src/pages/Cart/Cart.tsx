@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../redux/store";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ChooseOur from "../../components/Global/ChooseOur";
 import Card from "../../components/Card/Card";
 import Button from "../../components/Button/Button";
@@ -18,10 +18,12 @@ import { ProductProps } from "../Admin/type";
 
 const Cart: React.FC = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const items = useSelector((state: IState) => state.cart.items);
   const totalPrice = useSelector((state: IState) => state.cart.totalPrice);
   const { token } = useSelector((state: IState) => state.user);
+  console.log(token, "123");
 
   const totalPriceFormat = formatNumber(totalPrice);
 
@@ -39,7 +41,7 @@ const Cart: React.FC = () => {
   };
 
   const handleCheckout = () => {
-    alert("Ok");
+    navigate("/payment");
   };
 
   const handleMessageLogin = () => {
@@ -132,7 +134,7 @@ const Cart: React.FC = () => {
                     className="text-white bg-textHover px-10 py-1.5 rounded-lg"
                     onClick={token ? handleCheckout : handleMessageLogin}
                   >
-                    Đặt hàng
+                    Mua hàng
                   </Button>
                 </div>
               </div>

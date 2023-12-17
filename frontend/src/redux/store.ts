@@ -16,6 +16,8 @@ export const store = configureStore({
 
 store.subscribe(() => {
   const { user } = store.getState();
+  console.log(user.token, "token redux");
+
   if (user?.token) {
     request.defaults.headers.common["Authorization"] = `${user.token}`;
   } else {

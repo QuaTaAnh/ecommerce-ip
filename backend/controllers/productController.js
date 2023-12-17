@@ -1,7 +1,19 @@
 import productModel from "../models/productModel.js"
 import slugify from "slugify";
 import categoryModel from "../models/categoryModel.js";
+import orderModel from "../models/orderModel.js";
 import cloudinary from "../config/cloudinary.js";
+import braintree from "braintree";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const gateway = new braintree.BraintreeGateway({
+    environment: braintree.Environment.Sandbox,
+    merchantId: process.env.BRAINTREE_ID,
+    publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+    privateKey: process.env.BRAINTREE_PRIVATE_KEY,
+});
 
 export const createProductController = async (req, res) =>{
     try {
@@ -235,5 +247,57 @@ export const getProductInCategoryControllerByPage = async (req, res) =>{
             message: 'Đã xảy ra lỗi!', 
             error
         })
+    }
+}
+
+export const braintreeTokenController = async (req, res) => {
+    try {
+      gateway.clientToken.generate({}, function (err, response) {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.send(response);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+}
+
+export const brainTreePaymentController = async (req, res) => {
+    try {
+        console.log(req.user, 'iii');
+      const { nonce, items, userId } = req.body;
+      let total = 0;
+      items.map((i) => {
+        total += i.price;
+      });
+      let newTransaction = gateway.transaction.sale(
+        {
+          amount: total,
+          paymentMethodNonce: nonce,
+          options: {
+            submitForSettlement: true,
+          },
+        },
+        function (error, result) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+          if (result) {
+            const order = new orderModel({
+              products: items,
+              payment: result,
+              buyer: userId,
+            }).save();
+            res.json({ ok: true });
+          } else {
+            res.status(500).send(error);
+          }
+        }
+      );
+    } catch (error) {
+      console.log(error);
     }
 }

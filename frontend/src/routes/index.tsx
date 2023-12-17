@@ -10,6 +10,7 @@ import ProductDetail from "../pages/ProductDetail/ProductDetail";
 import CategoryAdmin from "../pages/Admin/Category/Category";
 import Categories from "../pages/Categories/Categories";
 import Products from "../pages/Products/Products";
+import Payment from "../pages/Payment/Payment";
 
 export const publicRoutes = [
   { path: routes.home, component: Home, title: "iPhone số 1 Hà Nội - Apple" },
@@ -35,4 +36,9 @@ export const publicRoutes = [
     title: "Thông tin cá nhân - Apple",
   },
   { path: routes.cart, component: Cart, title: "Thông tin giỏ hàng - Apple" },
+  {
+    path: routes.payment,
+    component: Payment,
+    title: "Phương thức thanh toán - Apple",
+  },
 ];

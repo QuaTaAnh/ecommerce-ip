@@ -8,7 +8,7 @@ const Breadcrumbs: React.FC<{ path: string }> = ({
   path: string;
 }) => {
   const parts = path.split("/").filter((part) => part !== "");
-  const breadcrumbItems = [{ text: "Trang chủ", url: "/" }];
+  const breadcrumbItems = [{ text: "Home", url: "/" }];
   const navigate = useNavigate();
 
   for (let i = 0; i < parts.length; i++) {

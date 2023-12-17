@@ -74,7 +74,7 @@ const CreateUpdateProduct: React.FC<CreateUpdateProductProps> = ({
       try {
         dispatch(startLoading());
         const { data } = await request.post(
-          "/api/Product/create-product",
+          "/api/product/create-product",
           dataSubmit
         );
         if (data?.success) {
