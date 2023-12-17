@@ -55,3 +55,11 @@ export interface DeleteProductProps {
   getAllProduct: () => void;
   initValue: CategoryProps | undefined;
 }
+export interface OrderProps {
+  _id?: string;
+  product?: ProductProps[];
+  payment?: any;
+  buyer?: string;
+  status?: string;
+  createAt?: string;
+}
