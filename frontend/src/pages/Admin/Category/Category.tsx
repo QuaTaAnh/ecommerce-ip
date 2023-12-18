@@ -63,7 +63,7 @@ const CategoryAdmin: React.FC = () => {
 
   useEffect(() => {
     getAllCategory();
-  }, []);
+  }, [page]);
 
   return (
     <>

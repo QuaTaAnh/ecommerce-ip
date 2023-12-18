@@ -3,6 +3,7 @@ export interface CategoryProps {
   name?: string;
   slug?: string;
   type?: string;
+  image?: string;
 }
 
 export interface ProductProps {
